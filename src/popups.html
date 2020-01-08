@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>Лесторг</title>
+	<meta name="description" content="">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- <meta property="og:image" content="path/to/image.jpg"> -->
+	<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+
+	<!-- CSS Start -->
+	<link rel="stylesheet" href="libs/icomoon/style.css">
+	<link rel="stylesheet" href="css/main.min.css">
+	<!-- CSS End -->
+
+</head>
+
+<body class="page-inner">
+
+	<div id="wrapper">
+		<div id="wrapper__wrap">
+
+			<div id="wrapper__overlay"></div>
+
+			<div id="wrapper__main">
+
+				<div class="s-inner">
+					<div class="container">
+
+						<a href="/" style="font-size: 14px;">К списку страниц</a><br><br><br>
+
+						<a href="#call-popup" data-popup class="btn btn_bd btn_little">Заказать звонок</a><br><br>
+						<a href="#feedback-popup" data-popup class="btn btn_bd btn_little">Задать вопрос</a><br><br>
+						<a href="#thanks-popup" data-popup class="btn btn_bd btn_little">Спасибо</a><br><br>
+
+						<br>
+						<p>Для программиста - Код отрытия попапа скриптом <b>popup_open('#thanks');</b> </p>
+
+					</div>
+				</div>
+
+			</div><!-- #wrapper__main -->
+
+		</div><!-- #wrapper__wrap -->
+	</div><!-- #wrapper -->
+
+	<div class="hidden">
+		<div id="call-popup" class="call-popup popup box">
+			<form class="form-box form">
+				<div class="form-box__title">
+					<h5>Специалист свяжется с вами в течении <span class="text-green">30 минут</span></h5>
+				</div>
+				<div class="form-box__subtitle">
+					<p>Оставьте свои контакты, мы перезвоним:</p>
+				</div>
+				<div class="form-item">
+					<i class="form-item__icon ic ic-user"></i>
+					<input type="text" class="form-field" placeholder="Введите Ваше имя" required>
+				</div>
+				<div class="form-item">
+					<i class="form-item__icon ic ic-phone"></i>
+					<input type="tel" class="form-field" placeholder="Введите Ваш телефон" required>
+				</div>
+				<div class="form-action">
+					<button class="btn btn_button">Заказать звонок</button>
+					<label class="form-checkbox">
+						<input type="checkbox" checked>
+						<span>Я принимаю условия <a href="#">передачи информации</a></span>
+					</label>
+				</div>
+			</form>
+		</div>
+		<div id="feedback-popup" class="feedback-popup popup box">
+			<form class="form-box form">
+				<div class="form-box__title">
+					<h5>Есть дополнительные вопросы?</h5>
+				</div>
+				<div class="form-box__subtitle">
+					<p>Оставьте свои контакты, мы перезвоним:</p>
+				</div>
+				<div class="form-item">
+					<i class="form-item__icon ic ic-user"></i>
+					<input type="text" class="form-field" placeholder="Введите Ваше имя" required>
+				</div>
+				<div class="form-item">
+					<i class="form-item__icon ic ic-phone"></i>
+					<input type="tel" class="form-field" placeholder="Введите Ваш телефон" required>
+				</div>
+				<div class="form-action">
+					<button class="btn btn_button">Заказать звонок</button>
+					<label class="form-checkbox">
+						<input type="checkbox" checked>
+						<span>Я принимаю условия <a href="#">передачи информации</a></span>
+					</label>
+				</div>
+			</form>
+		</div>
+		<div id="thanks-popup" class="thanks-popup popup box">
+			<div class="thanks-popup__content">
+				<img src="img/thanks.svg" alt="">
+				<h5>Спасибо:)</h5>
+				<p>Наш менеджер свяжется с вами в самое ближайшее время </p>
+			</div>
+			<div class="thanks-popup__action">
+				<a href="#" class="btn btn_bd btn_medium btn_icon-left" data-popup-close><i class="ic ic-left"></i> Назад</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- JS Start -->
+	<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+	<script src="js/libs.min.js"></script>
+	<script src="js/common.js"></script>
+	<!-- JS End -->
+
+</body>
+
+</html>

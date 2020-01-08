@@ -1,0 +1,27 @@
+@import "bourbon"
+
+$font: "Gilroy", sans-serif
+$font-2: "SFProDisplay", "Gilroy", sans-serif
+
+$c-1: #1eb962
+
+@mixin bg-mess($c-1:#00bf70, $c-2:#00ca76)
+	background-image: linear-gradient(190deg, $c-1, $c-2)
+
+@mixin gradient($coord:to bottom)
+	background-color: $c-1
+	background-image: linear-gradient($coord, #28d677, #1db761)
+
+@mixin bg($bg-url, $bg-c:#fff, $bg-pos:top center)
+	background: $bg-c url($bg-url) no-repeat $bg-pos
+
+@mixin bg-cover($bg-url, $bg-pos:center, $bg-c:null)
+	background: $bg-c url($bg-url) $bg-pos
+	background-size: cover
+
+@mixin ic($lh:1)
+	font-family: 'icomoon'
+	text-transform: none
+	font-weight: normal
+	font-style: normal
+	line-height: $lh

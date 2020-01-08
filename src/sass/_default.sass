@@ -1,0 +1,170 @@
+@import "bourbon"
+@import "fonts"
+@import "vars"
+
+//Load Libs
+@import "../libs/normalize-css/normalize.css"
+@import "../libs/magnific-popup/magnific-popup.css"
+@import "../libs/swiper/swiper.min.css"
+@import "../libs/select2/select2.min.css"
+
+*
+	outline: none !important
+	box-sizing: border-box
+
+::placeholder
+	opacity: 1
+	color: #8b8989
+
+body
+	position: relative
+	overflow-x: hidden
+	min-width: 320px
+	background: #fff
+	font-family: $font
+	font-size: 16px
+	line-height: 1.6
+	color: #1e1e1e
+
+a
+	text-decoration: underline
+	color: $c-1
+	&:hover
+		text-decoration: none
+
+.link-head
+	text-decoration: none
+	color: inherit
+	transition: .2s
+	&:hover
+		text-decoration: underline
+		color: $c-1
+
+.more-link
+	text-decoration: none
+	border-bottom: 1px solid rgba(#000,.1)
+	font-family: $font-2
+	font-weight: 300
+	font-size: 18px
+	color: #747474
+	&:hover
+		border-color: transparent
+
+button
+	cursor: pointer
+
+b, strong
+	font-weight: bold
+
+p
+	margin: 0 0 1rem
+
+ul, ol
+	margin: 0 0 1rem
+
+h1, h2, h3, h4, h5, h6
+	margin: 0 0 1rem
+	letter-spacing: .025em
+	line-height: 1.35
+	font-family: $font-2
+	font-weight: bold
+h1, h2, h3
+	text-transform: uppercase
+h1
+	font-weight: 900
+	font-size: 57px
+h2
+	font-size: 40px
+h3
+	font-size: 30px
+h4
+	line-height: 1.4
+	font-size: 24px
+h5
+	line-height: 1.5
+	font-size: 20px
+h6
+	line-height: 1.5
+	font-size: 18px
+
+table
+	border-collapse: collapse
+	border-spacing: 0
+
+img
+	display: inline-block
+	max-width: 100%
+	height: auto
+
+#wrapper
+	position: relative
+	display: flex
+	overflow: hidden
+	&__overlay
+		display: none
+		position: fixed
+		z-index: 100
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		background: rgba(#000,.5)
+	&__wrap
+		display: flex
+		flex-direction: column
+		min-height: 100vh
+		width: 100%
+	&__main
+		flex: 1 0 auto
+		width: 100%
+
+.clearfix:after
+	content: ''
+	display: table
+	clear: both
+
+.hidden
+	display: none
+
+.container
+	width: 1190px
+	margin: 0 auto
+	padding: 0 10px
+
+.img-box
+	position: relative
+	img
+		position: absolute
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		margin: auto
+		width: auto
+		height: auto
+		max-width: 100%
+		max-height: 100%
+
+.text-green
+	color: $c-1
+
+.text-gradient
+	color: $c-1
+@supports (-webkit-background-clip: text) and (-webkit-text-fill-color: transparent)
+	.text-gradient
+		background: linear-gradient(to bottom, #28d677, #1db761)
+		-webkit-background-clip: text
+		-webkit-text-fill-color: transparent
+
+.content
+	img
+		display: block
+		margin: 40px 0
+		max-width: 100%
+	h1, h2, h3, h4, h5, h6
+		text-transform: none
+		font-weight: 600
+	&>:first-child
+		margin-top: 0
+	&>:last-child
+		margin-bottom: 0
