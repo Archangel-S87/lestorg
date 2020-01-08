@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="Дома">
+        <xsd:complexType>
+            <xsd:sequence maxOccurs="unbounded">
+                <xsd:element name="Проект">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Основное" type="блок_основное"/>
+                            <xsd:element name="Характеристики" type="блок_характеристики"/>
+                            <xsd:element name="Комплектация" type="блок_комплектация"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="блок_основное">
+        <xsd:attribute name="Категория" type="xsd:string" use="required"/>
+        <xsd:attribute name="Название" type="xsd:string" use="required"/>
+        <xsd:attribute name="Короткое_описание" type="xsd:string"/>
+        <xsd:attribute name="Описание" type="xsd:string"/>
+        <xsd:attribute name="Цена" type="xsd:decimal" use="required"/>
+        <xsd:attribute name="Изображения" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="блок_характеристики">
+        <xsd:attribute name="Технология" type="xsd:string" use="required"/>
+        <xsd:attribute name="Этажность" type="xsd:decimal" use="required"/>
+        <xsd:attribute name="Срок_строительства" type="xsd:string" use="required"/>
+        <xsd:attribute name="Комнаты" type="xsd:decimal" use="required"/>
+        <xsd:attribute name="Санузлы" type="xsd:decimal" use="required"/>
+        <xsd:attribute name="Крыша" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="варианты_комплектации">
+        <xsd:sequence>
+            <xsd:element name="Домокомплект" type="xsd:string"/>
+            <xsd:element name="Под_усадку" type="xsd:string"/>
+            <xsd:element name="Под_ключ" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="блок_комплектация">
+        <xsd:sequence>
+
+            <xsd:element name="Стеновой_комплект">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Наружные_и_несущие_стены_с_зарезкой_чаш_по_проекту" type="варианты_комплектации"/>
+                        <xsd:element name="Компенсационный_пропил" type="варианты_комплектации"/>
+                        <xsd:element name="Антисептирование_бруса_на_заводе" type="варианты_комплектации"/>
+                        <xsd:element name="Межвенцовый_утеплитель" type="варианты_комплектации"/>
+                        <xsd:element name="Сборка_на_березовые_нагеля" type="варианты_комплектации"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="Полы_и_балки_перекрытия">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Балки_перекрытий" type="варианты_комплектации"/>
+                        <xsd:element name="Черновой_пол_из_доски" type="варианты_комплектации"/>
+                        <xsd:element name="Утеплитель_полы_перекрытия_мансарда" type="варианты_комплектации"/>
+                        <xsd:element name="Паро-гидроизоляция" type="варианты_комплектации"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="Кровля">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Стропильная_система_шаг_600_мм" type="варианты_комплектации"/>
+                        <xsd:element name="Обрешетка" type="варианты_комплектации"/>
+                        <xsd:element name="Кровельное_покрытие" type="варианты_комплектации"/>
+                        <xsd:element name="Контробрешетка_50x50_мм" type="варианты_комплектации"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="Услуги">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Проектные_работы" type="варианты_комплектации"/>
+                        <xsd:element name="Фундамент" type="варианты_комплектации"/>
+                        <xsd:element name="Монтаж_сруба" type="варианты_комплектации"/>
+                        <xsd:element name="Электромонтажные_работы" type="варианты_комплектации"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="Отделка">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Шлифовка_сруба" type="варианты_комплектации"/>
+                        <xsd:element name="Покраска_сруба" type="варианты_комплектации"/>
+                        <xsd:element name="Чистовые_полы" type="варианты_комплектации"/>
+                        <xsd:element name="Потолки" type="варианты_комплектации"/>
+                        <xsd:element name="Обсада" type="варианты_комплектации"/>
+                        <xsd:element name="Деревянные_евроокна" type="варианты_комплектации"/>
+                        <xsd:element name="Дверь_входная_металлическая" type="варианты_комплектации"/>
+                        <xsd:element name="Двери_межкомнатные" type="варианты_комплектации"/>
+                        <xsd:element name="Наличники" type="варианты_комплектации"/>
+                        <xsd:element name="Сопровождение_технадзора" type="варианты_комплектации"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>
