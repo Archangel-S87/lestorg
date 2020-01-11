@@ -1,31 +1,29 @@
 <?php
 
+/**
+ * Выводит иконки мессенджеров
+ */
 function print_messengers() {
-    $html = '<div class="messengers__grid">';
-    if ($url = get_option('telegram')) {
-        $html .= '<a href="' . $url . '" class="messenger-item ic ic-telegram"></a>';
-    }
-    if ($url = get_option('whatsapp')) {
-        $html .= '<a href="' . $url . '" class="messenger-item ic ic-whatsapp"></a>';
-    }
-    if ($url = get_option('viber')) {
-        $html .= '<a href="' . $url . '" class="messenger-item ic ic-viber"></a>';
-    }
-    $html .= '</div>';
-    echo $html;
+    $items = ['telegram', 'whatsapp', 'viber'];
+    echo get_socials_icon_list($items, 'messenger-item', 'messengers__grid');
 }
 
+/**
+ * Выводит иконки соц сетей
+ */
 function print_socials() {
-    $html = '<div class="social__grid">';
-    if ($url = get_option('vk')) {
-        $html .= '<a href="' . $url . '" class="social-item ic ic-vk"></a>';
-    }
-    if ($url = get_option('facebook')) {
-        $html .= '<a href="' . $url . '" class="social-item ic ic-facebook"></a>';
-    }
-    if ($url = get_option('instagram')) {
-        $html .= '<a href="' . $url . '" class="social-item ic ic-instagram"></a>';
+    $items = ['vk', 'facebook', 'instagram'];
+    echo get_socials_icon_list($items, 'social-item', 'social__grid');
+}
+
+function get_socials_icon_list($items = [], $base_class = '', $container_class = '') {
+    $html = '<div class="' . $container_class . '">';
+    foreach ($items as $item) {
+        $url = get_option($item);
+        if (!$url) continue;
+        $classes = [$base_class, 'ic', 'ic-' . $item];
+        $html .= '<a href="' . $url . '" class="' . implode(' ', $classes) . '"></a>';
     }
     $html .= '</div>';
-    echo $html;
+    return $html;
 }

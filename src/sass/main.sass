@@ -1759,7 +1759,7 @@
 	margin: 55px 0 0
 	display: flex
 	align-items: center
-	&__list
+	&__list, ul.page-numbers
 		flex: 0 1 auto
 		margin: 0 12px 0 0
 		padding: 0
@@ -1770,7 +1770,7 @@
 			margin-right: 5px
 			&:last-child
 				margin-right: 0
-		a
+		a, span
 			display: block
 			position: relative
 			z-index: 1
@@ -1807,7 +1807,7 @@
 				font-size: 8px
 			&:hover
 				background: #eaeaea
-			&.active
+			&.active, &.current
 				color: #fff
 				&:before
 					opacity: 1

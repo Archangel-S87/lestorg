@@ -370,7 +370,6 @@ jQuery(document).ready(function($) {
     }
     return false;
   });
-  $('.sort__item:nth-child(1)').addClass('active');
 
   $('.product-table-select select').change(function() {
 		$('.product-table [data-item]').hide();

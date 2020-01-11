@@ -20,21 +20,26 @@
                 </div>
             </div>
             <div class="footer__col">
-                <ul class="footer__list">
-                    <li><a href="#">Дома</a></li>
-                    <li><a href="#">Бани</a></li>
-                    <li><a href="#">Другие товары</a></li>
-                    <li><a href="#">Услуги</a></li>
-                    <li><a href="#">Калькулятор проекта</a></li>
-                </ul>
+                <?php if (has_nav_menu('footer_menu_1')):
+                    wp_nav_menu([
+                        'theme_location' => 'footer_menu_1',
+                        'menu_id' => 'footer_menu_1',
+                        'container' => false,
+                        'menu_class' => 'footer__list',
+                        'fallback_cb' => '__return_false'
+                    ]);
+                endif; ?>
             </div>
             <div class="footer__col">
-                <ul class="footer__list">
-                    <li><a href="#">Наши работы</a></li>
-                    <li><a href="#">Акции</a></li>
-                    <li><a href="#">О нас</a></li>
-                    <li><a href="#">Контакты</a></li>
-                </ul>
+                <?php if (has_nav_menu('footer_menu_2')):
+                    wp_nav_menu([
+                        'theme_location' => 'footer_menu_2',
+                        'menu_id' => 'footer_menu_2',
+                        'container' => false,
+                        'menu_class' => 'footer__list',
+                        'fallback_cb' => '__return_false'
+                    ]);
+                endif; ?>
                 <div class="social">
                     <?php print_socials(); ?>
                 </div>

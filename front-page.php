@@ -1,10 +1,12 @@
 <?php get_header(); ?>
 
+<?php the_post(); ?>
+
 <section class="banner">
     <div class="container">
         <div class="banner__content">
-            <h1>Строим современные и уютные дома</h1>
-            <p>Без головной боли и отклонений от сметы строительства</p>
+            <h1><?php the_title(); ?></h1>
+            <?php the_content(); ?>
         </div>
         <div class="banner__action">
             <a href="#" class="btn btn_big">Подобрать проект за 6 шагов</a>

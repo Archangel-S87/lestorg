@@ -14,7 +14,19 @@ function lestorg_setup() {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('align-wide');
-    add_theme_support('woocommerce');
+
+    add_theme_support('woocommerce', [
+        'thumbnail_image_width' => 380,
+        'single_image_width' => 700,
+        'product_grid' => [
+            'default_rows' => 3,
+            'min_rows' => 1,
+            'max_rows' => 4,
+            'default_columns' => 3,
+            'min_columns' => 2,
+            'max_columns' => 3
+        ]
+    ]);
 
     add_theme_support('custom-logo', [
         'width'       => 230,
