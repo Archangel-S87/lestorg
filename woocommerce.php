@@ -1,9 +1,8 @@
 <?php get_header(); ?>
 
-<section class="s-inner">
+<div class="<?= implode(' ', apply_filters('lt_woocommerce_wrapper_class', ['s-inner'])); ?>">
     <div class="container">
         <?php
-
         /**
          * Hook: woocommerce_before_main_content.
          *
@@ -24,6 +23,6 @@
 
         ?>
     </div>
-</section>
+</div>
 
 <?php get_footer();

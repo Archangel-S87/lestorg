@@ -1,35 +1,31 @@
 <?php
 
+require_once dirname( __FILE__ ) . '/includes/WC_LT_Product_Gallery_Images.php';
 require_once dirname( __FILE__ ) . '/includes/WC_LT_Loop.php';
+require_once dirname( __FILE__ ) . '/includes/WC_LT_Single_Product.php';
 
 // Получает thumbnail src продукта
-function woocommerce_get_thumbnail_image($size = 'woocommerce_thumbnail', $placeholder = true) {
+function lt_woocommerce_get_thumbnail_image($size = 'woocommerce_thumbnail', $placeholder = true) {
     global $product;
     if (!$product instanceof WC_Product) return null;
 
     $size = apply_filters('single_product_archive_thumbnail_size', $size);
 
     $image = null;
-    $image_src = '';
     if ($product->get_image_id()) {
-        $image = wp_get_attachment_image_src($product->get_image_id(), $size);
+        $image = wp_get_attachment_image_url($product->get_image_id(), $size);
     } elseif ($product->get_parent_id()) {
         $parent_product = wc_get_product($product->get_parent_id());
         if ($parent_product) {
-            $image = wp_get_attachment_image_src($parent_product->get_image_id(), $size);
+            $image = wp_get_attachment_image_url($parent_product->get_image_id(), $size);
         }
     }
 
-    if (!empty($image[0])) {
-        $image_src = $image[0];
+    if (!$image && $placeholder) {
+        $image = wc_placeholder_img_src($size);
     }
 
-    if (!$image_src && $placeholder) {
-        $image_src = wc_placeholder_img_src($size);
-    }
-
-    return apply_filters('lt_product_get_image_src', $image_src, $product, $size, $image, $placeholder);
-
+    return apply_filters('lt_product_get_image', $image, $product, $size, $image, $placeholder);
 }
 
 /*

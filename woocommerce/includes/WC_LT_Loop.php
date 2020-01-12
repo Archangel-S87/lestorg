@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Отвечает за множественный вывод товаров на странице.
+ * Отвечает за множественный вывод товаров.
  */
 
 class WC_LT_Loop
@@ -77,7 +77,8 @@ class WC_LT_Loop
         add_action('woocommerce_after_shop_loop_item', [$this, 'template_bottom'], 1);
     }
 
-    public function t_woocommerce_parse_query($q) {
+    public function t_woocommerce_parse_query($q)
+    {
         $meta_query = $q->get('meta_query');
         $meta_query = apply_filters('woof_get_meta_query', $meta_query);
         $q->set('meta_query', $meta_query);
@@ -89,37 +90,37 @@ class WC_LT_Loop
 
         if (is_search()) {
 
-            $gorod =  intval($_GET['gorod']);
-            if($gorod>0){
+            $gorod = intval($_GET['gorod']);
+            if ($gorod > 0) {
                 $wp_query->query_vars['tax_query'][] = array( //для атрибутов товаров
                     "taxonomy" => "pa_gorod",
                     "field" => "id",
-                    "terms" =>  $gorod
+                    "terms" => $gorod
                 );
             }
 
-            $tip =  intval($_GET['peredvizhenie']);
-            if($tip>0){
+            $tip = intval($_GET['peredvizhenie']);
+            if ($tip > 0) {
                 $wp_query->query_vars['tax_query'][] = array(
                     "taxonomy" => "pa_peredvizhenie",
                     "field" => "id",
-                    "terms" =>  $tip
+                    "terms" => $tip
                 );
             }
 
-            $vid =  intval($_GET['vid-puteshestvija']);
-            if($vid>0){
+            $vid = intval($_GET['vid-puteshestvija']);
+            if ($vid > 0) {
                 $wp_query->query_vars['tax_query'][] = array(
                     "taxonomy" => "pa_vid-puteshestvija",
                     "field" => "id",
-                    "terms" =>  $vid
+                    "terms" => $vid
                 );
             }
 
             $date = $_GET['put-date'];
-            if($date){
+            if ($date) {
                 $wp_query->query_vars['meta_key'] = 'nearest_date'; // для мета-полей товаров
-                $wp_query->query_vars['meta_value']  = strtotime($date);
+                $wp_query->query_vars['meta_value'] = strtotime($date);
             }
 
         }
@@ -150,7 +151,7 @@ class WC_LT_Loop
         if (!$srok) return;
 
         $html = '<ul class="catalog-item__list">';
-        $html .= '<li>Срок стоительства: <b>' . $srok .'</b></li>';
+        $html .= '<li>Срок стоительства: <b>' . $srok . '</b></li>';
         $html .= '</ul>';
 
         echo $html;
@@ -180,7 +181,7 @@ class WC_LT_Loop
                 default :
                     $label = 'комнат';
             }
-            $html .= '<p class="catalog-item__info-item"><i class="ic ic-bed"></i><b>' . $komnaty . '</b> ' . $label .'</p>';
+            $html .= '<p class="catalog-item__info-item"><i class="ic ic-bed"></i><b>' . $komnaty . '</b> ' . $label . '</p>';
         }
 
         if ($sanuzly) {
@@ -196,7 +197,7 @@ class WC_LT_Loop
                 default :
                     $label = 'санузлов';
             }
-            $html .= '<p class="catalog-item__info-item"><i class="ic ic-bath"></i><b>' . $sanuzly . '</b> ' . $label .'</p>';
+            $html .= '<p class="catalog-item__info-item"><i class="ic ic-bath"></i><b>' . $sanuzly . '</b> ' . $label . '</p>';
         }
 
         $html .= '</div>';
@@ -232,7 +233,7 @@ class WC_LT_Loop
         $link = apply_filters('woocommerce_loop_product_link', get_the_permalink(), $product);
 
         echo '<h5 class="' . esc_attr(apply_filters('woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title catalog-item__head')) . '">';
-        echo '<a href="'. $link .'" class="link-head">' . get_the_title() .'</a>';
+        echo '<a href="' . $link . '" class="link-head">' . get_the_title() . '</a>';
         echo '</h5>';
     }
 
@@ -246,11 +247,12 @@ class WC_LT_Loop
         echo '<div class="catalog-item__main">';
     }
 
-    public function template_product_link_thumbnail() {
+    public function template_product_link_thumbnail()
+    {
         global $product;
         if (!$product instanceof WC_Product) return;
 
-        $image_src = woocommerce_get_thumbnail_image();
+        $image_src = lt_woocommerce_get_thumbnail_image();
         if (!$image_src) return;
 
         $link = apply_filters('woocommerce_loop_product_link', get_the_permalink(), $product);
@@ -264,7 +266,7 @@ class WC_LT_Loop
         ];
 
         $html = '<a';
-        foreach ( $link_attr as $name => $value ) {
+        foreach ($link_attr as $name => $value) {
             $html .= " $name=" . '"' . $value . '"';
         }
         $html .= '></a>';
