@@ -10,7 +10,7 @@ $wrapper_classes = apply_filters('lt_single_product_gallery_classes', ['product-
 
 <div class="<?php echo esc_attr(implode(' ', $wrapper_classes)); ?>">
 
-    <!--Видно везде. img средний размер. Ссылка орегинальный размер-->
+    <?php // Видно везде. img средний размер. Ссылка орегинальный размер ?>
     <div class="product-gallery__slider swiper-container js-gallery">
         <div class="swiper-wrapper">
 
@@ -26,7 +26,7 @@ $wrapper_classes = apply_filters('lt_single_product_gallery_classes', ['product-
         <div class="swiper-pagination"></div>
     </div>
 
-    <!--Видно на PC. Выводить маленькие иконки-->
+    <?php // Видно на PC. Выводить маленькие иконки ?>
     <div class="product-gallery__thumbs swiper-container">
         <div class="swiper-wrapper">
 

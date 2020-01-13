@@ -43,84 +43,13 @@ if (post_password_required()) {
      * Блок инфо
      * Обёртка для info close
      *
-     * @hooked ggg - 5
-     * @hooked ggg - 5
-     * @hooked ggg - 5
+     * @hooked template_wrapper_info_open - 5
+     * @hooked template_info_title - 10
+     * @hooked template_info_table - 15
+     * @hooked template_wrapper_info_close - 50
      */
     do_action('woocommerce_single_product_summary');
     ?>
-
-    <div class="product-grid__col">
-        <div class="product-info box">
-            <div class="product-info__wrap">
-
-                <!--//----------->
-                <div class="product-info__title">
-                    <h4>Характеристики</h4>
-                </div>
-                <table class="product-info__table">
-                    <tr>
-                        <td>Технология</td>
-                        <td>Проф. брус</td>
-                    </tr>
-                    <tr>
-                        <td>Общая площадь</td>
-                        <td><b class="text-green">128 м<sup>2</sup></b></td>
-                    </tr>
-                    <tr>
-                        <td>Габариты</td>
-                        <td>8х8 м</td>
-                    </tr>
-                    <tr>
-                        <td>Этажность</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>Срок строительства</td>
-                        <td>от 1 месяца</td>
-                    </tr>
-                    <tr>
-                        <td>Комнаты</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>Санузлы</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>Крыша</td>
-                        <td>4-скатная</td>
-                    </tr>
-                    <tr>
-                        <td>Угол наклона крыши</td>
-                        <td>30/25</td>
-                    </tr>
-                </table>
-                <!--//----------->
-                <div class="product-action">
-                    <div class="product-action__price">
-                        <p class="product-action__price-descr">Цена</p>
-                        <p>от 4 120 000 ₽</p>
-                    </div>
-                    <a href="#" class="product-action__icon ic ic-heart"></a>
-                    <div class="product-action__btn">
-                        <a href="#" class="btn">Оставить заявку</a>
-                    </div>
-                </div>
-                <!--//----------->
-                <div class="share">
-                    <p class="share__head">Сохранить проект:</p>
-                    <div class="share__grid">
-                        <a href="#" class="share-item ic ic-vk"></a>
-                        <a href="#" class="share-item ic ic-facebook"></a>
-                        <a href="#" class="share-item ic ic-ok"></a>
-                        <a href="#" class="share-item ic ic-pinterest"></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
 
     <?php
     /**

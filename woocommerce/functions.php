@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname( __FILE__ ) . '/admin/WC_LT_Attributes.php';
+
 require_once dirname( __FILE__ ) . '/includes/WC_LT_Product_Gallery_Images.php';
 require_once dirname( __FILE__ ) . '/includes/WC_LT_Loop.php';
 require_once dirname( __FILE__ ) . '/includes/WC_LT_Single_Product.php';

@@ -2,6 +2,7 @@
 
 require_once get_template_directory() . '/tgm/tgm.php';
 require_once get_template_directory() . '/cody-framework/admin.php';
+require_once get_template_directory() . '/acf/init.php';
 
 require_once get_template_directory() . '/inc/init.php';
 require_once get_template_directory() . '/inc/functioms-templates.php';
