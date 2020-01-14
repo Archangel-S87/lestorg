@@ -1,10 +1,14 @@
 <?php
 
-require_once dirname( __FILE__ ) . '/admin/WC_LT_Attributes.php';
+if (empty(WC_ABSPATH)) return;
 
-require_once dirname( __FILE__ ) . '/includes/WC_LT_Product_Gallery_Images.php';
-require_once dirname( __FILE__ ) . '/includes/WC_LT_Loop.php';
-require_once dirname( __FILE__ ) . '/includes/WC_LT_Single_Product.php';
+require_once 'admin/WC_LT_Admin.php';
+require_once 'admin/functions.php';
+require_once 'admin/WC_LT_Attributes.php';
+
+require_once 'includes/WC_LT_Product_Gallery_Images.php';
+require_once 'includes/WC_LT_Loop.php';
+require_once 'includes/WC_LT_Single_Product.php';
 
 // Получает thumbnail src продукта
 function lt_woocommerce_get_thumbnail_image($size = 'woocommerce_thumbnail', $placeholder = true) {

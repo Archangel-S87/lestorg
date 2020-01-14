@@ -69,8 +69,8 @@ function lestorg_register_required_plugins() {
         [
             'name'      => 'WooCommerce Admin',
             'slug'      => 'woocommerce-admin',
-            'required'  => true,
-            'force_activation' => true
+            //'required'  => true,
+            //'force_activation' => true
         ],
         [
             'name'      => 'Cyr-To-Lat',
