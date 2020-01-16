@@ -35,11 +35,11 @@ class WC_LT_Single_Product
 
         add_action('woocommerce_before_single_product_summary', [$this, 'template_gallery']);
 
-        add_action('woocommerce_single_product_summary', [$this, 'template_wrapper_info_open'], 5);
-        add_action('woocommerce_single_product_summary', [$this, 'template_wrapper_info_close'], 50);
+        //add_action('woocommerce_single_product_summary', [$this, 'template_wrapper_info_open'], 5);
+        //add_action('woocommerce_single_product_summary', [$this, 'template_wrapper_info_close'], 50);
 
-        add_action('woocommerce_single_product_summary', [$this, 'template_info_title']);
-        add_action('woocommerce_single_product_summary', [$this, 'template_info_table'], 15);
+        //add_action('woocommerce_single_product_summary', [$this, 'template_info_title']);
+        //add_action('woocommerce_single_product_summary', [$this, 'template_info_table'], 15);
     }
 
     public function template_info_table()
@@ -146,7 +146,21 @@ class WC_LT_Single_Product
 
     public function template_gallery()
     {
-        echo '<div class="product-grid__col">';
+        echo '<div class="product-grid__col" style="width: 100%;">';
+        echo '
+<style>
+    .product-grid__col:nth-child(1) {
+    max-width: 100%;
+    flex: 0 0 auto;
+    }
+    .product-gallery {
+    margin: 0 auto;
+    }
+    .product-grid {
+    margin-bottom: 40px;
+    }
+</style>        
+        ';
         $this->get_gallery();
         echo '</div><!--.product-grid__col-->';
     }

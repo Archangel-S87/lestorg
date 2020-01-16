@@ -12,61 +12,26 @@ class LT_Product_Variations
 {
     static $prefix_key = 'field_';
 
+    // Список категорий товаров с разными характеристиками
     public $product_cats = [
         'doma'
     ];
+
+    private $current_cat = '';
 
     private $post_id = 0;
 
     // Доступные атрибуты для текущего поста
     private $available_attr_taxonomies = [];
 
-    private $field_price = [
-        'label' => 'Цена',
-        'name' => 'price',
-        'type' => 'number',
-        'instructions' => '',
-        'required' => 0,
-        'conditional_logic' => 0,
-        'wrapper' => [
-            'width' => '',
-            'class' => '',
-            'id' => ''
-        ],
-        'default_value' => '',
-        'placeholder' => '',
-        'prepend' => '',
-        'append' => '',
-        'min' => '',
-        'max' => '',
-        'step' => ''
-    ];
-
-    private $field_taxonomy = [
-        'type' => 'taxonomy',
-        'instructions' => '',
-        'required' => 0,
-        'conditional_logic' => 0,
-        'wrapper' => [
-            'width' => '25',
-            'class' => '',
-            'id' => '',
-        ],
-        'field_type' => 'radio', //select checkbox
-        'allow_null' => 0,
-        'add_term' => 1,
-        'save_terms' => 0,
-        'load_terms' => 0,
-        'return_format' => 'id',
-        'multiple' => 0
-    ];
+    private $field_key = '';
 
     public function __construct()
     {
         $action = $_GET['action'] ?? '';
         $post_id = $_GET['post'] ?? 0;
 
-        if ($action != 'edit' || !$post_id) return;
+        //if ($action != 'edit' || !$post_id) return;
 
         $this->post_id = $post_id;
 
@@ -78,9 +43,18 @@ class LT_Product_Variations
         add_action('admin_init', [$this, 'add_all_fields']);
     }
 
+    /*
+     * Отображает атрибуты привязаные к категории
+     */
+    public function get_category_binding($taxonomies)
+    {
+        return lt_get_attached_attrs_cat_product($taxonomies);
+    }
+
     public function add_all_fields()
     {
         foreach ($this->product_cats as $cat) {
+            $this->current_cat = $cat;
             $args = call_user_func([$this, 'get_setting_' . $cat], $cat);
             acf_add_local_field_group($args);
         }
@@ -119,99 +93,104 @@ class LT_Product_Variations
         return $location;
     }
 
-    private function get_key($product, $slug)
+    /*
+     * Уникальный ключ поля
+     */
+    private function get_key($slug)
     {
-        $str = $product->get_id() . '_' . $slug;
-        $hash = substr(md5($str), 0, 13);
+        $hash = substr(md5($slug), 0, 13);
         return self::$prefix_key . $hash;
     }
 
-    private function get_sub_fields_group()
+    private function get_field_price($index)
     {
-        $product = wc_get_product($this->post_id);
+        return [
+            'key' => $this->get_key($this->current_cat . '_price_' . $index),
+            'label' => 'Цена',
+            'name' => 'price',
+            'type' => 'number',
+            'required' => 1,
+            'default_value' => '',
+            'min' => '0',
+            'max' => '',
+            'step' => ''
+        ];
+    }
 
-        if (!$product) return [];
+    private function get_tab_group($index)
+    {
+        return [
+            'key' => $this->get_key($this->current_cat . '_group_' . $index),
+            'label' => '',
+            'name' => 'group_' . $index,
+            'type' => 'group',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'layout' => 'block',
+            'sub_fields' => [
+                $this->get_field_price($index),
+                [
+                    'key' => $this->get_key($this->current_cat . '_repeater_' . $index),
+                    'label' => '',
+                    'name' => 'repeater_custom_options',
+                    'type' => 'repeater',
+                    'collapsed' => '',
+                    'min' => 0,
+                    'max' => 0,
+                    'layout' => 'table',
+                    'button_label' => 'Добавить опцию',
+                    'sub_fields' => [
+                        [
+                            'key' => $this->get_key($this->current_cat . '_product_attributes_' . $index),
+                            'label' => 'Атрибуты товара',
+                            'name' => 'product_attributes',
+                            'type' => 'product_attributes'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+    }
 
-        $attr_taxonomies = wc_get_attribute_taxonomies();
-        $this->available_attr_taxonomies = lt_get_attached_attrs_cat_product($attr_taxonomies);
+    private function get_tab($label, $index)
+    {
+        return [
+            'key' => $this->get_key($this->current_cat . '_tab_' . $index),
+            'label' => $label,
+            'type' => 'tab'
+        ];
+    }
 
-        $use_attr_taxonomies = $product->get_attributes();
-
-        $free_attrs = [];
-        foreach ($this->available_attr_taxonomies as $attr_tax) {
-            $name = 'pa_' . $attr_tax->attribute_name;
-            if (!isset($use_attr_taxonomies[$name])) {
-                $free_attrs[] = $attr_tax;
-            }
+    private function get_variants()
+    {
+        $variants = [];
+        $variant_labels = [
+            'Домокомплект',
+            'Под усадку',
+            'Под ключ'
+        ];
+        foreach ($variant_labels as $index => $label) {
+            $variants[] = $this->get_tab($label, $index);
+            $variants[] = $this->get_tab_group($index);
         }
-
-        $sub_fields[] = wp_parse_args([
-            'key' => $this->get_key($product, 'price')
-        ], $this->field_price);
-
-        foreach ($free_attrs as $attr) {
-            $args = [
-                'key' => $this->get_key($product, $attr->attribute_name),
-                'label' => $attr->attribute_label,
-                'name' => $attr->attribute_name,
-                'taxonomy' => 'pa_' . $attr->attribute_name
-            ];
-            $sub_fields[] = wp_parse_args($args, $this->field_taxonomy);
-        }
-
-        return $sub_fields;
+        return $variants;
     }
 
     public function get_setting_doma($cat_slug)
     {
-        $location = $this->get_location_group($cat_slug);
-
-        $sub_fields = $this->get_sub_fields_group();
-
-        if (!$sub_fields) return [];
+        add_filter('acf/fields/product_attributes/wp_attribute_taxonomies', [$this, 'get_category_binding']);
 
         return [
-            'key' => 'group_5e1b7278c9459',
+            'key' => 'group_equipment_' . $this->current_cat,
             'title' => 'Комплектация дома',
-            'fields' => [
-                [
-                    'key' => 'field_5jh4588eda2c9',
-                    'label' => '',
-                    'name' => 'variants',
-                    'type' => 'flexible_content',
-                    'instructions' => '',
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => [
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ],
-                    'layouts' => [
-                        'layout_5e1bgd9f2581fd6' => [
-                            'key' => 'layout_5e1bgd9f2581fd6',
-                            'name' => 'variant',
-                            'label' => 'Вариант',
-                            'display' => 'block', //block row
-                            'sub_fields' => $sub_fields,
-                            'min' => '',
-                            'max' => '',
-                        ]
-                    ],
-                    'button_label' => 'Добавить',
-                    'min' => 3,
-                    'max' => 3,
-                ]
-            ],
-            'location' => $location,
-            'menu_order' => 0,
+            'fields' => $this->get_variants(), // смотри $origin_fields,
+            'location' => $this->get_location_group($cat_slug),
+            'menu_order' => 500,
             'position' => 'normal',
-            'style' => 'default',
             'label_placement' => 'top',
             'instruction_placement' => 'label',
             'hide_on_screen' => '',
-            'active' => 1,
-            'description' => ''
+            'active' => 1
         ];
     }
 

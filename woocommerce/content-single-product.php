@@ -83,7 +83,7 @@ if (post_password_required()) {
     do_action('woocommerce_after_single_product_summary');
     ?>
 
-    <div class="product__row">
+<!--    <div class="product__row">
         <div class="container">
             <div class="product__row-title">
                 <h3>Комплектации</h3>
@@ -398,7 +398,7 @@ if (post_password_required()) {
             </div>
 
         </div>
-    </div>
+    </div>-->
 
 </div>
 

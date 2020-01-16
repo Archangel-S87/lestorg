@@ -49,6 +49,10 @@ function change_body_classes($classes) {
     return $classes;
 }
 
+function get_img($file) {
+    return get_template_directory_uri() . '/assets/' . $file;
+}
+
 /*
  * Этот треш для замены абсалютных путей относительными
  */

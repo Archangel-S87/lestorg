@@ -107,67 +107,8 @@
     </div>
 </section>-->
 
-<!--<section class="advantages">
-    <div class="container">
-        <div class="title">
-            <h2>Почему работать с нами <span class="text-green">выгодно</span>?</h2>
-        </div>
-        <div class="advantages__grid">
 
-            <div class="advantage">
-                <div class="advantage__img">
-                    <div class="img-box">
-                        <img src="img/advantages/advant-1.png" alt="">
-                    </div>
-                </div>
-                <p class="advantage__text">Свои делянки леса. <br><b>Материал дешевле</b>, чем в магазине</p>
-            </div>
-            <div class="advantage">
-                <div class="advantage__img">
-                    <div class="img-box">
-                        <img src="img/advantages/advant-2.png" alt="">
-                    </div>
-                </div>
-                <p class="advantage__text"><b>Собственное производство</b>. <br>Подготавливаем и обрабатываем пиломатериалы</p>
-            </div>
-            <div class="advantage">
-                <div class="advantage__img">
-                    <div class="img-box">
-                        <img src="img/advantages/advant-3.png" alt="">
-                    </div>
-                </div>
-                <p class="advantage__text">Работаем <b>под ключ</b>. <br>От фундамента до чистовой отделки</p>
-            </div>
-            <div class="advantage">
-                <div class="advantage__img">
-                    <div class="img-box">
-                        <img src="img/advantages/advant-4.png" alt="">
-                    </div>
-                </div>
-                <p class="advantage__text">В бригадах работают квалифицированные <b>специалисты</b></p>
-            </div>
-            <div class="advantage">
-                <div class="advantage__img">
-                    <div class="img-box">
-                        <img src="img/advantages/advant-5.png" alt="">
-                    </div>
-                </div>
-                <p class="advantage__text"><b>Столярный цех</b> - производство мебели из массива дерева</p>
-            </div>
-            <div class="advantage">
-                <div class="advantage__img">
-                    <div class="img-box">
-                        <img src="img/advantages/advant-6.png" alt="">
-                    </div>
-                </div>
-                <p class="advantage__text">Соблюдаем заявленные <b>сроки</b></p>
-            </div>
-
-        </div>
-    </div>
-</section>-->
-
-<!--<section class="services overlay-bottom">
+<section class="services overlay-bottom">
     <div class="container">
         <div class="title">
             <h2>мы строим</h2>
@@ -176,7 +117,7 @@
 
             <div class="services__col" data-medium>
                 <div class="service box">
-                    <img src="img/services/service-1.jpg" alt="" class="service__img">
+                    <img src="<?= get_img('img/services/service-1.jpg'); ?>" alt="" class="service__img">
                     <div class="service__content">
                         <h3 class="service__head">Дома из бруса</h3>
                         <a href="#" class="more-link">Подробнее</a>
@@ -185,7 +126,7 @@
             </div>
             <div class="services__col" data-medium>
                 <div class="service box">
-                    <img src="img/services/service-2.jpg" alt="" class="service__img">
+                    <img src="<?= get_img('img/services/service-2.jpg'); ?>" alt="" class="service__img">
                     <div class="service__content">
                         <h3 class="service__head">Дома из бревна</h3>
                         <a href="#" class="more-link">Подробнее</a>
@@ -194,7 +135,7 @@
             </div>
             <div class="services__col">
                 <div class="service box">
-                    <img src="img/services/service-3.jpg" alt="" class="service__img">
+                    <img src="<?= get_img('img/services/service-3.jpg'); ?>" alt="" class="service__img">
                     <div class="service__content">
                         <h3 class="service__head">Дома из клееного бруса</h3>
                         <a href="#" class="more-link">Подробнее</a>
@@ -203,7 +144,7 @@
             </div>
             <div class="services__col">
                 <div class="service box">
-                    <img src="img/services/service-4.jpg" alt="" class="service__img">
+                    <img src="<?= get_img('img/services/service-4.jpg'); ?>" alt="" class="service__img">
                     <div class="service__content">
                         <h3 class="service__head">Бани</h3>
                         <a href="#" class="more-link">Подробнее</a>
@@ -212,7 +153,7 @@
             </div>
             <div class="services__col">
                 <div class="service box">
-                    <img src="img/services/service-5.jpg" alt="" class="service__img">
+                    <img src="<?= get_img('img/services/service-5.jpg'); ?>" alt="" class="service__img">
                     <div class="service__content">
                         <h3 class="service__head">беседки</h3>
                         <a href="#" class="more-link">Подробнее</a>
@@ -222,7 +163,69 @@
 
         </div>
     </div>
-</section>-->
+</section>
+
+<?php // TODO Поменять верхнюю и нижнюю секции местами ?>
+
+<section class="advantages">
+    <div class="container">
+        <div class="title">
+            <h2>Почему работать с нами <span class="text-green">выгодно</span>?</h2>
+        </div>
+        <div class="advantages__grid">
+
+            <div class="advantage">
+                <div class="advantage__img">
+                    <div class="img-box">
+                        <img src="<?= get_img('img/advantages/advant-1.png'); ?>" alt="">
+                    </div>
+                </div>
+                <p class="advantage__text">Свои делянки леса. <br><b>Материал дешевле</b>, чем в магазине</p>
+            </div>
+            <div class="advantage">
+                <div class="advantage__img">
+                    <div class="img-box">
+                        <img src="<?= get_img('img/advantages/advant-2.png'); ?>" alt="">
+                    </div>
+                </div>
+                <p class="advantage__text"><b>Собственное производство</b>. <br>Подготавливаем и обрабатываем пиломатериалы</p>
+            </div>
+            <div class="advantage">
+                <div class="advantage__img">
+                    <div class="img-box">
+                        <img src="<?= get_img('img/advantages/advant-3.png'); ?>" alt="">
+                    </div>
+                </div>
+                <p class="advantage__text">Работаем <b>под ключ</b>. <br>От фундамента до чистовой отделки</p>
+            </div>
+            <div class="advantage">
+                <div class="advantage__img">
+                    <div class="img-box">
+                        <img src="<?= get_img('img/advantages/advant-4.png'); ?>" alt="">
+                    </div>
+                </div>
+                <p class="advantage__text">В бригадах работают квалифицированные <b>специалисты</b></p>
+            </div>
+            <div class="advantage">
+                <div class="advantage__img">
+                    <div class="img-box">
+                        <img src="<?= get_img('img/advantages/advant-5.png'); ?>" alt="">
+                    </div>
+                </div>
+                <p class="advantage__text"><b>Столярный цех</b> - производство мебели из массива дерева</p>
+            </div>
+            <div class="advantage">
+                <div class="advantage__img">
+                    <div class="img-box">
+                        <img src="<?= get_img('img/advantages/advant-6.png'); ?>" alt="">
+                    </div>
+                </div>
+                <p class="advantage__text">Соблюдаем заявленные <b>сроки</b></p>
+            </div>
+
+        </div>
+    </div>
+</section>
 
 <section class="numbers overlay-bottom">
     <div class="container">
@@ -258,7 +261,7 @@
     </div>
 </section>
 
-<!--<section class="other-services overlay-bottom">
+<section class="other-services overlay-bottom">
     <div class="container">
         <div class="title">
             <h2>другие наши услуги</h2>
@@ -366,7 +369,7 @@
             </div>
 
             <div class="other-services__house">
-                <img src="img/other-services/house.png" alt="" class="other-services__house-img">
+                <img src="<?= get_img('img/other-services/house.png'); ?>" alt="" class="other-services__house-img">
                 <ul class="other-services__house-list">
                     <li style="top: 75%; left: 52%;">1</li>
                     <li style="top: 63%; left: 39%;">2</li>
@@ -379,7 +382,7 @@
 
         </div>
     </div>
-</section>-->
+</section>
 
 <!--<section class="cases">
     <div class="container">
@@ -655,7 +658,7 @@
     </div>
 </section>-->
 
-<section class="feedback">
+<!--<section class="feedback">
     <div class="container">
         <div class="feedback-box box">
             <div class="feedback-box__wrapper">
@@ -671,6 +674,6 @@
             </div>
         </div>
     </div>
-</section>
+</section>-->
 
 <?php get_footer(); ?>

@@ -1,9 +1,12 @@
 <?php
 
-function lt_get_attached_attrs_cat_product($taxonomies) {
+function lt_get_attached_attrs_cat_product($taxonomies, $product = null) {
     global $post;
 
-    $product = wc_get_product($post);
+    if (!$product) {
+        $product = wc_get_product($post);
+    }
+
     $rel_attrs = get_option(WC_LT_Attributes::option_name, []);
     if (!$product || !$rel_attrs) return $taxonomies;
 
