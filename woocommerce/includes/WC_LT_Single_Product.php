@@ -125,14 +125,17 @@ class WC_LT_Single_Product
                                 <td><?= $attr['attribute_label']; ?></td>
                                 <?php foreach ($attr['variants'] as $key => $variant) : ?>
                                     <?php
-                                    /*
-                                     * <td data-item="1">1 этаж-2,45 м <br>2 этаж-2,3 м</td>
-                                     * <td data-item="1"><s>Оцинкованный профнастил</s><br><b class="text-green">Крашенный
-                                        профнастил в подарок!</b></td>
-                                     *
-                                     */
+                                    $val = $variant['term_label'];
+                                    switch ($variant['view']) {
+                                        case 'accent' :
+                                            $val = '<b class="text-green">'. $val . '</b>';
+                                            break;
+                                        case 'crossed' :
+                                            $val = '<s>' . $val . '</s>';
+                                            break;
+                                    }
                                     ?>
-                                    <td data-item="<?= $key; ?>"><?= $variant['term_label']; ?></td>
+                                    <td data-item="<?= $key; ?>"><?= $val; ?></td>
                                 <?php endforeach; ?>
                                 </tr>
                             <?php endforeach; ?>
