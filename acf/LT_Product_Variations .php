@@ -6,8 +6,6 @@ if (empty(WC_ABSPATH) || !function_exists('acf_add_local_field_group')) return;
  * формирует вариации товаров для различных категорий
  */
 
-// TODO Не работает select - ajax
-
 class LT_Product_Variations
 {
     static $prefix_key = 'field_';
@@ -19,22 +17,14 @@ class LT_Product_Variations
 
     private $current_cat = '';
 
-    private $post_id = 0;
-
-    // Доступные атрибуты для текущего поста
-    private $available_attr_taxonomies = [];
-
-    private $field_key = '';
+    private $variant_labels = [
+        'Домокомплект',
+        'Под усадку',
+        'Под ключ'
+    ];
 
     public function __construct()
     {
-        $action = $_GET['action'] ?? '';
-        $post_id = $_GET['post'] ?? 0;
-
-        //if ($action != 'edit' || !$post_id) return;
-
-        $this->post_id = $post_id;
-
         $this->hooks();
     }
 
@@ -102,78 +92,64 @@ class LT_Product_Variations
         return self::$prefix_key . $hash;
     }
 
-    private function get_field_price($index)
+    private function get_field_price($args = [])
     {
-        return [
-            'key' => $this->get_key($this->current_cat . '_price_' . $index),
+        $default = [
+            'key' => '',
             'label' => 'Цена',
             'name' => 'price',
             'type' => 'number',
-            'required' => 1,
+            'required' => 0,
             'default_value' => '',
             'min' => '0',
             'max' => '',
             'step' => ''
         ];
+        return wp_parse_args($args, $default);
     }
 
-    private function get_tab_group($index)
-    {
+    private function get_field_prices() {
+        $prices = [];
+        foreach ($this->variant_labels as $index => $variant) {
+            $args = [
+                'key' => $this->get_key($this->current_cat . '_price_' . $index),
+                'name' => 'price_' . $index,
+                'label' => $variant,
+                'required' => 1,
+                'wrapper' => [
+                    'width' => '33.333'
+                ]
+            ];
+            $prices[] = $this->get_field_price($args);
+        }
         return [
-            'key' => $this->get_key($this->current_cat . '_group_' . $index),
-            'label' => '',
-            'name' => 'group_' . $index,
+            'key' => $this->get_key($this->current_cat . '_prices'),
+            'label' => 'Цены',
+            'name' => 'prices',
             'type' => 'group',
-            'required' => 0,
-            'conditional_logic' => 0,
             'layout' => 'block',
+            'sub_fields' => $prices
+        ];
+    }
+
+    private function get_field_repeater() {
+        return [
+            'key' => $this->get_key($this->current_cat . '_repeater'),
+            'label' => 'Свойства товара',
+            'name' => 'repeater_custom_options',
+            'type' => 'repeater',
+            'collapsed' => '',
+            'layout' => 'block',
+            'button_label' => 'Новое Свойство',
             'sub_fields' => [
-                $this->get_field_price($index),
                 [
-                    'key' => $this->get_key($this->current_cat . '_repeater_' . $index),
-                    'label' => '',
-                    'name' => 'repeater_custom_options',
-                    'type' => 'repeater',
-                    'collapsed' => '',
-                    'min' => 0,
-                    'max' => 0,
-                    'layout' => 'table',
-                    'button_label' => 'Добавить опцию',
-                    'sub_fields' => [
-                        [
-                            'key' => $this->get_key($this->current_cat . '_product_attributes_' . $index),
-                            'label' => 'Атрибуты товара',
-                            'name' => 'product_attributes',
-                            'type' => 'product_attributes'
-                        ]
-                    ]
+                    'key' => $this->get_key($this->current_cat . '_product_attributes'),
+                    'name' => 'product_attributes',
+                    'type' => 'product_attributes',
+                    'count_variants' => count($this->variant_labels)
                 ]
             ]
         ];
-    }
-
-    private function get_tab($label, $index)
-    {
-        return [
-            'key' => $this->get_key($this->current_cat . '_tab_' . $index),
-            'label' => $label,
-            'type' => 'tab'
-        ];
-    }
-
-    private function get_variants()
-    {
-        $variants = [];
-        $variant_labels = [
-            'Домокомплект',
-            'Под усадку',
-            'Под ключ'
-        ];
-        foreach ($variant_labels as $index => $label) {
-            $variants[] = $this->get_tab($label, $index);
-            $variants[] = $this->get_tab_group($index);
-        }
-        return $variants;
     }
 
     public function get_setting_doma($cat_slug)
@@ -183,9 +159,12 @@ class LT_Product_Variations
         return [
             'key' => 'group_equipment_' . $this->current_cat,
             'title' => 'Комплектация дома',
-            'fields' => $this->get_variants(), // смотри $origin_fields,
+            'fields' => [
+                $this->get_field_prices(),
+                $this->get_field_repeater()
+            ],
             'location' => $this->get_location_group($cat_slug),
-            'menu_order' => 500,
+            'menu_order' => 0,
             'position' => 'normal',
             'label_placement' => 'top',
             'instruction_placement' => 'label',
@@ -193,7 +172,6 @@ class LT_Product_Variations
             'active' => 1
         ];
     }
-
 }
 
 $LT_Product_Variations = new LT_Product_Variations();
