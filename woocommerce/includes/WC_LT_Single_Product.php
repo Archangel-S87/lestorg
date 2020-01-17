@@ -23,6 +23,9 @@ class WC_LT_Single_Product
         remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
         remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
         remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+
+        remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs');
+
     }
 
     private function init_hooks()
@@ -35,67 +38,125 @@ class WC_LT_Single_Product
 
         add_action('woocommerce_before_single_product_summary', [$this, 'template_gallery']);
 
-        //add_action('woocommerce_single_product_summary', [$this, 'template_wrapper_info_open'], 5);
-        //add_action('woocommerce_single_product_summary', [$this, 'template_wrapper_info_close'], 50);
+        add_action('woocommerce_single_product_summary', [$this, 'template_wrapper_info_open'], 5);
+        add_action('woocommerce_single_product_summary', [$this, 'template_wrapper_info_close'], 50);
 
-        //add_action('woocommerce_single_product_summary', [$this, 'template_info_title']);
-        //add_action('woocommerce_single_product_summary', [$this, 'template_info_table'], 15);
+        add_action('woocommerce_single_product_summary', [$this, 'template_info_title']);
+        add_action('woocommerce_single_product_summary', [$this, 'template_info_table'], 15);
+        add_action('woocommerce_single_product_summary', [$this, 'template_info_action'], 20);
+        add_action('woocommerce_single_product_summary', [$this, 'template_info_share'], 25);
+
+        add_action('woocommerce_after_single_product_summary', [$this, 'template_product_variations_table']);
+        add_action('woocommerce_after_single_product_summary', [$this, 'template_product_description'], 15);
     }
 
-    public function template_info_table()
+    public function template_product_description()
     {
+        global $product;
+        if (!$product instanceof WC_Product) return;
+        if (!$ee = $product->get_description()) return;
+
         ?>
-        <table class="product-info__table">
-            <tr>
-                <td>Технология</td>
-                <td>Проф. брус</td>
-            </tr>
-            <tr>
-                <td>Общая площадь</td>
-                <td><b class="text-green">128 м<sup>2</sup></b></td>
-            </tr>
-            <tr>
-                <td>Габариты</td>
-                <td>8х8 м</td>
-            </tr>
-            <tr>
-                <td>Этажность</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td>Срок строительства</td>
-                <td>от 1 месяца</td>
-            </tr>
-            <tr>
-                <td>Комнаты</td>
-                <td>5</td>
-            </tr>
-            <tr>
-                <td>Санузлы</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td>Крыша</td>
-                <td>4-скатная</td>
-            </tr>
-            <tr>
-                <td>Угол наклона крыши</td>
-                <td>30/25</td>
-            </tr>
-        </table>
-        <!--//----------->
-        <div class="product-action">
-            <div class="product-action__price">
-                <p class="product-action__price-descr">Цена</p>
-                <p>от 4 120 000 ₽</p>
-            </div>
-            <a href="#" class="product-action__icon ic ic-heart"></a>
-            <div class="product-action__btn">
-                <a href="#" class="btn">Оставить заявку</a>
+        <div class="product__row">
+            <div class="container">
+                <div class="product__row-title">
+                    <h3>Описание проекта</h3>
+                </div>
+                <div class="product-content box">
+                    <div class="content">
+                        <?= $product->get_description(); ?>
+                    </div>
+                    <div class="action-box">
+                        <a href="#" class="btn">Оставить заявку</a>
+                        <a href="#" class="btn btn_bd">Задать вопрос</a>
+                    </div>
+                </div>
             </div>
         </div>
-        <!--//----------->
-        <div class="share">
+        <?php
+    }
+
+    public function template_product_variations_table()
+    {
+        $options = get_field('repeater_custom_options');
+
+        if (!count($options)) return;
+
+        $prices_db = get_field('prices');
+        $prices = [];
+        foreach ($prices_db as $value) {
+            $value = (float)$value;
+            $value = $value ? number_format($value, 0, '.', ' ') . ' ₽' : '-';
+            $prices[] = $value;
+        }
+
+        ?>
+        <div class="product__row">
+            <div class="container">
+
+                <div class="product__row-title">
+                    <h3>Комплектации</h3>
+                </div>
+
+                <label class="product-table-select">
+                    <select>
+                        <?php foreach ($prices as $key => $price) : ?>
+                            <option value="<?= $key; ?>">2 вариант, <?= $price; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </label>
+
+                <div class="product-table">
+                    <div class="product-table__box box">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Варианты комплектаций</th>
+                                <?php foreach ($prices as $key => $price) : ?>
+                                    <th data-item="<?= $key; ?>">1 вариант <br><b><?= $price; ?></b></th>
+                                <?php endforeach; ?>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($options as $option) : ?>
+                                <?php $attr = $option['product_attributes'] ?? false; ?>
+                                <?php if (!$attr) continue; ?>
+                                <tr>
+                                <td><?= $attr['attribute_label']; ?></td>
+                                <?php foreach ($attr['variants'] as $key => $variant) : ?>
+                                    <?php
+                                    /*
+                                     * <td data-item="1">1 этаж-2,45 м <br>2 этаж-2,3 м</td>
+                                     * <td data-item="1"><s>Оцинкованный профнастил</s><br><b class="text-green">Крашенный
+                                        профнастил в подарок!</b></td>
+                                     *
+                                     */
+                                    ?>
+                                    <td data-item="<?= $key; ?>"><?= $variant['term_label']; ?></td>
+                                <?php endforeach; ?>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <div class="product-table__action">
+                            <a href="#" class="btn btn_bd">Хочу другую комплектацию</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <?php
+    }
+
+    public function template_info_share()
+    {
+        // TODO сделать шаринг
+        global $product;
+        if (!$product instanceof WC_Product) return;
+        echo '<div class="share">';
+
+        /*<div class="share">
             <p class="share__head">Сохранить проект:</p>
             <div class="share__grid">
                 <a href="#" class="share-item ic ic-vk"></a>
@@ -103,11 +164,65 @@ class WC_LT_Single_Product
                 <a href="#" class="share-item ic ic-ok"></a>
                 <a href="#" class="share-item ic ic-pinterest"></a>
             </div>
-        </div>
-        <?php
+        </div>*/
+
+        echo '</div>';
     }
 
-    public function template_info_title() {
+    public function template_info_action()
+    {
+        global $product;
+        if (!$product instanceof WC_Product) return;
+
+        $html = '<div class="product-action">';
+
+        if ($price_html = $product->get_price_html()) {
+            $html .= '<div class="product-action__price">';
+            $html .= '<p class="product-action__price-descr">Цена</p>';
+            $html .= ' <p>от ' . $price_html . '</p>';
+            $html .= '</div>';
+        }
+
+        // TODO Сделать добавление в избранное
+        //$html .= '<a href="#" class="product-action__icon ic ic-heart"></a>';
+
+        $html .= '<div class="product-action__btn">';
+        $html .= '<a href="#" class="btn">Оставить заявку</a>';
+        $html .= '</div>';
+
+        $html .= '</div>';
+
+        echo $html;
+    }
+
+    public function template_info_table()
+    {
+        global $product;
+        if (!$product instanceof WC_Product) return;
+
+        $attr = $product->get_attribute('pa_gabarity');
+        $attributes = $product->get_attributes();
+        $data = $product->get_data();
+
+        echo '<table class="product-info__table">' . PHP_EOL;
+
+        foreach ($attributes as $attr_name => $attribute) {
+            $attr_id = wc_attribute_taxonomy_id_by_name($attr_name);
+            $attribute = wc_get_attribute($attr_id);
+
+            $value = $product->get_attribute($attr_name);
+
+            $html = '<td>' . $attribute->name . '</td>' . PHP_EOL;
+            $html .= '<td>' . $value . '</td>' . PHP_EOL;
+
+            echo '<tr>' . $html . '</tr>' . PHP_EOL;
+        }
+
+        echo '</table>' . PHP_EOL;
+    }
+
+    public function template_info_title()
+    {
         echo '<div class="product-info__title"><h4>Характеристики</h4></div>';
     }
 
@@ -146,21 +261,7 @@ class WC_LT_Single_Product
 
     public function template_gallery()
     {
-        echo '<div class="product-grid__col" style="width: 100%;">';
-        echo '
-<style>
-    .product-grid__col:nth-child(1) {
-    max-width: 100%;
-    flex: 0 0 auto;
-    }
-    .product-gallery {
-    margin: 0 auto;
-    }
-    .product-grid {
-    margin-bottom: 40px;
-    }
-</style>        
-        ';
+        echo '<div class="product-grid__col">';
         $this->get_gallery();
         echo '</div><!--.product-grid__col-->';
     }

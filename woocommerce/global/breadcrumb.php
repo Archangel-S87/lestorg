@@ -22,11 +22,11 @@ if (!defined('ABSPATH')) {
 
 if (!empty($breadcrumb)) {
 
-    echo $wrap_before;
+    echo $wrap_before ?? '';
 
     foreach ($breadcrumb as $key => $crumb) {
 
-        echo $before;
+        echo $before ?? '';
 
         if (!empty($crumb[1]) && sizeof($breadcrumb) !== $key + 1) {
             if (strripos($crumb[0], 'ic-home') !== false) {
@@ -38,13 +38,13 @@ if (!empty($breadcrumb)) {
             echo esc_html($crumb[0]);
         }
 
-        echo $after;
+        echo $after ?? '';
 
         if (sizeof($breadcrumb) !== $key + 1) {
-            echo $delimiter;
+            echo $delimiter ?? '';
         }
     }
 
-    echo $wrap_after;
+    echo $wrap_after ?? '';
 
 }

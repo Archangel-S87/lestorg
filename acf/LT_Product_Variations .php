@@ -30,7 +30,7 @@ class LT_Product_Variations
 
     private function hooks()
     {
-        add_action('admin_init', [$this, 'add_all_fields']);
+        add_action('init', [$this, 'add_all_fields']);
     }
 
     /*
@@ -164,11 +164,9 @@ class LT_Product_Variations
                 $this->get_field_repeater()
             ],
             'location' => $this->get_location_group($cat_slug),
-            'menu_order' => 0,
             'position' => 'normal',
             'label_placement' => 'top',
             'instruction_placement' => 'label',
-            'hide_on_screen' => '',
             'active' => 1
         ];
     }

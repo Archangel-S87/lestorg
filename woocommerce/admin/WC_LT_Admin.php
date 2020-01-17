@@ -67,6 +67,7 @@ class WC_LT_Admin
 
     public function get_product_data_tabs($options)
     {
+        $options['attribute']['label'] = 'Характериситики';
         $options['inventory']['class'] = ['show_if_virtual'];
         $options['shipping']['class'] = ['show_if_virtual'];
         $options['linked_product']['class'] = ['show_if_virtual'];
