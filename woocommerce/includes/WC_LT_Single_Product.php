@@ -67,8 +67,8 @@ class WC_LT_Single_Product
                         <?= $product->get_description(); ?>
                     </div>
                     <div class="action-box">
-                        <a href="#" class="btn">Оставить заявку</a>
-                        <a href="#" class="btn btn_bd">Задать вопрос</a>
+                        <a href="#call-popup" data-popup class="btn">Оставить заявку</a>
+                        <a href="#feedback-popup" data-popup class="btn btn_bd">Задать вопрос</a>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@ class WC_LT_Single_Product
                             </tbody>
                         </table>
                         <div class="product-table__action">
-                            <a href="#" class="btn btn_bd">Хочу другую комплектацию</a>
+                            <a href="#call-popup" data-popup class="btn btn_bd">Хочу другую комплектацию</a>
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@ class WC_LT_Single_Product
         // TODO сделать шаринг
         global $product;
         if (!$product instanceof WC_Product) return;
-        echo '<div class="share">';
+        echo '<div class="share">' . PHP_EOL;
 
         /*<div class="share">
             <p class="share__head">Сохранить проект:</p>
@@ -169,7 +169,7 @@ class WC_LT_Single_Product
             </div>
         </div>*/
 
-        echo '</div>';
+        echo '</div>' . PHP_EOL;
     }
 
     public function template_info_action()
@@ -177,23 +177,23 @@ class WC_LT_Single_Product
         global $product;
         if (!$product instanceof WC_Product) return;
 
-        $html = '<div class="product-action">';
+        $html = '<div class="product-action">' . PHP_EOL;
 
         if ($price_html = $product->get_price_html()) {
-            $html .= '<div class="product-action__price">';
-            $html .= '<p class="product-action__price-descr">Цена</p>';
-            $html .= ' <p>от ' . $price_html . '</p>';
-            $html .= '</div>';
+            $html .= '<div class="product-action__price">' . PHP_EOL;
+            $html .= '<p class="product-action__price-descr">Цена</p>' . PHP_EOL;
+            $html .= ' <p>от ' . $price_html . '</p>' . PHP_EOL;
+            $html .= '</div>' . PHP_EOL;
         }
 
         // TODO Сделать добавление в избранное
         //$html .= '<a href="#" class="product-action__icon ic ic-heart"></a>';
 
-        $html .= '<div class="product-action__btn">';
-        $html .= '<a href="#" class="btn">Оставить заявку</a>';
-        $html .= '</div>';
+        $html .= '<div class="product-action__btn">' . PHP_EOL;
+        $html .= '<a href="#call-popup" data-popup class="btn">Оставить заявку</a>' . PHP_EOL;
+        $html .= '</div>' . PHP_EOL;
 
-        $html .= '</div>';
+        $html .= '</div>' . PHP_EOL;
 
         echo $html;
     }
@@ -226,21 +226,21 @@ class WC_LT_Single_Product
 
     public function template_info_title()
     {
-        echo '<div class="product-info__title"><h4>Характеристики</h4></div>';
+        echo '<div class="product-info__title"><h4>Характеристики</h4></div>' . PHP_EOL;
     }
 
     public function template_wrapper_info_open()
     {
-        echo '<div class="product-grid__col">';
-        echo '<div class="product-info box">';
-        echo '<div class="product-info__wrap">';
+        echo '<div class="product-grid__col">' . PHP_EOL;
+        echo '<div class="product-info box">' . PHP_EOL;
+        echo '<div class="product-info__wrap">' . PHP_EOL;
     }
 
     public function template_wrapper_info_close()
     {
-        echo '</div><!--.product-info__wrap-->';
-        echo '</div><!--.product-info-->';
-        echo '</div><!--.product-grid__col-->';
+        echo '</div><!--.product-info__wrap-->' . PHP_EOL;
+        echo '</div><!--.product-info-->' . PHP_EOL;
+        echo '</div><!--.product-grid__col-->' . PHP_EOL;
     }
 
     private function get_gallery()
@@ -264,19 +264,19 @@ class WC_LT_Single_Product
 
     public function template_gallery()
     {
-        echo '<div class="product-grid__col">';
+        echo '<div class="product-grid__col">' . PHP_EOL;
         $this->get_gallery();
-        echo '</div><!--.product-grid__col-->';
+        echo '</div><!--.product-grid__col-->' . PHP_EOL;
     }
 
     public function template_wrapper_grid_close()
     {
-        echo '</div><!--.product-grid-->';
+        echo '</div><!--.product-grid-->' . PHP_EOL;
     }
 
     public function template_wrapper_grid_open()
     {
-        echo '<div class="product-grid">';
+        echo '<div class="product-grid">' . PHP_EOL;
     }
 
     public function template_title_inn()
@@ -284,10 +284,10 @@ class WC_LT_Single_Product
         global $product;
         if (!$product instanceof WC_Product) return;
 
-        $html = '<div class="title-inn">';
-        $html .= '<h2 class="product_title entry-title">' . get_the_title() . '</h2>';
-        $html .= '<p>' . $product->get_short_description() . '</p>';
-        $html .= '</div>';
+        $html = '<div class="title-inn">' . PHP_EOL;
+        $html .= '<h2 class="product_title entry-title">' . get_the_title() . '</h2>' . PHP_EOL;
+        $html .= '<p>' . $product->get_short_description() . '</p>' . PHP_EOL;
+        $html .= '</div>' . PHP_EOL;
 
         echo $html;
     }

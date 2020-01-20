@@ -1,13 +1,15 @@
 <?php
 
-require_once 'tgm/tgm.php';
-require_once 'cody-framework/admin.php';
+require_once 'libs/tgm/tgm.php';
+require_once 'libs/cody-framework/admin.php';
 require_once 'acf/LT_Product_Variations .php';
 
 require_once 'inc/init.php';
 require_once 'inc/functions-templates.php';
 
 require_once 'woocommerce/functions.php';
+
+require_once 'ajax/functions.php';
 
 
 // Изменяем атрибут class у тега li в меню

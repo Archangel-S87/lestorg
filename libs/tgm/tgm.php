@@ -1,6 +1,6 @@
 <?php
 
-require_once get_template_directory() . '/tgm/class-tgm-plugin-activation.php';
+require_once 'class-tgm-plugin-activation.php';
 
 add_action('tgmpa_register', 'lestorg_register_required_plugins');
 

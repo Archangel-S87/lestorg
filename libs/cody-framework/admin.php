@@ -9,7 +9,7 @@ Version: 1.1.0
 
 /*
  * Include this in head function.php
- * require_once get_template_directory() . '/cody-framework/admin.php';
+ * require_once_once 'admin.php';
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -27,53 +27,42 @@ function cody_framework_include( $wp_customize ) {
 		wp_enqueue_style( 'cf-style', get_template_directory_uri() . '/cody-framework/inc/css.css', '' );
 	}
 
+	require_once 'controls/cody-input.php';
+	require_once 'controls/cody-textarea.php';
+	require_once 'controls/cody-wpeditor.php';
+	require_once 'controls/cody-date-picker.php';
+	require_once 'controls/cody-separator.php';
+	require_once 'controls/cody-select-category.php';
+	require_once 'controls/cody-google-font.php';
+	require_once 'controls/cody-menu.php';
+	require_once 'controls/cody-multi-input.php';
+	require_once 'controls/cody-switch.php';
+	require_once 'controls/cody-post.php';
+	require_once 'controls/cody-notice.php';
+	require_once 'controls/cody-tags.php';
+	require_once 'controls/cody-user.php';
+	require_once 'controls/cody-range-slider.php';
+	require_once 'controls/cody-post-type.php';
+	require_once 'controls/cody-taxonomy.php';
+	require_once 'controls/cody-color.php';
+	require_once 'controls/cody-color-scheme.php';
+	require_once 'controls/cody-slider.php';
 
-
-
-	require get_template_directory() . '/cody-framework/controls/cody-input.php';
-	require get_template_directory() . '/cody-framework/controls/cody-textarea.php';
-	require get_template_directory() . '/cody-framework/controls/cody-wpeditor.php';
-	require get_template_directory() . '/cody-framework/controls/cody-date-picker.php';
-	require get_template_directory() . '/cody-framework/controls/cody-separator.php';
-	require get_template_directory() . '/cody-framework/controls/cody-select-category.php';
-	require get_template_directory() . '/cody-framework/controls/cody-google-font.php';
-	require get_template_directory() . '/cody-framework/controls/cody-menu.php';
-	require get_template_directory() . '/cody-framework/controls/cody-multi-input.php';
-	require get_template_directory() . '/cody-framework/controls/cody-switch.php';
-	require get_template_directory() . '/cody-framework/controls/cody-post.php';
-	require get_template_directory() . '/cody-framework/controls/cody-notice.php';
-	require get_template_directory() . '/cody-framework/controls/cody-tags.php';
-	require get_template_directory() . '/cody-framework/controls/cody-user.php';
-	require get_template_directory() . '/cody-framework/controls/cody-range-slider.php';
-	require get_template_directory() . '/cody-framework/controls/cody-post-type.php';
-	require get_template_directory() . '/cody-framework/controls/cody-taxonomy.php';
-	require get_template_directory() . '/cody-framework/controls/cody-color.php';
-	require get_template_directory() . '/cody-framework/controls/cody-color-scheme.php';
-	require get_template_directory() . '/cody-framework/controls/cody-slider.php';
-
-
-	require get_template_directory() . '/cody-framework/controls/cody-select.php';
-	require get_template_directory() . '/cody-framework/controls/cody-radio-simple.php';
-	require get_template_directory() . '/cody-framework/controls/cody-radio-text.php';
-	require get_template_directory() . '/cody-framework/controls/cody-radio-image.php';
+	require_once 'controls/cody-select.php';
+	require_once 'controls/cody-radio-simple.php';
+	require_once 'controls/cody-radio-text.php';
+	require_once 'controls/cody-radio-image.php';
 	
-	require get_template_directory() . '/cody-framework/controls/cody-icons.php';
-	require get_template_directory() . '/cody-framework/controls/cody-single-image.php';
-	require get_template_directory() . '/cody-framework/controls/cody-multi-image.php';
+	require_once 'controls/cody-icons.php';
+	require_once 'controls/cody-single-image.php';
+	require_once 'controls/cody-multi-image.php';
+
+	require_once 'controls/cody-google-map.php';
 	
-	
-	require get_template_directory() . '/cody-framework/controls/cody-google-map.php';
-	
-	require get_template_directory() . '/cody-framework/controls/cody-work-schedule.php';
+	require_once 'controls/cody-work-schedule.php';
 
 }
 add_action( 'customize_register', 'cody_framework_include' );
-
-
-
-
-
-
 
 
 add_filter( 'cf_add_style', 'cf_add_style_in_head', 10, 1 );

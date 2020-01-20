@@ -75,56 +75,9 @@
 </div><!-- #wrapper -->
 
 <div class="hidden">
-    <div id="call-popup" class="call-popup popup box">
-        <form class="form-box form">
-            <div class="form-box__title">
-                <h5>Специалист свяжется с вами в течении <span class="text-green">30 минут</span></h5>
-            </div>
-            <div class="form-box__subtitle">
-                <p>Оставьте свои контакты, мы перезвоним:</p>
-            </div>
-            <div class="form-item">
-                <i class="form-item__icon ic ic-user"></i>
-                <input type="text" class="form-field" placeholder="Введите Ваше имя" required>
-            </div>
-            <div class="form-item">
-                <i class="form-item__icon ic ic-phone"></i>
-                <input type="tel" class="form-field" placeholder="Введите Ваш телефон" required>
-            </div>
-            <div class="form-action">
-                <button class="btn btn_button">Заказать звонок</button>
-                <label class="form-checkbox">
-                    <input type="checkbox" checked>
-                    <span>Я принимаю условия <a href="#">передачи информации</a></span>
-                </label>
-            </div>
-        </form>
-    </div>
-    <div id="feedback-popup" class="feedback-popup popup box">
-        <form class="form-box form">
-            <div class="form-box__title">
-                <h5>Есть дополнительные вопросы?</h5>
-            </div>
-            <div class="form-box__subtitle">
-                <p>Оставьте свои контакты, мы перезвоним:</p>
-            </div>
-            <div class="form-item">
-                <i class="form-item__icon ic ic-user"></i>
-                <input type="text" class="form-field" placeholder="Введите Ваше имя" required>
-            </div>
-            <div class="form-item">
-                <i class="form-item__icon ic ic-phone"></i>
-                <input type="tel" class="form-field" placeholder="Введите Ваш телефон" required>
-            </div>
-            <div class="form-action">
-                <button class="btn btn_button">Заказать звонок</button>
-                <label class="form-checkbox">
-                    <input type="checkbox" checked>
-                    <span>Я принимаю условия <a href="#">передачи информации</a></span>
-                </label>
-            </div>
-        </form>
-    </div>
+    <?php include_once 'template-parts/parts/popups/call-popup.php'; ?>
+    <?php include_once 'template-parts/parts/popups/feedback-popup.php'; ?>
+    <?php include_once 'template-parts/parts/popups/thanks-popup.php'; ?>
 </div>
 
 <?php wp_footer(); ?>
