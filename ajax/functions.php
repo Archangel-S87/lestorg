@@ -2,7 +2,7 @@
 
 function lt_send_email($message)
 {
-    require_once dirname(__DIR__) . '/libs/mailer/PHP_Mailer.php';
+    require_once LT_PATCH . '/libs/mailer/PHP_Mailer.php';
 
     $mail = new PHP_Mailer();
 

@@ -1,5 +1,7 @@
 <?php
 
+define('LT_PATCH', dirname(__FILE__));
+
 require_once 'libs/tgm/tgm.php';
 require_once 'libs/cody-framework/admin.php';
 require_once 'acf/LT_Product_Variations .php';

@@ -27,3 +27,7 @@ function get_socials_icon_list($items = [], $base_class = '', $container_class =
     $html .= '</div>';
     return $html;
 }
+
+function print_feedback() {
+    include LT_PATCH . '/template-parts/feedback.php';
+}
