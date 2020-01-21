@@ -84,6 +84,7 @@ class WC_LT_Single_Product
 
         $prices_db = get_field('prices');
         $prices = [];
+        $variants_name = ['Домокомплект', 'Под усадку', 'Под ключ'];
         foreach ($prices_db as $value) {
             $value = (float)$value;
             $value = $value ? number_format($value, 0, '.', ' ') . ' ₽' : '-';
@@ -98,22 +99,23 @@ class WC_LT_Single_Product
                     <h3>Комплектации</h3>
                 </div>
 
-                <label class="product-table-select">
-                    <select>
-                        <?php foreach ($prices as $key => $price) : ?>
-                            <option value="<?= $key; ?>">2 вариант, <?= $price; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </label>
-
                 <div class="product-table">
+
+                    <label class="product-table-select">
+                        <select>
+                            <?php foreach ($prices as $key => $price) : ?>
+                                <option value="<?= $key; ?>"><?= $variants_name[$key]; ?>, <?= $price; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </label>
+
                     <div class="product-table__box box">
                         <table>
                             <thead>
                             <tr>
                                 <th>Варианты комплектаций</th>
                                 <?php foreach ($prices as $key => $price) : ?>
-                                    <th data-item="<?= $key; ?>">1 вариант <br><b><?= $price; ?></b></th>
+                                    <th data-item="<?= $key; ?>"><?= $variants_name[$key]; ?> <br><b><?= $price; ?></b></th>
                                 <?php endforeach; ?>
                             </tr>
                             </thead>
@@ -145,8 +147,8 @@ class WC_LT_Single_Product
                             <a href="#call-popup" data-popup class="btn btn_bd">Хочу другую комплектацию</a>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
         <?php
@@ -203,9 +205,7 @@ class WC_LT_Single_Product
         global $product;
         if (!$product instanceof WC_Product) return;
 
-        $attr = $product->get_attribute('pa_gabarity');
         $attributes = $product->get_attributes();
-        $data = $product->get_data();
 
         echo '<table class="product-info__table">' . PHP_EOL;
 
@@ -222,10 +222,14 @@ class WC_LT_Single_Product
         }
 
         echo '</table>' . PHP_EOL;
+
+        echo '</div><!--.product-info__main-->' . PHP_EOL;
     }
 
     public function template_info_title()
     {
+        echo '<div class="product-info__main">' . PHP_EOL;
+
         echo '<div class="product-info__title"><h4>Характеристики</h4></div>' . PHP_EOL;
     }
 

@@ -284,7 +284,7 @@ get_header();
                         </label>
                         <label class="form-item">
                             <i class="form-item__icon ic ic-phone"></i>
-                            <input type="tel" name="Телефон" class="form-field" placeholder="Телефон" required>
+                            <input type="tel" name="Телефон" class="form-field required" placeholder="Телефон">
                         </label>
                         <label class="form-item">
                             <i class="form-item__icon ic ic-mail"></i>

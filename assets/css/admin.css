@@ -1,0 +1,23 @@
+/*
+Дополнительные поля на страницк атрибуты
+ */
+.wrapper-list-categories {
+    margin: 0;
+    padding: 10px;
+    border: #dfdfdf solid 1px;
+    border-radius: 3px;
+    max-height: 200px;
+    overflow: auto;
+    background-color: #fff;
+    max-width: calc(95% - 20px);
+}
+.wrapper-list-categories .children {
+    padding-left: 18px;
+}
+.wrapper-list-categories.add-attribute {
+    margin-bottom: 10px;
+}
+.wrapper-list-categories.edit-attribute {
+    width: 380px;
+}
+

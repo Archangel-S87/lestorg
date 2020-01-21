@@ -19,7 +19,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $wp_query;
+global $woocommerce_loop;
+
+$we = 0;
+
+/*
+<div id="sort_product" class="sort" data-orderby="">
+    <div class="sort__grid">
+        <p class="sort__head">Сортировать по:</p>
+        <div class="sort__wrap">
+            <a href="#" class="sort__item active"><u>Популярности</u></a>
+            <a href="#" class="sort__item"><u>Площади</u></a>
+            <a href="#" class="sort__item"><u>Цене</u></a>
+        </div>
+    </div>
+</div>
+*/
 ?>
+
 <form class="woocommerce-ordering" method="get" style="float: none;">
     <style>
         .woocommerce-ordering {
@@ -39,14 +57,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<input type="hidden" name="paged" value="1" />
 	<?php wc_query_string_form_fields( null, array( 'orderby', 'submit', 'paged', 'product-page' ) ); ?>
 </form>
-
-<!--<div class="sort">-->
-<!--    <div class="sort__grid">-->
-<!--        <p class="sort__head">Сортировать по:</p>-->
-<!--        <div class="sort__wrap">-->
-<!--            <a href="#" class="sort__item active"><u>Популярности</u></a>-->
-<!--            <a href="#" class="sort__item"><u>Площади</u></a>-->
-<!--            <a href="#" class="sort__item"><u>Цене</u></a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->

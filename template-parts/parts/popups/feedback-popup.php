@@ -8,11 +8,11 @@
         </div>
         <label class="form-item">
             <i class="form-item__icon ic ic-user"></i>
-            <input type="text" class="form-field" name="Имя" placeholder="Введите Ваше имя" required>
+            <input type="text" class="form-field required" name="Имя" placeholder="Введите Ваше имя">
         </label>
         <label class="form-item">
             <i class="form-item__icon ic ic-phone"></i>
-            <input type="tel" class="form-field" name="Телефон" placeholder="Введите Ваш телефон" required>
+            <input type="tel" class="form-field required" name="Телефон" placeholder="Введите Ваш телефон">
         </label>
         <div class="form-action">
             <button type="submit" class="btn btn_button">Заказать звонок</button>

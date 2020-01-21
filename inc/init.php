@@ -41,6 +41,11 @@ function lestorg_setup() {
         'footer_menu_1' => 'Нижнее меню 1',
         'footer_menu_2' => 'Нижнее меню 2'
     ]);
+
+    //Хак плагина folder
+    if (get_option('folder_old_plugin_folder_status') < 500) {
+        update_option('folder_old_plugin_folder_status', 500);
+    }
 }
 
 add_filter('upload_mimes', 'upload_allow_types');
@@ -56,9 +61,14 @@ function lestorg_scripts() {
 
     wp_enqueue_script('lestorg-libs', get_theme_file_uri('assets/js/libs.min.js'), ['jquery'], wp_get_theme()->get('Version'));
     wp_enqueue_script('lestorg-scripts', get_theme_file_uri('assets/js/common.js'), ['lestorg-libs'], wp_get_theme()->get('Version'));
-    wp_enqueue_script('lestorg-my-scripts', get_theme_file_uri('assets/js/my-scripts.js'), ['lestorg-scripts'], wp_get_theme()->get('Version'));
 
     wp_enqueue_script('api-maps', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU');
+}
+
+add_action('admin_enqueue_scripts', 'lt_admin_scripts');
+function lt_admin_scripts() {
+    wp_enqueue_style('lt-admin-style', get_theme_file_uri('assets/css/admin.css'), [], wp_get_theme()->get('Version'));
+    wp_enqueue_script('lt-admin-scripts', get_theme_file_uri('assets/js/admin.js'), ['jquery'], wp_get_theme()->get('Version'));
 }
 
 function admin_add_contacts(WP_Customize_Manager $wp_customize) {

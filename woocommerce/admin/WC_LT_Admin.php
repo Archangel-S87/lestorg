@@ -11,12 +11,12 @@ class WC_LT_Admin
         add_action('admin_init', [$this, 'admin_init']);
     }
 
-    private function hooks()
+    public function admin_init()
     {
         /*
-         * Убираю у товаров не нужные флажки
-         * Убираю в списке товаров не нужные пункты сортировки
-         */
+        * Убираю у товаров не нужные флажки
+        * Убираю в списке товаров не нужные пункты сортировки
+        */
         add_filter('product_type_options', [$this, 'product_type_options']);
         add_filter('woocommerce_products_admin_list_table_filters', [$this, 'render_filters']);
         add_filter('product_type_selector', [$this, 'product_type_selector']);
@@ -30,17 +30,6 @@ class WC_LT_Admin
          * Удаляю стандартный метабокс данных и добавляю свой
          */
         add_action('add_meta_boxes', array($this, 'replace_wc_product_data'), 40);
-    }
-
-    public function admin_init()
-    {
-        $this->hooks();
-
-        /*
-         * Фильтр атрибутов на странице редактирования товара.
-         * Возвращает только атрибуты прикреплённые к к категориям товара.
-         */
-
     }
 
     public function product_type_selector($types)
@@ -59,7 +48,7 @@ class WC_LT_Admin
 
     public function replace_wc_product_data()
     {
-        require_once dirname( __FILE__ ) . '/meta-boxes/class-lt-wc-meta-box-product-data.php';
+        require_once dirname(__FILE__) . '/meta-boxes/class-lt-wc-meta-box-product-data.php';
 
         remove_meta_box('woocommerce-product-data', 'product', 'normal');
         add_meta_box('woocommerce-product-data', __('Product data', 'woocommerce'), 'LT_WC_Meta_Box_Product_Data::output', 'product', 'normal', 'high');

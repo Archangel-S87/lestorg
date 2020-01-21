@@ -16,8 +16,7 @@ $wrapper_classes = apply_filters('lt_single_product_gallery_classes', ['product-
 
             <?php foreach ($images as $image) : ?>
                 <div class="swiper-slide">
-                    <a href="<?= $image['sizes']['full']; ?>" class="product-gallery__img img-box">
-                        <img src="<?= $image['sizes']['woocommerce_thumbnail']; ?>" alt="<?= $image['alt']; ?>">
+                    <a href="<?= $image['sizes']['full']; ?>" class="product-gallery__img img-box" style="background-image: url('<?= $image['sizes']['woocommerce_thumbnail']; ?>')">
                     </a>
                 </div>
             <?php endforeach; ?>
@@ -32,8 +31,7 @@ $wrapper_classes = apply_filters('lt_single_product_gallery_classes', ['product-
 
             <?php foreach ($images as $image) : ?>
                 <div class="swiper-slide">
-                    <div class="product-gallery__thumb">
-                        <img src="<?= $image['sizes']['thumbnail']; ?>" alt="<?= $image['alt']; ?>">
+                    <div class="product-gallery__thumb" style="background-image: url('<?= $image['sizes']['thumbnail']; ?>')">
                     </div>
                 </div>
             <?php endforeach; ?>

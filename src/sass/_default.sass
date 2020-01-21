@@ -164,6 +164,22 @@ img
 	h1, h2, h3, h4, h5, h6
 		text-transform: none
 		font-weight: 600
+	ul
+		padding: 0
+		list-style: none
+		text-align: left
+		li
+			position: relative
+			padding-left: 15px
+			&:before
+				content: ''
+				position: absolute
+				top: .6em
+				left: 0
+				width: 6px
+				height: 6px
+				border-radius: 50%
+				background: $c-1
 	&>:first-child
 		margin-top: 0
 	&>:last-child

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<title>Лесторг</title>
+	<meta name="description" content="">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- <meta property="og:image" content="path/to/image.jpg"> -->
+	<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+
+	<!-- CSS Start -->
+	<link rel="stylesheet" href="libs/icomoon/style.css">
+	<link rel="stylesheet" href="css/main.min.css">
+	<!-- CSS End -->
+
+</head>
+
+<body class="">
+
+	<div id="wrapper">
+		<div id="wrapper__wrap">
+
+			<div id="wrapper__overlay"></div>
+
+			<div id="wrapper__main">
+
+				<div class="mob-menu">
+					<div class="mob-menu__wrap">
+
+						<div class="mob-header__grid">
+							<button class="mob-header__toggle" data-close></button>
+							<div class="mob-header__logo">
+								<a href="/" class="logo">
+									<img src="img/logo.svg" alt="">
+								</a>
+							</div>
+							<a href="#" class="favorite-link"><i class="ic ic-favorite"></i><span>0</span></a>
+						</div>
+
+						<ul class="mob-menu__list">
+							<li class="mob-menu__list-dropdown">
+								<a href="#">Дома</a>
+								<ul>
+									<li><a href="#">Дома из профилированного бруса</a></li>
+									<li><a href="#">Дома из клееного бруса</a></li>
+									<li><a href="#">Дома из оцилиндрованного бревна</a></li>
+									<li><a href="#">Каркасные дома</a></li>
+								</ul>
+							</li>
+							<li class="mob-menu__list-dropdown">
+								<a href="#">Бани</a>
+								<ul>
+									<li><a href="#">Пункт 1</a></li>
+									<li><a href="#">Пункт 2</a></li>
+									<li><a href="#">Пункт 3</a></li>
+								</ul>
+							</li>
+							<li class="mob-menu__list-dropdown">
+								<a href="#">Интерьеры и материалы</a>
+								<ul>
+									<li class="mob-menu__list-dropdown">
+										<a href="#">Беседки</a>
+										<ul>
+											<li><a href="#">Из профилированного бруса</a></li>
+											<li><a href="#">Из клееного бруса</a></li>
+											<li><a href="#">Из оцилиндрованного бревна</a></li>
+											<li><a href="#">Каркасные</a></li>
+										</ul>
+									</li>
+									<li class="mob-menu__list-dropdown">
+										<a href="#">Лестницы</a>
+										<ul>
+											<li><a href="#">Пункт 1</a></li>
+											<li><a href="#">Пункт 2</a></li>
+											<li><a href="#">Пункт 3</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Обсада</a></li>
+									<li><a href="#">Окна</a></li>
+									<li><a href="#">Двери</a></li>
+									<li><a href="#">Наличники</a></li>
+									<li class="mob-menu__list-dropdown">
+										<a href="#">Пиломатериалы</a>
+										<ul>
+											<li><a href="#">Пункт 1</a></li>
+											<li><a href="#">Пункт 2</a></li>
+											<li><a href="#">Пункт 3</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><a href="#">Услуги</a></li>
+							<li class="mob-menu__list-icon"><a href="#"><i class="ic ic-calculate"></i> Калькулятор проекта</a></li>
+							<li><a href="#">О нас</a></li>
+							<li><a href="#">Наши работы</a></li>
+							<li><a href="#">Акции</a></li>
+							<li><a href="#">Статьи</a></li>
+							<li><a href="#">Контакты</a></li>
+						</ul>
+
+						<div class="mob-menu__sep"></div>
+
+						<div class="header__phone">
+							<a href="tel:+74951234567" class="header__phone-link">+7 (495) 123-45-67</a><br>
+							<a href="#call-popup" data-popup class="header__phone-call">Заказать звонок</a>
+						</div>
+
+						<div class="mob-menu__messengers">
+							<p class="mob-menu__messengers-head">Или напишите нам:</p>
+							<div class="messengers messengers_small">
+								<div class="messengers__grid">
+									<a href="#" class="messenger-item ic ic-telegram"></a>
+									<a href="#" class="messenger-item ic ic-whatsapp"></a>
+									<a href="#" class="messenger-item ic ic-viber"></a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<header class="header">
+					<div class="container">
+						<div class="header__top">
+							<nav class="header__menu">
+								<ul class="header__menu-list">
+									<li><a href="#">О нас</a></li>
+									<li><a href="#">Наши работы</a></li>
+									<li><a href="#">Акции</a></li>
+									<li><a href="#">Статьи</a></li>
+									<li><a href="#">Контакты</a></li>
+								</ul>
+							</nav>
+							<div class="header__messengers">
+								<div class="messengers messengers_small">
+									<div class="messengers__grid">
+										<a href="#" class="messenger-item ic ic-telegram"></a>
+										<a href="#" class="messenger-item ic ic-whatsapp"></a>
+										<a href="#" class="messenger-item ic ic-viber"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="header__main">
+							<div class="header__logo">
+								<a href="/" class="logo">
+									<img src="img/logo.svg" alt="">
+								</a>
+							</div>
+							<nav class="header__menu">
+								<ul class="header__menu-list">
+									<li class="header__menu-dropdown">
+										<a href="#">Дома</a>
+										<ul>
+											<li><a href="#">Дома из профилированного бруса</a></li>
+											<li><a href="#">Дома из клееного бруса</a></li>
+											<li><a href="#">Дома из оцилиндрованного бревна</a></li>
+											<li><a href="#">Каркасные дома</a></li>
+										</ul>
+									</li>
+									<li class="header__menu-dropdown">
+										<a href="#">Бани</a>
+										<ul>
+											<li><a href="#">Пункт 1</a></li>
+											<li><a href="#">Пункт 2</a></li>
+											<li><a href="#">Пункт 3</a></li>
+										</ul>
+									</li>
+									<li class="header__menu-dropdown">
+										<a href="#">Интерьеры <br>и материалы</a>
+										<ul>
+											<li class="header__menu-dropdown">
+												<a href="#">Беседки</a>
+												<ul>
+													<li><a href="#">Из профилированного бруса</a></li>
+													<li><a href="#">Из клееного бруса</a></li>
+													<li><a href="#">Из оцилиндрованного бревна</a></li>
+													<li><a href="#">Каркасные</a></li>
+												</ul>
+											</li>
+											<li class="header__menu-dropdown">
+												<a href="#">Лестницы</a>
+												<ul>
+													<li><a href="#">Пункт 1</a></li>
+													<li><a href="#">Пункт 2</a></li>
+													<li><a href="#">Пункт 3</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Обсада</a></li>
+											<li><a href="#">Окна</a></li>
+											<li><a href="#">Двери</a></li>
+											<li><a href="#">Наличники</a></li>
+											<li class="header__menu-dropdown">
+												<a href="#">Пиломатериалы</a>
+												<ul>
+													<li><a href="#">Пункт 1</a></li>
+													<li><a href="#">Пункт 2</a></li>
+													<li><a href="#">Пункт 3</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li><a href="#">Услуги</a></li>
+									<li class="header__menu-icon"><a href="#"><i class="ic ic-calculate"></i> Калькулятор <br>проекта</a></li>
+								</ul>
+							</nav>
+							<div class="header__favorite">
+								<a href="#" class="favorite-link"><i class="ic ic-favorite"></i><span>0</span></a>
+							</div>
+							<div class="header__sep"></div>
+							<div class="header__phone">
+								<a href="tel:+74951234567" class="header__phone-link">+7 (495) 123-45-67</a><br>
+								<a href="#call-popup" data-popup class="header__phone-call">Заказать звонок</a>
+							</div>
+						</div>
+					</div>
+				</header>
+
+				<header class="mob-header">
+					<div class="mob-header__wrapper">
+						<div class="mob-header__grid">
+							<button class="mob-header__toggle"></button>
+							<div class="mob-header__logo">
+								<a href="/" class="logo">
+									<img src="img/logo.svg" alt="">
+								</a>
+							</div>
+							<a href="tel:+74951234567" class="mob-header__call ic ic-phone"></a>
+						</div>
+					</div>
+				</header>
+
+				<section class="banner-inn banner-inn_casing overlay-bottom">
+					<div class="container">
+						<div class="banner-inn__title">
+							<h1>Обсада окон и дверей</h1>
+						</div>
+						<div class="banner-inn__grid">
+							<div class="banner-inn__left">
+								<form class="form-box form box">
+									<div class="form-box__title">
+										<h6>Записаться на <span class="text-green">замер</span> и консультацию к нашему <span class="text-green">специалисту</span></h6>
+									</div>
+									<div class="form-item">
+										<i class="form-item__icon ic ic-user"></i>
+										<input type="text" class="form-field required" placeholder="Введите Ваше имя">
+									</div>
+									<div class="form-item">
+										<i class="form-item__icon ic ic-phone"></i>
+										<input type="tel" class="form-field required" placeholder="Введите Ваш телефон">
+									</div>
+									<div class="form-action">
+										<button class="btn btn_button">Оставить заявку</button>
+										<label class="form-checkbox">
+											<input type="checkbox" checked>
+											<span>Я принимаю условия <a href="#">передачи информации</a></span>
+										</label>
+									</div>
+								</form>
+							</div>
+							<div class="banner-inn__right">
+								<div class="banner-inn__img">
+									<img src="img/banner-inn/casing.png" alt="">
+									<div class="banner-inn__box banner-inn__box_gift box">
+										<div class="content">
+											<p>При заказе обсад “под ключ” антисептирование проемов <b class="text-green">В ПОДАРОК</b></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="about-serv overlay-bottom">
+					<div class="container">
+						<div class="title">
+							<h2>Обсада в деревянном доме</h2>
+							<p>Завод Лесторг 30 лет предлагает услуги по изготовлению и монтажу качественной клеевой обсады в Нижнем Новгороде и Нижегородской области. За это время нашими мастерами накоплен огромный опыт воплощения как простых, так и самых сложных
+								индивидуальных проектов. Мы производим установку обсады с использованием уникальной старорусской технологии.</p>
+						</div>
+						<div class="catalog-slider swiper-container">
+							<div class="swiper-wrapper">
+
+								<div class="swiper-slide">
+									<div class="catalog-item catalog-item_about box">
+										<div class="catalog-item__img" style="background-image: url('img/about-serv/as-11.jpg');"></div>
+										<div class="catalog-item__main">
+											<h5 class="catalog-item__head">Оцилиндрованное бревно</h5>
+											<p class="catalog-item__descr">Усадка дома из оцилиндрованного бревна происходит при высыхании бревен и под нагрузкой всего здания. Максимальная усадка происходит в первый год постройки и может доходить до 6-10 процентов в
+												зависимости от конструкции дома и исходной влажности бревен.</p>
+										</div>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="catalog-item catalog-item_about box">
+										<div class="catalog-item__img" style="background-image: url('img/about-serv/as-12.jpg');"></div>
+										<div class="catalog-item__main">
+											<h5 class="catalog-item__head">Профилированный брус</h5>
+											<p class="catalog-item__descr">Профилированный брус, в отличие от цилиндрованного бревна, дает меньшую усадку - до 2-4 см. Самая интенсивная усадка происходит в первые 3 месяца постройки. Зависит усадка не только от степени
+												влажности бруса, но и техники сборки, вида древесины и времени года сборки дома.</p>
+										</div>
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="catalog-item catalog-item_about box">
+										<div class="catalog-item__img" style="background-image: url('img/about-serv/as-13.jpg');"></div>
+										<div class="catalog-item__main">
+											<h5 class="catalog-item__head">Клееный брус</h5>
+											<p class="catalog-item__descr">Наименьшую усадку дают конструкции из клееного бруса — около одного процента. Это достигается благодаря склейке уже просушенных досок в единый брус. И тем ни менее даже при такой минимальной усадке
+												оконные и дверные коробки сильно деформируются.</p>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="swiper-nav">
+								<div class="swiper-button-prev"><i class="ic ic-left"></i></div>
+								<div class="swiper-pagination"></div>
+								<div class="swiper-button-next"><i class="ic ic-right"></i></div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="steps">
+					<div class="container">
+						<div class="title">
+							<h2>Этапы монтажа обсады</h2>
+						</div>
+						<div class="steps__grid">
+
+							<div class="steps__col">
+								<div class="step-item">
+									<p class="step-item__number">01</p>
+									<div class="step-item__box box">
+										<div class="step-item__img" style="background-image: url('img/steps/step-1.jpg');"></div>
+										<div class="step-item__main">
+											<h6 class="step-item__head">Разметка и выпил проемов</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="steps__col">
+								<div class="step-item">
+									<p class="step-item__number">02</p>
+									<div class="step-item__box box">
+										<div class="step-item__img" style="background-image: url('img/steps/step-2.jpg');"></div>
+										<div class="step-item__main">
+											<h6 class="step-item__head">Фрезеровка шипа</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="steps__col">
+								<div class="step-item">
+									<p class="step-item__number">03</p>
+									<div class="step-item__box box">
+										<div class="step-item__img" style="background-image: url('img/steps/step-3.jpg');"></div>
+										<div class="step-item__main">
+											<h6 class="step-item__head">Снятие размеров и производство обсады</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="steps__col">
+								<div class="step-item">
+									<p class="step-item__number">04</p>
+									<div class="step-item__box box">
+										<div class="step-item__img" style="background-image: url('img/steps/step-4.jpg');"></div>
+										<div class="step-item__main">
+											<h6 class="step-item__head">Обработка проемов антисептиком</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="steps__col">
+								<div class="step-item">
+									<p class="step-item__number">05</p>
+									<div class="step-item__box box">
+										<div class="step-item__img" style="background-image: url('img/steps/step-5.jpg');"></div>
+										<div class="step-item__main">
+											<h6 class="step-item__head">Установка обсады в проем</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</section>
+
+				<section class="s-video">
+					<div class="container">
+						<div class="title">
+							<h2>Монтаж обсады</h2>
+						</div>
+						<div class="s-video__wrap">
+							<a href="https://www.youtube.com/watch?v=1Z9pnRRLPfE" data-popup="iframe" class="video-box" style="background-image: url('img/reviews/review-1.jpg');"></a>
+						</div>
+					</div>
+				</section>
+
+				<section class="casing-about">
+					<div class="container">
+						<div class="title">
+							<h2>Что <span class="text-green">нужно знать</span> про обсаду?</h2>
+						</div>
+						<div class="casing-about__box box">
+							<div class="casing-about__img" style="background-image: url('img/casing-about-img.jpg');"></div>
+							<div class="casing-about__main">
+
+								<div class="casing-about__item">
+									<p class="casing-about__item-number text-gradient">01</p>
+									<p class="casing-about__item-text">Исключает возможность деформации</p>
+								</div>
+								<div class="casing-about__item">
+									<p class="casing-about__item-number text-gradient">02</p>
+									<p class="casing-about__item-text">Придает стене дополнительную прочность</p>
+								</div>
+								<div class="casing-about__item">
+									<p class="casing-about__item-number text-gradient">03</p>
+									<p class="casing-about__item-text">Гарантирует долгий срок службы вашего окна</p>
+								</div>
+								<div class="casing-about__item">
+									<p class="casing-about__item-number text-gradient">04</p>
+									<p class="casing-about__item-text">Декоративная составляющая вашего дома</p>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="casing-all">
+					<div class="container">
+						<div class="title">
+							<h2>Всё в одном месте!</h2>
+						</div>
+						<div class="casing-all__box box">
+							<div class="casing-all__wrap">
+								<div class="content">
+									<p>Вы можете заказать обсаду сразу с установкой окон в деревянный дом в нашей компании, что сэкономит массу сил, времени и денег.</p>
+									<p>Выезд технолога и разработка индивидуального проекта <b class="text-green">БЕСПЛАТНО!</b></p>
+								</div>
+								<div class="casing-all__action">
+									<a href="#" class="btn">Оставить заявку</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="tech-about">
+					<div class="container">
+						<div class="title">
+							<h2>Технология обсады проемов</h2>
+							<p>Существует два вида обсады — T-образная и П-образная обсада. В зависимости от пожеланий заказчика и особенностей проемов, применяется тот или иной вариант.</p>
+						</div>
+						<div class="tech-about__grid">
+
+							<div class="tech-about__col">
+								<div class="tech-about-item">
+									<div class="tech-about-item__box box">
+										<div class="tech-about-item__img img-box">
+											<img src="img/tech-about/cas-about-1.png" alt="">
+										</div>
+										<div class="tech-about-item__content content">
+											<h5>Чистовая T-образная обсада (шип-монолит)</h5>
+											<p>Специалисты различают несколько способов изготовления обсады. Один из них – Т-образная окосячка. В случае реализации такого способа в торце оконного или дверного проема вырезается паз, а в боковины окосячки имеют Т-образный профиль. В качестве верхней перемычки обсады (вершника) используется доска толщина которой зависит от выбранного материала для изготовления окосячки. По гребню, имеющемуся на наружной стороне боковины обсады, осуществляется
+												вертикальная подвижка при усадке здания, никак не влияющая на функциональность оконной или дверной конструкции. Значит, Ваши двери, и окна никогда не перекосит и открываться-закрываться они всегда будут без проблем. Такая
+												технология называется «в шип монолит».</p>
+										</div>
+										<div class="tech-about-item__action">
+											<a href="#" class="btn">Оставить заявку</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tech-about__col">
+								<div class="tech-about-item">
+									<div class="tech-about-item__box box">
+										<div class="tech-about-item__img img-box">
+											<img src="img/tech-about/cas-about-2.png" alt="">
+										</div>
+										<div class="tech-about-item__content content">
+											<h5>Чистовая П-образная обсада (в колоду)</h5>
+											<p>Окосячка (обсада) проемов в деревянных домах является не частью украшения здания, а функциональным элементом, гарантирующим безупречную работу окон и дверей, не зависимо от усадки самого сооружения. Обсада надежно защищает установленные внутри неё оконные и дверные конструкции, принимая на себя давление, вызываемое усадкой деревянного сооружения. Существует несколько вариантов выполнения обсады. Один из них – П-образная окосячка. Нашими специалистами накоплен огромный опыт изготовления такой обсады. Эту работу мы выполняем регулярно, ведь деревянное строительство в последние годы переживает настоящий бум.</p>
+										</div>
+										<div class="tech-about-item__action">
+											<a href="#" class="btn">Оставить заявку</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</section>
+
+				<div class="casing-bg overlay-bottom">
+
+					<section class="feedback">
+						<div class="container">
+							<div class="feedback-box box">
+								<div class="feedback-box__wrapper">
+									<div class="feedback-box__wrap">
+										<div class="feedback-box__content">
+											<h3>Нужна консультация?</h3>
+											<p>Подробно расскажем о наших услугах, видах работ и типовых проектах, рассчитаем стоимость и подготовим индивидуальное предложение! </p>
+										</div>
+										<div class="feedback-box__action">
+											<a href="#feedback-popup" data-popup class="btn">Задать вопрос</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section class="casing-catalog">
+						<div class="container">
+
+							<div class="casing-product box">
+								<a href="#" class="casing-product__img" style="background-image: url('img/casing-catalog/casing-product-1.jpg');"></a>
+								<div class="casing-product__content content">
+									<h4 class="head"><a href="#" class="link-head">Арочная обсада</a></h4>
+									<p>В компании “Лесторг” возможно заказать изготовление арочной обсады, для монтажа конструкций изогнутой формы. Это позволит воплотить в жизнь любые дизайнерские идеи при остеклении деревянного дома.Это позволит воплотить в жизнь любые дизайнерские идеи при остеклении деревянного дома.Это позволит воплотить в жизнь любые дизайнерские идеи при остеклении деревянного дома.</p>
+									<p class="casing-product__price">от 3 250 ₽/<small>проем</small></p>
+								</div>
+							</div>
+
+						</div>
+					</section>
+
+					<section class="advantages">
+						<div class="container">
+							<div class="title">
+								<h2>Почему клиенты <span class="text-green">доверяют</span> нам?</h2>
+							</div>
+							<div class="advantages__grid">
+
+								<div class="advantage">
+									<div class="advantage__img">
+										<div class="img-box">
+											<img src="img/advantages/advant-5.png" alt="">
+										</div>
+									</div>
+									<h6 class="advantage__text">Собственное<br>производство</h6>
+								</div>
+								<div class="advantage">
+									<div class="advantage__img">
+										<div class="img-box">
+											<img src="img/advantages/advant-4.png" alt="">
+										</div>
+									</div>
+									<h6 class="advantage__text">Профессиональная<br>команда</h6>
+								</div>
+								<div class="advantage">
+									<div class="advantage__img">
+										<div class="img-box">
+											<img src="img/advantages/advant-3.png" alt="">
+										</div>
+									</div>
+									<h6 class="advantage__text">Работаем “под ключ”</h6>
+								</div>
+								<div class="advantage">
+									<div class="advantage__img">
+										<div class="img-box">
+											<img src="img/advantages/advant-8.png" alt="">
+										</div>
+									</div>
+									<h6 class="advantage__text">Всесезонность</h6>
+								</div>
+
+							</div>
+						</div>
+					</section>
+
+					<section class="cases">
+						<div class="container">
+							<div class="title">
+								<h2>Недавние объекты</h2>
+							</div>
+						</div>
+						<div class="cases-grid">
+							<div class="cases-grid__wrap">
+
+								<div class="cases-grid__col">
+									<a href="#" class="case-item">
+										<div class="case-item__img" style="background-image: url('img/cases/case-1.jpg');"></div>
+										<div class="case-item__content">
+											<div class="case-item__content-wrap">
+												<h6>Двухэтажный дом из бруса с балконами</h6>
+												<p>д. Климотино</p>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="cases-grid__col">
+									<a href="#" class="case-item">
+										<div class="case-item__img" style="background-image: url('img/cases/case-2.jpg');"></div>
+										<div class="case-item__content">
+											<div class="case-item__content-wrap">
+												<h6>Двухэтажный дом из бруса с балконами</h6>
+												<p>д. Климотино</p>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="cases-grid__col">
+									<a href="#" class="case-item">
+										<div class="case-item__img" style="background-image: url('img/cases/case-1.jpg');"></div>
+										<div class="case-item__content">
+											<div class="case-item__content-wrap">
+												<h6>Двухэтажный дом из бруса с балконами</h6>
+												<p>д. Климотино</p>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="cases-grid__col">
+									<a href="#" class="case-item">
+										<div class="case-item__img" style="background-image: url('img/cases/case-2.jpg');"></div>
+										<div class="case-item__content">
+											<div class="case-item__content-wrap">
+												<h6>Двухэтажный дом из бруса с балконами</h6>
+												<p>д. Климотино</p>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="cases-grid__col">
+									<a href="#" class="case-item">
+										<div class="case-item__img" style="background-image: url('img/cases/case-1.jpg');"></div>
+										<div class="case-item__content">
+											<div class="case-item__content-wrap">
+												<h6>Двухэтажный дом из бруса с балконами</h6>
+												<p>д. Климотино</p>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="cases-grid__col">
+									<a href="#" class="case-item">
+										<div class="case-item__img" style="background-image: url('img/cases/case-2.jpg');"></div>
+										<div class="case-item__content">
+											<div class="case-item__content-wrap">
+												<h6>Двухэтажный дом из бруса с балконами</h6>
+												<p>д. Климотино</p>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="cases-grid__col">
+									<a href="#" class="case-item">
+										<div class="case-item__img" style="background-image: url('img/cases/case-1.jpg');"></div>
+										<div class="case-item__content">
+											<div class="case-item__content-wrap">
+												<h6>Двухэтажный дом из бруса с балконами</h6>
+												<p>д. Климотино</p>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="cases-grid__col">
+									<a href="#" class="case-item">
+										<div class="case-item__img" style="background-image: url('img/cases/case-2.jpg');"></div>
+										<div class="case-item__content">
+											<div class="case-item__content-wrap">
+												<h6>Двухэтажный дом из бруса с балконами</h6>
+												<p>д. Климотино</p>
+											</div>
+										</div>
+									</a>
+								</div>
+
+							</div>
+						</div>
+						<div class="container">
+							<div class="action-box">
+								<a href="#" class="btn btn_bd btn_more">Смотреть все проекты</a>
+							</div>
+						</div>
+					</section>
+
+				</div>
+
+			</div><!-- #wrapper__main -->
+
+			<footer class="footer">
+				<div class="container">
+					<div class="footer__grid">
+						<div class="footer__col">
+							<a href="/" class="logo">
+								<img src="img/logo.svg" alt="">
+							</a>
+							<p class="footer__policy"><a href="#">Политика конфедициальности</a></p>
+							<div class="messengers">
+								<div class="messengers__grid">
+									<a href="#" class="messenger-item ic ic-telegram"></a>
+									<a href="#" class="messenger-item ic ic-whatsapp"></a>
+									<a href="#" class="messenger-item ic ic-viber"></a>
+								</div>
+							</div>
+						</div>
+						<div class="footer__col">
+							<ul class="footer__list">
+								<li><a href="#">Дома</a></li>
+								<li><a href="#">Бани</a></li>
+								<li><a href="#">Другие товары</a></li>
+								<li><a href="#">Услуги</a></li>
+								<li><a href="#">Калькулятор проекта</a></li>
+							</ul>
+						</div>
+						<div class="footer__col">
+							<ul class="footer__list">
+								<li><a href="#">Наши работы</a></li>
+								<li><a href="#">Акции</a></li>
+								<li><a href="#">О нас</a></li>
+								<li><a href="#">Контакты</a></li>
+							</ul>
+							<div class="social">
+								<div class="social__grid">
+									<a href="#" class="social-item ic ic-vk"></a>
+									<a href="#" class="social-item ic ic-facebook"></a>
+									<a href="#" class="social-item ic ic-instagram"></a>
+								</div>
+							</div>
+						</div>
+						<div class="footer__col">
+							<div class="footer__phone">
+								<a href="tel:+74951234567" class="footer__phone-link">+7 (495) 123-45-67</a><br>
+								<a href="#call-popup" data-popup class="footer__phone-call">Заказать звонок</a>
+							</div>
+							<div class="footer__contacts">
+								<p class="foot-contact"><i class="ic ic-mark"></i> Нижний Новгород <br>ул. Литвинова 74Б, офис 617</p>
+								<p class="foot-contact"><i class="ic ic-mail"></i> <a href="mailto:lestorg@lesmail.com">lestorg@lesmail.com</a></p>
+							</div>
+						</div>
+					</div>
+					<p class="footer__dev">Разработка сайта: <a href="http://www.minkov-marketing.by/" target="_blank">Minkov Marketing Company</a></p>
+				</div>
+			</footer>
+
+		</div><!-- #wrapper__wrap -->
+	</div><!-- #wrapper -->
+
+	<div class="hidden">
+		<div id="call-popup" class="call-popup popup box">
+			<form class="form-box form">
+				<div class="form-box__title">
+					<h5>Специалист свяжется с вами в течении <span class="text-green">30 минут</span></h5>
+				</div>
+				<div class="form-box__subtitle">
+					<p>Оставьте свои контакты, мы перезвоним:</p>
+				</div>
+				<div class="form-item">
+					<i class="form-item__icon ic ic-user"></i>
+					<input type="text" class="form-field required" placeholder="Введите Ваше имя">
+				</div>
+				<div class="form-item">
+					<i class="form-item__icon ic ic-phone"></i>
+					<input type="tel" class="form-field required" placeholder="Введите Ваш телефон">
+				</div>
+				<div class="form-action">
+					<button class="btn btn_button">Заказать звонок</button>
+					<label class="form-checkbox">
+						<input type="checkbox" checked>
+						<span>Я принимаю условия <a href="#">передачи информации</a></span>
+					</label>
+				</div>
+			</form>
+		</div>
+		<div id="feedback-popup" class="feedback-popup popup box">
+			<form class="form-box form">
+				<div class="form-box__title">
+					<h5>Есть дополнительные вопросы?</h5>
+				</div>
+				<div class="form-box__subtitle">
+					<p>Оставьте свои контакты, мы перезвоним:</p>
+				</div>
+				<div class="form-item">
+					<i class="form-item__icon ic ic-user"></i>
+					<input type="text" class="form-field required" placeholder="Введите Ваше имя">
+				</div>
+				<div class="form-item">
+					<i class="form-item__icon ic ic-phone"></i>
+					<input type="tel" class="form-field required" placeholder="Введите Ваш телефон">
+				</div>
+				<div class="form-action">
+					<button class="btn btn_button">Заказать звонок</button>
+					<label class="form-checkbox">
+						<input type="checkbox" checked>
+						<span>Я принимаю условия <a href="#">передачи информации</a></span>
+					</label>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- JS Start -->
+	<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+	<script src="js/libs.min.js"></script>
+	<script src="js/common.js"></script>
+	<!-- JS End -->
+
+</body>
+
+</html>

@@ -22,7 +22,7 @@ function lt_send_email($message)
     $result = $mail->Send();
 
     wp_send_json([
-        'errors' => $result ? false : 'Mailer Error: ' . $mail->ErrorInfo
+        'errors' => !empty($result) ? false : 'Mailer Error: ' . $mail->ErrorInfo
     ]);
 }
 

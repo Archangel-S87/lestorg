@@ -9,6 +9,7 @@ require_once 'admin/WC_LT_Attributes.php';
 require_once 'includes/WC_LT_Product_Gallery_Images.php';
 require_once 'includes/WC_LT_Loop.php';
 require_once 'includes/WC_LT_Single_Product.php';
+require_once 'includes/WC_LT_Filters.php';
 
 // Получает thumbnail src продукта
 function lt_woocommerce_get_thumbnail_image($size = 'woocommerce_thumbnail', $placeholder = true) {
@@ -87,7 +88,6 @@ function woocommerce_content() {
             return;
         }
 
-        //echo do_shortcode('[woof]');
         do_action('woocommerce_before_shop_loop');
 
         woocommerce_product_loop_start();

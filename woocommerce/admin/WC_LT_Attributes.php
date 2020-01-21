@@ -78,67 +78,30 @@ class WC_LT_Attributes
     public function add_attribute_field_product_categories()
     {
         ?>
-
-<style>
-    .wrapper-list-categories {
-        margin: 0 0 10px;
-        padding: 10px;
-        border: #dfdfdf solid 1px;
-        border-radius: 3px;
-        max-height: 200px;
-        overflow: auto;
-        background-color: #fff;
-        max-width: calc(95% - 20px);
-    }
-    .wrapper-list-categories .children {
-        padding-left: 18px;
-    }
-</style>
-
-<div class="form-field">
-    <label for="list_categories">Список объектов</label>
-    <div class="wrapper-list-categories">
-        <?php $this->render_categories(); ?>
-    </div>
-    <p class="description">Атрибут буден виден на странице товара отмеченой категории</p>
-</div>
-
+        <div class="form-field">
+            <label for="list_categories">Список объектов</label>
+            <div class="wrapper-list-categories add-attribute">
+                <?php $this->render_categories(); ?>
+            </div>
+            <p class="description">Атрибут буден виден на странице товара отмеченой категории</p>
+        </div>
         <?php
     }
 
     public function edit_attribute_field_product_categories()
     {
         ?>
-
-<style>
-    .wrapper-list-categories {
-        margin: 0;
-        padding: 10px;
-        border: #dfdfdf solid 1px;
-        border-radius: 3px;
-        max-height: 200px;
-        overflow: auto;
-        background-color: #fff;
-        width: 380px;
-        max-width: calc(95% - 20px);
-    }
-    .wrapper-list-categories .children {
-        padding-left: 18px;
-    }
-</style>
-
-<tr class="form-field">
-    <th>
-        <label for="list_categories">Список объектов</label>
-    </th>
-    <td>
-        <div class="wrapper-list-categories">
-            <?php $this->render_categories(); ?>
-        </div>
-        <p class="description">Атрибут буден виден на странице товара отмеченой категории</p>
-    </td>
-</tr>
-
+        <tr class="form-field">
+            <th>
+                <label for="list_categories">Список объектов</label>
+            </th>
+            <td>
+                <div class="wrapper-list-categories edit-attribute">
+                    <?php $this->render_categories(); ?>
+                </div>
+                <p class="description">Атрибут буден виден на странице товара отмеченой категории</p>
+            </td>
+        </tr>
         <?php
     }
 }

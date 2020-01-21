@@ -23,6 +23,8 @@ $etazhnost = $_GET['etazhnost'] ?? 1;
 
 $ee = 0;
 
+echo do_shortcode('[woof]');
+
 ?>
 
 <div class="filter box">
@@ -30,11 +32,7 @@ $ee = 0;
         <h3 class="filter__head">Подбор проекта</h3>
         <a href="#" class="filter__del"><i class="ic ic-bin"></i> Сбросить фильтр</a>
     </div>
-    <form class="filter__grid" action="<?= esc_url(home_url()); ?>" role="search" method="get">
-        <input type="hidden" name="s"/>
-        <input type="hidden" name="custom_filter" value="1"/>
-        <input type="hidden" name="post_type" value="product"/>
-        <input type="hidden" name="term" value="product_cat"/>
+    <form id="big_filter_product" class="filter__grid" role="search" action="<?= $current_term_link; ?>">
         <input type="hidden" name="term_id" value="<?= $current_term->term_id; ?>"/>
         <div class="filter__col">
             <div class="filter-item">
