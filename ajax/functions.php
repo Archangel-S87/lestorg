@@ -39,9 +39,9 @@ function lt_ajax_send_forms()
         if (!$name || !$value) continue;
 
         // Только для quiz
+        if ($name == 'other_region') continue;
         if ($value == 'other_region') {
             $value = $data['other_region'] ?? '';
-            unset($data['other_region']);
         }
 
         $message .= ($c = !$c) ? '<tr>' . PHP_EOL : '<tr style="background-color: #f8f8f8;">' . PHP_EOL;

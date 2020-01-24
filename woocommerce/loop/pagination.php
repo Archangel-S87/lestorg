@@ -12,6 +12,11 @@ $format = isset($format) ? $format : '';
 if ($total <= 1) {
     return;
 }
+
+add_filter('next_posts_link_attributes', function ($attrs) {
+    return 'class="pagination__more"';
+});
+
 ?>
 
 <nav class="pagination">
@@ -26,20 +31,20 @@ if ($total <= 1) {
         'next_text' => '<i class="ic ic-last"></i>',
         'type' => 'list',
         'end_size' => 3,
-        'mid_size' => 3,
+        'mid_size' => 3
     )));
+    echo get_next_posts_link('Следующая страница');
     ?>
-<!--    <a href="#" class="pagination__more">Показать еще</a>-->
-<!--    <div class="pagination__count">-->
-<!--        <p class="pagination__count-head">На странице</p>-->
-<!--        <label class="pagination__count-select">-->
-<!--            <select>-->
-<!--                <option>9</option>-->
-<!--                <option>12</option>-->
-<!--                <option>15</option>-->
-<!--                <option>18</option>-->
-<!--                <option>21</option>-->
-<!--            </select>-->
-<!--        </label>-->
-<!--    </div>-->
+    <!--    <div class="pagination__count">-->
+    <!--        <p class="pagination__count-head">На странице</p>-->
+    <!--        <label class="pagination__count-select">-->
+    <!--            <select>-->
+    <!--                <option>9</option>-->
+    <!--                <option>12</option>-->
+    <!--                <option>15</option>-->
+    <!--                <option>18</option>-->
+    <!--                <option>21</option>-->
+    <!--            </select>-->
+    <!--        </label>-->
+    <!--    </div>-->
 </nav>

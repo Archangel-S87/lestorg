@@ -4,8 +4,10 @@ define('LT_PATCH', dirname(__FILE__));
 
 require_once 'libs/tgm/tgm.php';
 require_once 'libs/cody-framework/admin.php';
-require_once 'acf/LT_Product_Variations .php';
+require_once 'acf/init.php';
 
+require_once 'inc/LT_Instance.php';
+require_once 'inc/LT_Hooks.php';
 require_once 'inc/init.php';
 require_once 'inc/functions-templates.php';
 
@@ -44,17 +46,61 @@ function change_body_classes($classes) {
     if (!is_front_page()) {
         $classes[] = 'page-inner';
     }
-    if (is_product_category()) {
-        $classes[] = 'page-catalog';
-    }
     if (is_product()) {
         $classes[] = 'page-product';
+    }
+    if (is_page(['about', 'contacts'])) {
+        $classes[] = 'page-contacts';
     }
     return $classes;
 }
 
 function get_img($file) {
     return get_template_directory_uri() . '/assets/' . $file;
+}
+
+function remove_value_array($value, $arr) {
+    if (!is_array($arr)) return $arr;
+    $arr = array_unique($arr);
+    $key = array_search($value, $arr);
+    if ($key) {
+        unset($arr[$key]);
+    }
+    return $arr;
+}
+
+function get_tag_attr($attrs = [], $echo = true) {
+
+    $str = '';
+
+    foreach ($attrs as $key => $attr) {
+
+        if (!$attr) continue;
+
+        if ($key == 'attrs' && is_array($attr)) {
+            $str_attrs = '';
+            foreach ($attr as $attr_key => $value) {
+                $str_attrs .= $attr_key . '="' . $value . '" ';
+            }
+            $str .= $str_attrs;
+            continue;
+        }
+
+        if (is_array($attr)) {
+            $attr = esc_attr(implode(' ', $attr));
+        }
+
+        $str .= trim($key) . '="' . trim($attr) . '" ';
+
+    }
+
+    $str = trim($str);
+
+    if ($echo) {
+        echo $str;
+    }
+
+    return $str;
 }
 
 /*

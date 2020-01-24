@@ -280,7 +280,7 @@ get_header();
                     <div class="quiz-form__form">
                         <label class="form-item">
                             <i class="form-item__icon ic ic-user"></i>
-                            <input type="text" name="Имя" class="form-field" placeholder="Имя (не обязательно)">
+                            <input type="text" name="Имя" class="form-field" placeholder="Имя">
                         </label>
                         <label class="form-item">
                             <i class="form-item__icon ic ic-phone"></i>
@@ -288,7 +288,7 @@ get_header();
                         </label>
                         <label class="form-item">
                             <i class="form-item__icon ic ic-mail"></i>
-                            <input type="text" name="Email" class="form-field" placeholder="Email (не обязательно)">
+                            <input type="text" name="Email" class="form-field" placeholder="Email">
                         </label>
                         <div class="form-action">
                             <button type="submit" class="btn btn_button">Получить расчет</button>

@@ -6,10 +6,15 @@ require_once 'admin/WC_LT_Admin.php';
 require_once 'admin/functions.php';
 require_once 'admin/WC_LT_Attributes.php';
 
+require_once 'includes/WC_LT_Content.php';
 require_once 'includes/WC_LT_Product_Gallery_Images.php';
-require_once 'includes/WC_LT_Loop.php';
 require_once 'includes/WC_LT_Single_Product.php';
 require_once 'includes/WC_LT_Filters.php';
+
+require_once 'includes/WC_LT_Category.php';
+require_once 'includes/WC_LT_Category_Tabs.php';
+require_once 'includes/WC_LT_Category_Simple.php';
+
 
 // Получает thumbnail src продукта
 function lt_woocommerce_get_thumbnail_image($size = 'woocommerce_thumbnail', $placeholder = true) {
@@ -35,74 +40,24 @@ function lt_woocommerce_get_thumbnail_image($size = 'woocommerce_thumbnail', $pl
     return apply_filters('lt_product_get_image', $image, $product, $size, $image, $placeholder);
 }
 
-/*
- * Меняю вывод breadcrumbs
- */
-add_filter('woocommerce_breadcrumb_defaults', 'replace_breadcrumbs_defaults');
-function replace_breadcrumbs_defaults($args)
-{
-    return [
-        'wrap_before' => '<ul class="breadcrumbs">',
-        'wrap_after' => '</ul>',
-        'before' => '<li>',
-        'after' => '</li>',
-        'home' => _x('Home', 'breadcrumb', 'woocommerce'),
-    ];
+function lt_run_category_template($term_id = 0) {
+    $content = WC_LT_Content::get_instance();
+    $content->set_term($term_id);
+    $category_template = $content->get_class_template();
+    $category_template->run();
+    $GLOBALS['lt_wc_category_template'] = $category_template;
 }
 
-add_filter('woocommerce_get_breadcrumb', 'replace_woocommerce_breadcrumbs');
-function replace_woocommerce_breadcrumbs($breadcrumbs)
-{
-    $breadcrumbs[0][0] = '<i class="ic ic-home"></i> Главная';
-    // Убираю из вывода родительскую категорию
-    if (count($breadcrumbs) > 2) {
-        unset($breadcrumbs[1]);
-        sort($breadcrumbs);
-    }
-    return $breadcrumbs;
+function lt_reset_category_template() {
+    global $lt_wc_category_template;
+    if (!$lt_wc_category_template instanceof WC_LT_Category) return;
+    $lt_wc_category_template->reset();
 }
 
-function woocommerce_content() {
-
-    if (is_singular('product')) {
-
-        while (have_posts()) :
-            the_post();
-            wc_get_template_part('content', 'single-product');
-        endwhile;
-
-    } else {
-
-        if (apply_filters('woocommerce_show_page_title', true)) {
-            $current_term = get_queried_object();
-            if (apply_filters('print_title_tabs_in_category', true, $current_term)) {
-                // Выводит фильтр в категориях товаров
-                wc_get_template('global/title-tabs.php');
-            } else {
-                echo '<div class="title-inn"><h2>' . $current_term->name . '</h2></div>';
-            }
-        }
-
-        if (!woocommerce_product_loop()) {
-            do_action('woocommerce_no_products_found');
-            return;
-        }
-
-        do_action('woocommerce_before_shop_loop');
-
-        woocommerce_product_loop_start();
-
-        if (wc_get_loop_prop('total')) {
-            while (have_posts()) {
-                the_post();
-                wc_get_template_part('content', 'product');
-            }
-        }
-
-        woocommerce_product_loop_end();
-
-        do_action('woocommerce_after_shop_loop');
-
-    }
-
+function set_product_loop_in_swiper($attrs) {
+    $classes = $attrs['class'] ?? [];
+    $classes = remove_value_array('catalog-grid__col', $classes);
+    $classes[] = 'swiper-slide';
+    $attrs['class'] = $classes;
+    return $attrs;
 }

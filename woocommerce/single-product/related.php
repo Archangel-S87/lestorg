@@ -19,8 +19,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-add_filter('woocommerce_product_loop_start', '__return_null');
-add_filter('woocommerce_product_loop_end', '__return_null');
+add_filter('lt_wc_product_wrap_loop', 'set_product_loop_in_swiper', 20);
+
+lt_run_category_template();
 
 if ($related_products ?? []) : ?>
 
@@ -33,27 +34,13 @@ if ($related_products ?? []) : ?>
             <div class="catalog-slider swiper-container">
                 <div class="swiper-wrapper">
 
-                    <?php woocommerce_product_loop_start(); ?>
-
-                    <?php foreach ($related_products as $related_product) : ?>
-
-                        <div class="swiper-slide">
-                            <?php
-                            $post_object = get_post($related_product->get_id());
-
-                            setup_postdata($GLOBALS['post'] =& $post_object);
-
-                            do_action('woocommerce_before_shop_loop_item');
-                            do_action('woocommerce_before_shop_loop_item_title');
-                            do_action('woocommerce_shop_loop_item_title');
-                            do_action('woocommerce_after_shop_loop_item_title');
-                            do_action('woocommerce_after_shop_loop_item');
-                            ?>
-                        </div>
-
-                    <?php endforeach; ?>
-
-                    <?php woocommerce_product_loop_end(); ?>
+                    <?php
+                    foreach ($related_products as $related_product) :
+                        $post_object = get_post($related_product->get_id());
+                        setup_postdata($GLOBALS['post'] =& $post_object);
+                        wc_get_template_part('content', 'product');
+                    endforeach;
+                    ?>
 
                 </div>
                 <div class="swiper-nav">
@@ -67,5 +54,7 @@ if ($related_products ?? []) : ?>
     </div>
 
 <?php endif;
+
+lt_reset_category_template();
 
 wp_reset_postdata();

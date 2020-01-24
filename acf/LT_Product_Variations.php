@@ -1,7 +1,5 @@
 <?php
 
-if (empty(WC_ABSPATH) || !function_exists('acf_add_local_field_group')) return;
-
 /*
  * формирует вариации товаров для различных категорий
  */

@@ -80,8 +80,16 @@ jQuery(document).ready(function ($) {
 
     function mainMapInit() {
 
-        let center = [56.30960728549371, 44.25847738337088];
-        let zoom = 11;
+        const args = {
+            zoom: 11,
+            controls: ['zoomControl']
+        };
+
+        let center = lt_get_map_coordinates();
+        if (Array.isArray(center)) {
+            args['center'] = center;
+        }
+
         let markArgs = {
             iconLayout: 'default#image',
             iconImageHref: 'img/ic-mark.svg',
@@ -90,19 +98,15 @@ jQuery(document).ready(function ($) {
         };
 
         if (window.matchMedia('(max-width: 767px)').matches) {
-            center = [56.32410818951451, 43.99145196679677];
-            zoom = 10;
+            args['center'] = [56.32410818951451, 43.99145196679677];
+            args['zoom'] = 10;
 
             markArgs['iconImageSize'] = [24, 36];
             markArgs['iconImageOffset'] = [-12, -36];
         }
 
         // Создание экземпляра карты.
-        let mainMap = new ymaps.Map('js-main-map', {
-            center: center,
-            zoom: zoom,
-            controls: ['zoomControl'],
-        });
+        let mainMap = new ymaps.Map('js-main-map', args);
 
         // for (let i = 0, l = mainMapPoints.length; i < l; i++) {
         //   let point = mainMapPoints[i];
@@ -470,7 +474,11 @@ jQuery(document).ready(function ($) {
 
     // Tabs
 
-    $('.tabs__item:nth-child(1)').addClass('active');
+    $('.tabs').each(function () {
+        if ($(this).next('.tabs-wrap').length > 0) {
+            $(this).find('.tabs__item').eq(0).addClass('active');
+        }
+    });
 
     $('.tabs__item').click(function () {
         let wrap = $(this).closest('.tabs'),

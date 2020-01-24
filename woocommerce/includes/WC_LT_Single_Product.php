@@ -80,7 +80,7 @@ class WC_LT_Single_Product
     {
         $options = get_field('repeater_custom_options');
 
-        if (!count($options)) return;
+        if (!is_array($options) || !count($options)) return;
 
         $prices_db = get_field('prices');
         $prices = [];
@@ -101,7 +101,7 @@ class WC_LT_Single_Product
 
                 <div class="product-table">
 
-                    <label class="product-table-select">
+                    <label class="product-table__select">
                         <select>
                             <?php foreach ($prices as $key => $price) : ?>
                                 <option value="<?= $key; ?>"><?= $variants_name[$key]; ?>, <?= $price; ?></option>
@@ -115,7 +115,8 @@ class WC_LT_Single_Product
                             <tr>
                                 <th>Варианты комплектаций</th>
                                 <?php foreach ($prices as $key => $price) : ?>
-                                    <th data-item="<?= $key; ?>"><?= $variants_name[$key]; ?> <br><b><?= $price; ?></b></th>
+                                    <th data-item="<?= $key; ?>"><?= $variants_name[$key]; ?> <br><b><?= $price; ?></b>
+                                    </th>
                                 <?php endforeach; ?>
                             </tr>
                             </thead>
@@ -124,21 +125,22 @@ class WC_LT_Single_Product
                                 <?php $attr = $option['product_attributes'] ?? false; ?>
                                 <?php if (!$attr) continue; ?>
                                 <tr>
-                                <td><?= $attr['attribute_label']; ?></td>
-                                <?php foreach ($attr['variants'] as $key => $variant) : ?>
-                                    <?php
-                                    $val = $variant['term_label'];
-                                    switch ($variant['view']) {
-                                        case 'accent' :
-                                            $val = '<b class="text-green">'. $val . '</b>';
-                                            break;
-                                        case 'crossed' :
-                                            $val = '<s>' . $val . '</s>';
-                                            break;
-                                    }
-                                    ?>
-                                    <td data-item="<?= $key; ?>"><?= $val; ?></td>
-                                <?php endforeach; ?>
+                                    <td><?= $attr['attribute_label']; ?></td>
+                                    <?php foreach ($attr['variants'] as $key => $variant) : ?>
+                                        <?php
+                                        $val = $variant['term_label'];
+                                        $view = $variant['view'] ?? '';
+                                        switch ($view) {
+                                            case 'accent' :
+                                                $val = '<b class="text-green">' . $val . '</b>';
+                                                break;
+                                            case 'crossed' :
+                                                $val = '<s>' . $val . '</s>';
+                                                break;
+                                        }
+                                        ?>
+                                        <td data-item="<?= $key; ?>"><?= $val; ?></td>
+                                    <?php endforeach; ?>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>

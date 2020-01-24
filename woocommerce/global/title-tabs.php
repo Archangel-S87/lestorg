@@ -3,7 +3,7 @@
 $current_term = get_queried_object();
 $parent_term = get_term($current_term->parent, 'product_cat');
 
-if (!$parent_term) return;
+if (!$parent_term || is_wp_error($parent_term)) return;
 
 $all_terms = get_term_children($parent_term->term_id, 'product_cat');
 

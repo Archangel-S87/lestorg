@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Все фунции описаны в классе WC_LT_Loop
+ * Все фунции описаны в классах описаных в WC_LT_Content
  */
 
 defined('ABSPATH') || exit;
@@ -9,11 +9,16 @@ defined('ABSPATH') || exit;
 global $product;
 
 // Ensure visibility.
-if (empty($product) || !$product instanceof WC_Product || !$product->is_visible()) return;
+if (!$product || !$product->is_visible()) return;
+
+$attrs = apply_filters('lt_wc_product_wrap_loop', [
+    'class' => wc_get_product_class('', $product)
+]);
 
 ?>
 
-<div <?php wc_product_class('catalog-grid__col', $product); ?>>
+<div <?php get_tag_attr($attrs); ?>>
+
     <?php
     /**
      * Hook: woocommerce_before_shop_loop_item.
@@ -24,46 +29,29 @@ if (empty($product) || !$product instanceof WC_Product || !$product->is_visible(
 
     /**
      * Hook: woocommerce_before_shop_loop_item_title.
-     * Ссылка и картинка
-     * Обёртка для инфы
      *
      * @hooked template_product_link_thumbnail - 5
-     * @hooked template_product_main_open - 10
      */
     do_action('woocommerce_before_shop_loop_item_title');
 
     /**
      * Hook: woocommerce_shop_loop_item_title.
-     * Заголовок и технология
      *
-     * @hooked template_product_title_open - 5
      * @hooked template_product_title - 10
-     * @hooked template_product_cat_desc - 20
-     * @hooked template_div_close - 40
      */
     do_action('woocommerce_shop_loop_item_title');
 
     /**
      * Hook: woocommerce_after_shop_loop_item_title.
-     * Обшая площадь
-     * Краткая информация
-     * Сроки строительства
-     * Кнопка в избранное
-     * Цена
-     *
-     * @hooked template_loop_ploshhad - 5
-     * @hooked template_info - 10
-     * @hooked template_srok_stroitelstva - 20
      */
     do_action('woocommerce_after_shop_loop_item_title');
 
     /**
      * Hook: woocommerce_after_shop_loop_item.
      *
-     * @hooked template_bottom - 1
-     * @hooked template_div_close - 5
-     * @hooked template_div_close - 10
+     * @hooked template_product_close - 10
      */
     do_action('woocommerce_after_shop_loop_item');
     ?>
+
 </div>

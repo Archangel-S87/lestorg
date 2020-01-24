@@ -30,6 +30,15 @@ class WC_LT_Admin
          * Удаляю стандартный метабокс данных и добавляю свой
          */
         add_action('add_meta_boxes', array($this, 'replace_wc_product_data'), 40);
+
+        /*
+         * На странице категории товаров удаляю поле Тип отображения и изображение
+         */
+        if (class_exists('WC_Admin_Taxonomies')) {
+            $wc_admin_taxonomies = WC_Admin_Taxonomies::get_instance();;
+            remove_action('product_cat_add_form_fields', [$wc_admin_taxonomies, 'add_category_fields']);
+            remove_action('product_cat_edit_form_fields', [$wc_admin_taxonomies, 'edit_category_fields']);
+        }
     }
 
     public function product_type_selector($types)

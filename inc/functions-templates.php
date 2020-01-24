@@ -29,5 +29,21 @@ function get_socials_icon_list($items = [], $base_class = '', $container_class =
 }
 
 function print_feedback() {
-    include LT_PATCH . '/template-parts/feedback.php';
+    include LT_PATCH . '/template-parts/parts/other/feedback.php';
+}
+
+function print_company_in_numbers() {
+    include LT_PATCH . '/template-parts/parts/other/company-in-numbers.php';
+}
+
+function print_main_map() {
+    include LT_PATCH . '/template-parts/parts/other/main-map.php';
+}
+
+function print_popular_project() {
+    include LT_PATCH . '/template-parts/parts/other/popular-project.php';
+}
+
+function print_cases() {
+    include LT_PATCH . '/template-parts/parts/other/cases.php';
 }

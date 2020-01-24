@@ -71,6 +71,8 @@ function lt_admin_scripts() {
     wp_enqueue_script('lt-admin-scripts', get_theme_file_uri('assets/js/admin.js'), ['jquery'], wp_get_theme()->get('Version'));
 }
 
+// Настройка контактов
+add_action('customize_register', 'admin_add_contacts');
 function admin_add_contacts(WP_Customize_Manager $wp_customize) {
 
     $wp_customize->add_panel('contacts', [
@@ -151,7 +153,7 @@ function admin_add_contacts(WP_Customize_Manager $wp_customize) {
 
     $wp_customize->add_setting('phone', [
         'type' => 'option',
-         'validate_callback' => 'validate_phone_customize_manager'
+        'validate_callback' => 'validate_phone_customize_manager'
     ]);
     $wp_customize->add_control('phone', [
         'section' => 'other',
@@ -181,8 +183,68 @@ function admin_add_contacts(WP_Customize_Manager $wp_customize) {
         'type' => 'textarea'
     ]);
 
+    $wp_customize->add_setting('coordinates_map_pc', [
+        'type' => 'option'
+    ]);
+    $wp_customize->add_control('coordinates_map_pc', [
+        'section' => 'other',
+        'label' => 'Координаты карты Desktop',
+        'default' => '56.30960728549371, 44.25847738337088',
+        'description' => 'Координаты центра карты Яндекс.'
+    ]);
+
+    $wp_customize->add_setting('coordinates_map_mob', [
+        'type' => 'option'
+    ]);
+    $wp_customize->add_control('coordinates_map_mob', [
+        'section' => 'other',
+        'label' => 'Координаты карты Mobile',
+        'default' => '56.32410818951451, 43.99145196679677',
+        'description' => 'Координаты центра карты Яндекс.'
+    ]);
 }
-add_action('customize_register', 'admin_add_contacts');
+
+// Настройки Главная страница
+add_action('customize_register', 'admin_add_setting_home', 99);
+function admin_add_setting_home(WP_Customize_Manager $wp_customize) {
+
+    $wp_customize->add_panel('lt_front_page', [
+        'title' => 'Главная страница',
+        'description' => 'Секции на главной странице',
+    ]);
+
+    $setting_args = [
+        'type' => 'option'
+    ];
+
+    $wp_customize->add_section('popular_projects', [
+        'title' => 'Популярные проекты',
+        'panel' => 'lt_front_page'
+    ]);
+
+    $terms = get_terms([
+        'taxonomy' => 'product_cat',
+    ]);
+
+    $choices = [];
+    if ($terms && !is_wp_error($terms))  {
+        foreach ($terms as $term) {
+            $choices[$term->term_id] = $term->name;
+        }
+    }
+
+    $wp_customize->add_setting('lt_popular_projects', $setting_args);
+    $wp_customize->add_control(
+        new CF_Select_Control(
+            $wp_customize, 'lt_popular_projects', [
+            'section' => 'popular_projects',
+            'label' => 'Категории',
+            'description' => 'Категорий будут отображаться на главной',
+            'multi' => 1,
+            'choices' => $choices
+        ])
+    );
+}
 
 // Валидирует значения Customize_Manager setting на url
 function validate_url_customize_manager(WP_Error $validity, $value, $setting) {

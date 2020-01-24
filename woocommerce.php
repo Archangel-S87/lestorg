@@ -1,4 +1,16 @@
-<?php get_header(); ?>
+<?php
+
+$WC_LT_Content = WC_LT_Content::get_instance();
+
+get_header();
+
+/**
+ * Hook: lt_before_woocommerce_content
+ *
+ */
+do_action('lt_before_woocommerce_content');
+
+?>
 
 <div class="<?= implode(' ', apply_filters('lt_woocommerce_wrapper_class', ['s-inner'])); ?>">
     <div class="container">
@@ -12,7 +24,7 @@
          */
         do_action('woocommerce_before_main_content');
 
-        woocommerce_content();
+        $WC_LT_Content->woocommerce_content();
 
         /**
          * Hook: woocommerce_after_main_content.
@@ -25,4 +37,13 @@
     </div>
 </div>
 
-<?php get_footer();
+<?php
+
+/**
+ * Hook: lt_after_woocommerce_content
+ *
+ * @hooked print_bottom_wc_archive - 10
+ */
+do_action('lt_after_woocommerce_content');
+
+get_footer();

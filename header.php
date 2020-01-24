@@ -6,12 +6,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+    <script>
+        function lt_get_map_coordinates() {
+            <?php $cords = get_option('coordinates_map_pc'); ?>
+            let cords = <?= ($cords ? '[' . $cords . ']' : 0); ?>;
+            if (window.matchMedia('(max-width: 767px)').matches) {
+                <?php $cords = get_option('coordinates_map_mob'); ?>
+                let mob = <?= ($cords ? '[' . $cords . ']' : 0); ?>;
+                cords = mob ? mob : cords;
+            }
+            if (cords) return cords;
+            return null;
+        }
+    </script>
+
     <?php wp_head(); ?>
 
     <meta name="description" content="<?php bloginfo('description'); ?>">
 
 </head>
 <body <?php body_class(); ?>>
+
+<?php
+// TODO Исправить вывод меню для мобилки!
+?>
 
 <div id="wrapper">
     <div id="wrapper__wrap">
@@ -31,7 +49,9 @@
                                      alt="<?php bloginfo('name') ?>">
                             </a>
                         </div>
-                        <a href="#" class="favorite-link"><i class="ic ic-favorite"></i><span>0</span></a>
+                        <?php /*
+    <a href="#" class="favorite-link"><i class="ic ic-favorite"></i><span>0</span></a>
+ */ ?>
                     </div>
 
                     <?php if (has_nav_menu('main_header_menu')):
@@ -110,10 +130,16 @@
                             ]);
                         endif; ?>
 
-                        <div class="header__favorite">
+                        <?php
+                        /*
+                        // TODO Добавить избранное
+
+                            <div class="header__favorite">
                             <a href="#" class="favorite-link"><i class="ic ic-favorite"></i><span>0</span></a>
                         </div>
+                        */
 
+                        ?>
                         <div class="header__sep"></div>
 
                         <div class="header__phone">
