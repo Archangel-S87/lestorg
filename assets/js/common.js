@@ -18,7 +18,7 @@ jQuery(document).ready(function ($) {
     $('.form-box').submit(send_email_forms);
     $('.quiz-form').submit(send_email_forms);
 
-    function send_email_forms($er) {
+    function send_email_forms() {
         const form = $(this);
 
         let error = 0;
@@ -76,62 +76,6 @@ jQuery(document).ready(function ($) {
 
     function numberFormat(number) {
         return (number < 10) ? '0' + number : number;
-    }
-
-    function mainMapInit() {
-
-        const args = {
-            zoom: 11,
-            controls: ['zoomControl']
-        };
-
-        let center = lt_get_map_coordinates();
-        if (Array.isArray(center)) {
-            args['center'] = center;
-        }
-
-        let markArgs = {
-            iconLayout: 'default#image',
-            iconImageHref: 'img/ic-mark.svg',
-            iconImageSize: [39, 56],
-            iconImageOffset: [-20, -56]
-        };
-
-        if (window.matchMedia('(max-width: 767px)').matches) {
-            args['center'] = [56.32410818951451, 43.99145196679677];
-            args['zoom'] = 10;
-
-            markArgs['iconImageSize'] = [24, 36];
-            markArgs['iconImageOffset'] = [-12, -36];
-        }
-
-        // Создание экземпляра карты.
-        let mainMap = new ymaps.Map('js-main-map', args);
-
-        // for (let i = 0, l = mainMapPoints.length; i < l; i++) {
-        //   let point = mainMapPoints[i];
-        //   mainMap.geoObjects.add();
-        // }
-
-        $.each(mainMapPoints, function (i, point) {
-
-            let placemark = new ymaps.Placemark(point.coord, {
-                hintContent: point.head
-            }, markArgs);
-
-            mainMap.geoObjects.add(placemark);
-
-            placemark.events.add('click', function () {
-                document.location.href = point.link;
-            });
-
-        });
-
-        mainMap.behaviors.disable('scrollZoom');
-    }
-
-    if ($("#js-main-map").length > 0) {
-        ymaps.ready(mainMapInit);
     }
 
     $('.mob-header, .mob-header__wrapper').matchHeight({

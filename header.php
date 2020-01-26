@@ -6,20 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <script>
-        function lt_get_map_coordinates() {
-            <?php $cords = get_option('coordinates_map_pc'); ?>
-            let cords = <?= ($cords ? '[' . $cords . ']' : 0); ?>;
-            if (window.matchMedia('(max-width: 767px)').matches) {
-                <?php $cords = get_option('coordinates_map_mob'); ?>
-                let mob = <?= ($cords ? '[' . $cords . ']' : 0); ?>;
-                cords = mob ? mob : cords;
-            }
-            if (cords) return cords;
-            return null;
-        }
-    </script>
-
     <?php wp_head(); ?>
 
     <meta name="description" content="<?php bloginfo('description'); ?>">

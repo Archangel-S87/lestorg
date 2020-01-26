@@ -4,7 +4,6 @@ if (empty(WC_ABSPATH)) return;
 
 require_once 'admin/WC_LT_Admin.php';
 require_once 'admin/functions.php';
-require_once 'admin/WC_LT_Attributes.php';
 
 require_once 'includes/WC_LT_Content.php';
 require_once 'includes/WC_LT_Product_Gallery_Images.php';
@@ -60,4 +59,13 @@ function set_product_loop_in_swiper($attrs) {
     $classes[] = 'swiper-slide';
     $attrs['class'] = $classes;
     return $attrs;
+}
+
+function get_top_parent_id_product_cat($category_id) {
+    do {
+        $cat = get_term($category_id, 'product_cat');
+        $category_id = $cat->parent;
+        $category_parent_id = $cat->term_id;
+    } while ($category_id);
+    return $category_parent_id;
 }

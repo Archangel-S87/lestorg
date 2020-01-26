@@ -1,5 +1,10 @@
 <?php
 
+/*
+ * Настройка Основного метабокса товара
+ */
+
+
 class LT_WC_Meta_Box_Product_Data extends WC_Meta_Box_Product_Data
 {
     const wc_path_meta_box = WC_ABSPATH . 'includes/admin/meta-boxes/';
@@ -20,12 +25,48 @@ class LT_WC_Meta_Box_Product_Data extends WC_Meta_Box_Product_Data
     {
         global $post, $thepostid, $product_object;
 
-        include self::wc_path_meta_box . 'views/html-product-data-general.php';
+        if (self::check_replace_data_general()) {
+            include 'views/html-product-data-general.php';
+        } else {
+            include self::wc_path_meta_box . 'views/html-product-data-general.php';
+        }
+
         include self::wc_path_meta_box . 'views/html-product-data-inventory.php';
         include self::wc_path_meta_box . 'views/html-product-data-shipping.php';
         include self::wc_path_meta_box . 'views/html-product-data-linked-products.php';
         include 'views/html-product-data-attributes.php';
         include self::wc_path_meta_box . 'views/html-product-data-advanced.php';
+    }
+
+    public static function save_custom_fields(WC_Product $product)
+    {
+        if ($locality = $_POST['_locality_project'] ?? '') {
+            $product->update_meta_data('locality_project', $locality);
+        }
+        if ($cords = $_POST['_cords_project'] ?? '') {
+            $product->update_meta_data('cords_project', $cords);
+        }
+    }
+
+    /**
+     * Проверяет относиться ли товар к категории наши проекты
+     *
+     * @return boolean
+     */
+    private static function check_replace_data_general()
+    {
+        global $post;
+
+        $product = wc_get_product($post);
+
+        $cats = $product->get_category_ids();
+        $cat_id = $cats[0] ?? 0;
+        if (!$cat_id) return false;
+
+        $cat_parent_id = get_top_parent_id_product_cat($cat_id);
+        $cat = get_term($cat_parent_id, 'product_cat');
+
+        return $cat->slug == 'completed';
     }
 
     private static function lt_get_product_type_options() {
@@ -116,5 +157,4 @@ class LT_WC_Meta_Box_Product_Data extends WC_Meta_Box_Product_Data
 
         return $a['priority'] < $b['priority'] ? -1 : 1;
     }
-
 }

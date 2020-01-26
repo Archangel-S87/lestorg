@@ -61,8 +61,6 @@ function lestorg_scripts() {
 
     wp_enqueue_script('lestorg-libs', get_theme_file_uri('assets/js/libs.min.js'), ['jquery'], wp_get_theme()->get('Version'));
     wp_enqueue_script('lestorg-scripts', get_theme_file_uri('assets/js/common.js'), ['lestorg-libs'], wp_get_theme()->get('Version'));
-
-    wp_enqueue_script('api-maps', 'https://api-maps.yandex.ru/2.1/?lang=ru_RU');
 }
 
 add_action('admin_enqueue_scripts', 'lt_admin_scripts');

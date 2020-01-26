@@ -16,7 +16,7 @@ $wrapper_classes = apply_filters('lt_single_product_gallery_classes', ['product-
 
             <?php foreach ($images as $image) : ?>
                 <div class="swiper-slide">
-                    <a href="<?= $image['sizes']['full']; ?>" class="product-gallery__img img-box" style="background-image: url('<?= $image['sizes']['woocommerce_thumbnail']; ?>')">
+                    <a href="<?= $image['sizes']['full']; ?>" class="product-gallery__img img-box" style="background-image: url('<?= $image['sizes']['woocommerce_single']; ?>')">
                     </a>
                 </div>
             <?php endforeach; ?>

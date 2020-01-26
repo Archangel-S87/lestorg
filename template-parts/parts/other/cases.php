@@ -38,8 +38,7 @@ if (!$posts) return;
                         <div class="case-item__content">
                             <div class="case-item__content-wrap">
                                 <h6><?= $product->get_title(); ?></h6>
-                                <?php // TODO Вывести населённый пункт ?>
-                                <!--<p>д. Климотино</p>-->
+                                <p><?= $product->get_meta('locality_project'); ?></p>
                             </div>
                         </div>
                     </a>

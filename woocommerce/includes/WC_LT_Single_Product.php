@@ -255,7 +255,7 @@ class WC_LT_Single_Product
 
         $gallery = new WC_LT_Product_Gallery_Images($product, [
             'thumbnail',
-            'woocommerce_thumbnail',
+            'woocommerce_single',
             'full'
         ]);
 
@@ -297,7 +297,6 @@ class WC_LT_Single_Product
 
         echo $html;
     }
-
 }
 
 $WC_LT_Single_Product = new WC_LT_Single_Product();

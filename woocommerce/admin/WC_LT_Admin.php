@@ -13,6 +13,18 @@ class WC_LT_Admin
 
     public function admin_init()
     {
+        $this->include();
+        $this->hooks();
+    }
+
+    public function include()
+    {
+        require_once dirname(__FILE__) . '/meta-boxes/class-lt-wc-meta-box-product-data.php';
+        require_once 'WC_LT_Attributes.php';
+    }
+
+    public function hooks()
+    {
         /*
         * Убираю у товаров не нужные флажки
         * Убираю в списке товаров не нужные пункты сортировки
@@ -21,15 +33,14 @@ class WC_LT_Admin
         add_filter('woocommerce_products_admin_list_table_filters', [$this, 'render_filters']);
         add_filter('product_type_selector', [$this, 'product_type_selector']);
 
-        /*
-         * Настройка основного метабокса товара
-         */
+        // Настройка основного метабокса товара
         add_filter('woocommerce_product_data_tabs', [$this, 'get_product_data_tabs']);
 
-        /*
-         * Удаляю стандартный метабокс данных и добавляю свой
-         */
+        // Удаляю стандартный метабокс данных и добавляю свой
         add_action('add_meta_boxes', array($this, 'replace_wc_product_data'), 40);
+
+        // Сохранение метабоксов
+        add_action('woocommerce_admin_process_product_object', 'LT_WC_Meta_Box_Product_Data::save_custom_fields');
 
         /*
          * На странице категории товаров удаляю поле Тип отображения и изображение
@@ -38,7 +49,38 @@ class WC_LT_Admin
             $wc_admin_taxonomies = WC_Admin_Taxonomies::get_instance();;
             remove_action('product_cat_add_form_fields', [$wc_admin_taxonomies, 'add_category_fields']);
             remove_action('product_cat_edit_form_fields', [$wc_admin_taxonomies, 'edit_category_fields']);
+            // Удаляю излбражения из таблицы
+            remove_filter('manage_edit-product_cat_columns', [$wc_admin_taxonomies, 'product_cat_columns']);
+            remove_filter('manage_product_cat_custom_column', [$wc_admin_taxonomies, 'product_cat_column']);
         }
+
+        /*
+         * На странице категорий добавляю в таблицу колонку с названием шаблона
+         */
+        add_filter('manage_edit-product_cat_columns', [$this, 'product_cat_columns']);
+        add_filter('manage_product_cat_custom_column', [$this, 'product_cat_column'], 10, 3);
+    }
+
+    public function product_cat_columns($columns)
+    {
+        $posts = $columns['posts'] ?? '';
+        $columns['template'] = 'Шаблон';
+        if ($posts) {
+            unset($columns['posts']);
+            $columns['posts'] = $posts;
+        }
+        $columns['handle'] = '';
+        return $columns;
+    }
+
+    public function product_cat_column($columns, $column, $id)
+    {
+        if ($column == 'template') {
+            $field = get_field_object('category_template', 'product_cat_' . $id);
+            $val = $field['choices'][$field['value']] ?? '';
+            $columns .= "<span>{$val}</span>";
+        }
+        return $columns;
     }
 
     public function product_type_selector($types)
@@ -57,10 +99,15 @@ class WC_LT_Admin
 
     public function replace_wc_product_data()
     {
-        require_once dirname(__FILE__) . '/meta-boxes/class-lt-wc-meta-box-product-data.php';
+        global $wp_meta_boxes;
 
         remove_meta_box('woocommerce-product-data', 'product', 'normal');
         add_meta_box('woocommerce-product-data', __('Product data', 'woocommerce'), 'LT_WC_Meta_Box_Product_Data::output', 'product', 'normal', 'high');
+
+        // Сортировка метабоксов
+        // Метабокс ACF должне быть после Данных товара
+        $high = $wp_meta_boxes['product']['normal']['high'];
+        $wp_meta_boxes['product']['normal']['high'] = array_reverse($high);
     }
 
     public function get_product_data_tabs($options)
