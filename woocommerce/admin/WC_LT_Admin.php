@@ -6,6 +6,11 @@
 
 class WC_LT_Admin
 {
+    // Список атрибутов для сортировки
+    public $sort_attributes = [
+        'pa_ploshhad'
+    ];
+
     public function __construct()
     {
         add_action('admin_init', [$this, 'admin_init']);
@@ -39,8 +44,13 @@ class WC_LT_Admin
         // Удаляю стандартный метабокс данных и добавляю свой
         add_action('add_meta_boxes', array($this, 'replace_wc_product_data'), 40);
 
-        // Сохранение метабоксов
+        /*
+         * Сохранение метабоксов
+         */
+        // Сохранение местоположения объекта
         add_action('woocommerce_admin_process_product_object', 'LT_WC_Meta_Box_Product_Data::save_custom_fields');
+        // Сохранение атрибутов участвующих в сортировке
+        add_action('woocommerce_admin_process_product_object', [$this, 'save_order_by_attributes']);
 
         /*
          * На странице категории товаров удаляю поле Тип отображения и изображение
@@ -59,6 +69,36 @@ class WC_LT_Admin
          */
         add_filter('manage_edit-product_cat_columns', [$this, 'product_cat_columns']);
         add_filter('manage_product_cat_custom_column', [$this, 'product_cat_column'], 10, 3);
+    }
+
+    // TODO Запускать для пересохранения всех товаров!
+    public function save_all_products()
+    {
+        $posts = get_posts([
+            'numberposts' => -1,
+            'post_type' => 'product',
+        ]);
+        foreach ($posts as $post) {
+            $product = wc_get_product($post);
+            $product->save();
+        }
+    }
+
+    public function save_order_by_attributes(WC_Product $product)
+    {
+        foreach ($_POST['attribute_names'] as $index => $value) {
+            if (!in_array($value, $this->sort_attributes)) continue;
+
+            $attribute_id = $_POST['attribute_values'][$index][0] ?? 0;
+            $term = get_term($attribute_id, $value);
+            if (is_wp_error($term)) continue;
+
+            preg_match('/^([\d.]+)/', $term->name, $match);
+            $attribute_values = $match[0] ?? 0;
+            if (!$attribute_values) continue;
+
+            $product->update_meta_data('order_' . $value, $attribute_values);
+        }
     }
 
     public function product_cat_columns($columns)
@@ -102,7 +142,7 @@ class WC_LT_Admin
         global $wp_meta_boxes;
 
         remove_meta_box('woocommerce-product-data', 'product', 'normal');
-        add_meta_box('woocommerce-product-data', __('Product data', 'woocommerce'), 'LT_WC_Meta_Box_Product_Data::output', 'product', 'normal', 'high');
+        add_meta_box('woocommerce-product-data', 'Данные проекта', 'LT_WC_Meta_Box_Product_Data::output', 'product', 'normal', 'high');
 
         // Сортировка метабоксов
         // Метабокс ACF должне быть после Данных товара

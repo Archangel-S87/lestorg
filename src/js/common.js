@@ -404,7 +404,11 @@ jQuery(document).ready(function ($) {
             slidesPerView: 4,
             spaceBetween: 10,
             mousewheel: true,
-            centerInsufficientSlides: true
+            centerInsufficientSlides: true,
+            navigation: {
+                prevEl: '.swiper-button-prev',
+                nextEl: '.swiper-button-next',
+            },
         });
         if ($(productThumbsSlider.params.el).length > 0 && $(productSlider.params.el).length > 0) {
             productSlider.on('slideChange init', function () {

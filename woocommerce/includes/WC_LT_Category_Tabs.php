@@ -8,6 +8,33 @@ class WC_LT_Category_Tabs extends WC_LT_Category
 {
     use LT_Instance;
 
+    protected $catalog_orderby = [
+        'popularity' => 'Популярности', // TODO Заменить total_view. Сейчас ищет по полю total_sales
+        'popularity-desc' => '',
+        'ploshhad' => 'Площади',
+        'ploshhad-desc' => '',
+        'price' => 'Цене',
+        'price-desc' => ''
+    ];
+
+    public function __construct()
+    {
+        /*
+         * Сортировка товаров
+         */
+        $this->add_filter('woocommerce_catalog_orderby', [$this, 'catalog_orderby']);
+        $this->add_filter('woocommerce_get_catalog_ordering_args', [$this, 'get_catalog_ordering_args'], 10, 3);
+    }
+
+    public function get_catalog_ordering_args($args, $orderby, $order)
+    {
+        if ($orderby == 'ploshhad') {
+            $args['orderby'] = 'meta_value_num';
+            $args['meta_key'] = 'order_pa_ploshhad';
+        }
+        return $args;
+    }
+
     public function run()
     {
         parent::run();
@@ -32,6 +59,7 @@ class WC_LT_Category_Tabs extends WC_LT_Category
         /*
          * Сортировка TODO Сделать сортировку как в макете
          */
+
 
         /*
          * Вид карточки товара
@@ -199,8 +227,10 @@ class WC_LT_Category_Tabs extends WC_LT_Category
                 <?php endif; ?>
             </ul>
             <div class="catalog-item__bottom">
-                <?php // TODO Сделать добавление в избранное ?>
-                <?php // <a href="#" class="catalog-item__icon active"><i class="ic ic-heart-full"></i></a> ?>
+                <?php // TODO Сделать добавление в избранное
+                ?>
+                <?php // <a href="#" class="catalog-item__icon active"><i class="ic ic-heart-full"></i></a>
+                ?>
                 <?php if ($price_html) : ?>
                     <p class="catalog-item__price">от <?= $price_html; ?></p>
                 <?php endif; ?>

@@ -390,7 +390,11 @@ jQuery(document).ready(function ($) {
             slidesPerView: 4,
             spaceBetween: 10,
             mousewheel: true,
-            centerInsufficientSlides: true
+            centerInsufficientSlides: true,
+            navigation: {
+                prevEl: '.swiper-button-prev',
+                nextEl: '.swiper-button-next',
+            }
         });
         if ($(productThumbsSlider.params.el).length > 0 && $(productSlider.params.el).length > 0) {
             productSlider.on('slideChange init', function () {
@@ -474,17 +478,32 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    $('.sort__item').click(function () {
-        let wrap = $(this).closest('.sort');
-        if ($(this).hasClass('active')) {
-            $(this).toggleClass('active_2');
+    /*
+    Сортировка товаров
+     */
+    $('.sort__item').on('click', function () {
+        const item = $(this),
+            form = item.closest('.sort'),
+            orderBy = item.attr('data-orderby');
+        let order = '-desc';
+
+        if (item.hasClass('active')) {
+            item.toggleClass('active_2');
+            if (item.hasClass('active_2')) {
+                order = '';
+            }
         } else {
-            wrap.find('.sort__item').removeClass('active active_2');
-            $(this).addClass('active');
+            form.find('.sort__item').removeClass('active active_2');
+            item.addClass('active');
         }
+
+        $('#sort_product_input').val(orderBy + order);
+
+        form.submit();
+
         return false;
     });
-    $('.sort__item:nth-of-type(1)').addClass('active');
+
 
     $('.product-table__select select').change(function () {
         let table = $(this).closest('.product-table');
@@ -566,6 +585,13 @@ jQuery(document).ready(function ($) {
     });
     $('.price-tabs__toggle button:nth-child(1)').addClass('active');
 
+
+    /*
+    Пагинация
+     */
+    $('#pagination_count_select').on('change', function() {
+        $(this).closest('#pagination_count').submit();
+    });
 
     /*
     Большой фильтр

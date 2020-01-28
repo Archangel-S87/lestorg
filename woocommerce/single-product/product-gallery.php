@@ -37,6 +37,10 @@ $wrapper_classes = apply_filters('lt_single_product_gallery_classes', ['product-
             <?php endforeach; ?>
 
         </div>
+
+        <div class="swiper-button-prev"><i class="ic ic-left"></i></div>
+        <div class="swiper-button-next"><i class="ic ic-right"></i></div>
+
     </div>
 
 </div>

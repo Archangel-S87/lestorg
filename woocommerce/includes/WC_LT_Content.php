@@ -9,7 +9,7 @@ class WC_LT_Content
     use LT_Instance;
 
     private $term_id = 0;
-    private $template = '';
+    private $class_template = null;
 
     protected function __construct()
     {
@@ -22,6 +22,16 @@ class WC_LT_Content
         add_filter('woocommerce_breadcrumb_defaults', [$this, 'replace_breadcrumbs_defaults']);
         // Убираю из вывода родительскую категорию
         add_filter('woocommerce_get_breadcrumb', [$this, 'replace_woocommerce_breadcrumbs']);
+
+        // Определяю каой шаблон применить на страницах категорий
+        add_action('woocommerce_product_query', [$this, 'product_query'], 10, 2);
+    }
+
+    public function product_query(WP_Query $query, WC_Query $wc_query)
+    {
+        $class_template = $this->get_class_template();
+        $class_template->set_loop($query, $wc_query);
+        $class_template->run();
     }
 
     /**
@@ -46,10 +56,14 @@ class WC_LT_Content
     }
 
     /**
-     * @return WC_LT_Category_Simple|WC_LT_Category_Tabs|null
+     * @return WC_LT_Category_Simple | WC_LT_Category_Tabs | null
      */
     public function get_class_template()
     {
+        if ($this->class_template) {
+            return $this->class_template;
+        }
+
         if (!$this->term_id) {
             $current_term = get_queried_object();
             $this->term_id = $current_term->term_id ?? 0;
@@ -61,20 +75,18 @@ class WC_LT_Content
 
         switch ($template) {
             case 'tabs' :
-                $class_template = WC_LT_Category_Tabs::get_instance();
+                $this->class_template = WC_LT_Category_Tabs::get_instance();
                 break;
             case 'sidebar' :
-                $class_template = null;
+                $this->class_template = null;
                 break;
             default :
-                $class_template = WC_LT_Category_Simple::get_instance();
+                $this->class_template = WC_LT_Category_Simple::get_instance();
         }
 
-        $this->template = $template ? 'category-' . $template : 'product';
+        $this->class_template->set_term($current_term);
 
-        $class_template->set_term($current_term);
-
-        return $class_template;
+        return $this->class_template;
     }
 
     public function woocommerce_content()
@@ -90,9 +102,6 @@ class WC_LT_Content
         }
 
         if (is_product_category()) {
-
-            $class_template = $this->get_class_template();
-            $class_template->run();
 
             do_action('woocommerce_before_shop_loop');
 

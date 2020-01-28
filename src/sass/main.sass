@@ -2381,6 +2381,29 @@
 			cursor: zoom-in
 	&__thumbs
 		margin-top: 10px
+		&:hover
+			.swiper-button-prev,
+			.swiper-button-next
+				transform: none
+		.swiper-button-prev,
+		.swiper-button-next
+			color: #fff
+			&:before
+				opacity: 1
+			&:hover
+				color: #fff
+				&:before
+					opacity: 1
+				&:after
+					opacity: 1
+			&.swiper-button-disabled
+				opacity: 0
+		.swiper-button-prev
+			transform: translateX(-60px)
+			left: 10px
+		.swiper-button-next
+			transform: translateX(60px)
+			right: 10px
 	&__thumb
 		overflow: hidden
 		position: relative

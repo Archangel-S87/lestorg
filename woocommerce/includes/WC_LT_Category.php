@@ -9,10 +9,54 @@ abstract class WC_LT_Category
 {
     protected $term;
 
+    // Количество карточек на странице
+    protected $count_cards = [9, 12, 15, 18, 21];
+
+    // Варианты сортировкм
+    protected $catalog_orderby = [];
+
     use LT_Hooks;
 
-    public function set_term(WP_Term $term) {
+    public function set_term(WP_Term $term)
+    {
         $this->term = $term;
+    }
+
+    public function set_loop(WP_Query $query, WC_Query $wc_query)
+    {
+        // Устанавливает количество карточек на странице
+        $query->set('posts_per_page', $this->get_current_count_cards());
+    }
+
+    // Фильтрация товаров по параметрам
+    protected function set_filter_products(WP_Query $query)
+    {
+
+    }
+
+    public function catalog_orderby() {
+        return $this->catalog_orderby;
+    }
+
+    public function get_catalog_ordering_args($args, $orderby, $order) {}
+
+    protected function get_current_count_cards()
+    {
+        $count = $_GET['count_cards'] ?? 0;
+        if ($count && in_array($count, $this->count_cards)) {
+            $count = (int)$count;
+        } else {
+            $count = $this->count_cards[0];
+        }
+        return $count;
+    }
+
+    public function get_count_cards()
+    {
+        return [
+            'current_count_cards' => $this->get_current_count_cards(),
+            'count_cards' => $this->count_cards
+        ];
     }
 
     private function remove_default_hooks()
@@ -34,7 +78,8 @@ abstract class WC_LT_Category
         remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price');
     }
 
-    public function run() {
+    public function run()
+    {
         $this->remove_default_hooks();
 
         /*
