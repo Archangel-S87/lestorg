@@ -9,8 +9,8 @@ class WC_LT_Category_Tabs extends WC_LT_Category
     use LT_Instance;
 
     protected $catalog_orderby = [
-        'popularity' => 'Популярности', // TODO Заменить total_view. Сейчас ищет по полю total_sales
-        'popularity-desc' => '',
+        'favorite' => 'Популярности',
+        'favorite-desc' => '',
         'ploshhad' => 'Площади',
         'ploshhad-desc' => '',
         'price' => 'Цене',
@@ -22,15 +22,26 @@ class WC_LT_Category_Tabs extends WC_LT_Category
         /*
          * Сортировка товаров
          */
+        $this->add_filter('woocommerce_default_catalog_orderby', [$this, 'set_default_catalog_orderby'], 20);
         $this->add_filter('woocommerce_catalog_orderby', [$this, 'catalog_orderby']);
         $this->add_filter('woocommerce_get_catalog_ordering_args', [$this, 'get_catalog_ordering_args'], 10, 3);
     }
 
+    public function set_default_catalog_orderby() {
+        return 'favorite-desc';
+    }
+
     public function get_catalog_ordering_args($args, $orderby, $order)
     {
-        if ($orderby == 'ploshhad') {
-            $args['orderby'] = 'meta_value_num';
-            $args['meta_key'] = 'order_pa_ploshhad';
+        switch ($orderby) {
+            case 'favorite' :
+                $args['orderby'] = 'meta_value_num';
+                $args['meta_key'] = 'order_favorite';
+                break;
+            case 'ploshhad' :
+                $args['orderby'] = 'meta_value_num';
+                $args['meta_key'] = 'order_pa_ploshhad';
+                break;
         }
         return $args;
     }
@@ -55,11 +66,6 @@ class WC_LT_Category_Tabs extends WC_LT_Category
          */
         //add_action('pre_get_posts', 'search_by_cat');
         //add_action('woocommerce_product_query', 't_woocommerce_parse_query');
-
-        /*
-         * Сортировка TODO Сделать сортировку как в макете
-         */
-
 
         /*
          * Вид карточки товара
@@ -191,6 +197,11 @@ class WC_LT_Category_Tabs extends WC_LT_Category
 
         $srok = $product->get_attribute('pa_srok-stroitelstva');
 
+        $has_favorites = find_cart_item_by_id($product->get_id());
+        $classes_icon = 'catalog-item__icon toggle-favorites';
+        $classes_icon = $has_favorites ? $classes_icon . ' active' : $classes_icon;
+        $title_icon = $has_favorites ? 'Убрать из избраного' : 'Добавить в избранное';
+
         $price_html = $product->get_price_html()
         ?>
 
@@ -211,13 +222,13 @@ class WC_LT_Category_Tabs extends WC_LT_Category
                 <?php if ($komnaty) : ?>
                     <p class="catalog-item__info-item">
                         <i class="ic ic-bed"></i>
-                        <b><?= $komnaty; ?></b> <?= $komnaty_label; ?>
+                        <b><?= $komnaty; ?></b> <?= $komnaty_label ?? ''; ?>
                     </p>
                 <?php endif; ?>
                 <?php if ($sanuzly) : ?>
                     <p class="catalog-item__info-item">
                         <i class="ic ic-bath"></i>
-                        <b><?= $sanuzly; ?></b> <?= $sanuzly_label; ?>
+                        <b><?= $sanuzly; ?></b> <?= $sanuzly_label ?? ''; ?>
                     </p>
                 <?php endif; ?>
             </div>
@@ -227,10 +238,10 @@ class WC_LT_Category_Tabs extends WC_LT_Category
                 <?php endif; ?>
             </ul>
             <div class="catalog-item__bottom">
-                <?php // TODO Сделать добавление в избранное
-                ?>
-                <?php // <a href="#" class="catalog-item__icon active"><i class="ic ic-heart-full"></i></a>
-                ?>
+
+                <a href="#" class="<?= $classes_icon; ?>" data-product="<?= $product->get_id(); ?>" title="<?= $title_icon ?>">
+                    <i class="ic ic-heart-full"></i>
+                </a>
                 <?php if ($price_html) : ?>
                     <p class="catalog-item__price">от <?= $price_html; ?></p>
                 <?php endif; ?>

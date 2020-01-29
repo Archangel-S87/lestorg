@@ -181,6 +181,11 @@ class WC_LT_Single_Product
         global $product;
         if (!$product instanceof WC_Product) return;
 
+        $has_favorites = find_cart_item_by_id($product->get_id());
+        $classes_icon = 'product-action__icon ic ic-heart toggle-favorites';
+        $classes_icon = $has_favorites ? $classes_icon . ' active' : $classes_icon;
+        $title_icon = $has_favorites ? 'Убрать из избраного' : 'Добавить в избранное';
+
         $html = '<div class="product-action">' . PHP_EOL;
 
         if ($price_html = $product->get_price_html()) {
@@ -190,8 +195,7 @@ class WC_LT_Single_Product
             $html .= '</div>' . PHP_EOL;
         }
 
-        // TODO Сделать добавление в избранное
-        //$html .= '<a href="#" class="product-action__icon ic ic-heart"></a>';
+        $html .= '<a href="#" class="' . $classes_icon . '" data-product="' . $product->get_id() . '" title="' . $title_icon . '"></a>';
 
         $html .= '<div class="product-action__btn">' . PHP_EOL;
         $html .= '<a href="#call-popup" data-popup class="btn">Оставить заявку</a>' . PHP_EOL;

@@ -6,14 +6,14 @@ require_once 'libs/tgm/tgm.php';
 require_once 'libs/cody-framework/admin.php';
 require_once 'acf/init.php';
 
-require_once 'inc/LT_Instance.php';
-require_once 'inc/LT_Hooks.php';
+require_once 'inc/includes/LT_Instance.php';
+require_once 'inc/includes/LT_Hooks.php';
 require_once 'inc/init.php';
 require_once 'inc/functions-templates.php';
 
 require_once 'woocommerce/functions.php';
 
-require_once 'ajax/functions.php';
+require_once 'ajax/init.php';
 
 
 // Изменяем атрибут class у тега li в меню

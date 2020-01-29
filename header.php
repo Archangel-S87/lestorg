@@ -14,7 +14,12 @@
 <body <?php body_class(); ?>>
 
 <?php
+
+$count_favorite = lt_get_count_products_in_cart();
+$classes_favorite = $count_favorite ? 'favorite-link active' : 'favorite-link';
+
 // TODO Исправить вывод меню для мобилки!
+
 ?>
 
 <div id="wrapper">
@@ -35,9 +40,10 @@
                                      alt="<?php bloginfo('name') ?>">
                             </a>
                         </div>
-                        <?php /*
-    <a href="#" class="favorite-link"><i class="ic ic-favorite"></i><span>0</span></a>
- */ ?>
+                        <a href="#" class="<?= $classes_favorite; ?>" title="Избранное">
+                            <i class="ic ic-favorite"></i>
+                            <span><?= $count_favorite; ?></span>
+                        </a>
                     </div>
 
                     <?php if (has_nav_menu('main_header_menu')):
@@ -116,16 +122,13 @@
                             ]);
                         endif; ?>
 
-                        <?php
-                        /*
-                        // TODO Добавить избранное
-
-                            <div class="header__favorite">
-                            <a href="#" class="favorite-link"><i class="ic ic-favorite"></i><span>0</span></a>
+                        <div class="header__favorite">
+                            <a href="#" class="<?= $classes_favorite; ?>" title="Избранное">
+                                <i class="ic ic-favorite"></i>
+                                <span><?= $count_favorite; ?></span>
+                            </a>
                         </div>
-                        */
 
-                        ?>
                         <div class="header__sep"></div>
 
                         <div class="header__phone">

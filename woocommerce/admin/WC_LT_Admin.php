@@ -20,6 +20,9 @@ class WC_LT_Admin
     {
         $this->include();
         $this->hooks();
+
+        // TODO Запускать для пересохранения всех товаров!
+        //$this->save_all_products();
     }
 
     public function include()
@@ -51,6 +54,8 @@ class WC_LT_Admin
         add_action('woocommerce_admin_process_product_object', 'LT_WC_Meta_Box_Product_Data::save_custom_fields');
         // Сохранение атрибутов участвующих в сортировке
         add_action('woocommerce_admin_process_product_object', [$this, 'save_order_by_attributes']);
+        // Обновляю метаполе для сортировки
+        add_action('woocommerce_admin_process_product_object', [$this, 'add_meta_key_for_order']);
 
         /*
          * На странице категории товаров удаляю поле Тип отображения и изображение
@@ -71,7 +76,6 @@ class WC_LT_Admin
         add_filter('manage_product_cat_custom_column', [$this, 'product_cat_column'], 10, 3);
     }
 
-    // TODO Запускать для пересохранения всех товаров!
     public function save_all_products()
     {
         $posts = get_posts([
@@ -80,6 +84,7 @@ class WC_LT_Admin
         ]);
         foreach ($posts as $post) {
             $product = wc_get_product($post);
+            $this->add_meta_key_for_order($product);
             $product->save();
         }
     }
@@ -99,6 +104,12 @@ class WC_LT_Admin
 
             $product->update_meta_data('order_' . $value, $attribute_values);
         }
+    }
+
+    public function add_meta_key_for_order(WC_Product $product)
+    {
+        $popularity = $product->get_meta('order_favorite') ?: 0;
+        $product->update_meta_data('order_favorite', $popularity);
     }
 
     public function product_cat_columns($columns)

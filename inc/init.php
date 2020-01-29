@@ -18,7 +18,7 @@ function lestorg_setup() {
     add_theme_support('woocommerce', [
         'thumbnail_image_width' => 380,
         'single_image_width' => 700,
-        'product_grid' => [
+        'product_grid' => [ // Отключено
             'default_rows' => 3,
             'min_rows' => 1,
             'max_rows' => 4,
