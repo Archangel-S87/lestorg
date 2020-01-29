@@ -27,8 +27,30 @@ function favorite_set_title() {
     echo '<div class="title text-left"><h2>' . get_the_title() . '</h2></div>';
 }
 
-$shortcode = new WC_Shortcode_Products([
+// Показывать товары только из нужных категорий
+$categories = get_terms([
+    'taxonomy' => 'product_cat',
+    'fields' => 'ids',
+    'slug' => ['doma', 'bani', 'besedki']
+]);;
+
+// Выводить товары с ценой
+add_filter('woocommerce_shortcode_products_query', 'remove_product_has_not_price');
+function remove_product_has_not_price($query_args) {
+    $query_args['meta_query'] = [
+        [
+            'key' => '_price',
+            'value' => 0,
+            'compare' => '>',
+            'type'    => 'NUMERIC'
+        ]
+    ];
+    return $query_args;
+}
+
+$content = new WC_Shortcode_Products([
     'ids' => implode(', ', $product_ids),
+    'category' => implode(', ', $categories),
     'paginate' => true,
     'cache' => false,
     'limit' => $class_template->get_current_count_cards()
@@ -49,7 +71,7 @@ $shortcode = new WC_Shortcode_Products([
          */
         do_action('woocommerce_before_main_content');
 
-        echo $shortcode->get_content();
+        echo $content->get_content();
 
         /**
          * Hook: woocommerce_after_main_content.
