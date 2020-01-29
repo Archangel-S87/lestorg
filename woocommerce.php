@@ -1,7 +1,5 @@
 <?php
 
-$WC_LT_Content = WC_LT_Content::get_instance();
-
 get_header();
 
 /**
@@ -24,7 +22,7 @@ do_action('lt_before_woocommerce_content');
          */
         do_action('woocommerce_before_main_content');
 
-        $WC_LT_Content->woocommerce_content();
+        WC_LT_Content::get_instance()->woocommerce_content();
 
         /**
          * Hook: woocommerce_after_main_content.

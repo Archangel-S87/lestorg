@@ -45,7 +45,7 @@ trait LT_Hooks
             remove_filter($filter['tag'], $filter['function_to_add'], $filter['priority']);
         }
         foreach ($this->actions as $action) {
-            remove_filter($action['tag'], $action['function_to_add'], $action['priority']);
+            remove_action($action['tag'], $action['function_to_add'], $action['priority']);
         }
         $this->filters = [];
         $this->actions =[];

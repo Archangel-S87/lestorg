@@ -34,6 +34,13 @@ class WC_LT_Content
         $class_template->run();
     }
 
+
+    public function set_class_template($class_name)
+    {
+        if (!class_exists($class_name)) return;
+        $this->class_template = call_user_func($class_name . '::get_instance');
+    }
+
     /**
      * @param $term_id
      * @return $this

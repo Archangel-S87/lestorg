@@ -22,7 +22,7 @@ class WC_LT_Category_Tabs extends WC_LT_Category
         /*
          * Сортировка товаров
          */
-        $this->add_filter('woocommerce_default_catalog_orderby', [$this, 'set_default_catalog_orderby'], 20);
+        $this->add_filter('woocommerce_default_catalog_orderby', [$this, 'set_default_catalog_orderby']);
         $this->add_filter('woocommerce_catalog_orderby', [$this, 'catalog_orderby']);
         $this->add_filter('woocommerce_get_catalog_ordering_args', [$this, 'get_catalog_ordering_args'], 10, 3);
     }

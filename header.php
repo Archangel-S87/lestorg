@@ -15,7 +15,7 @@
 
 <?php
 
-$count_favorite = lt_get_count_products_in_cart();
+$count_favorite = count(WC()->cart->get_cart());
 $classes_favorite = $count_favorite ? 'favorite-link active' : 'favorite-link';
 
 // TODO Исправить вывод меню для мобилки!
@@ -40,7 +40,7 @@ $classes_favorite = $count_favorite ? 'favorite-link active' : 'favorite-link';
                                      alt="<?php bloginfo('name') ?>">
                             </a>
                         </div>
-                        <a href="#" class="<?= $classes_favorite; ?>" title="Избранное">
+                        <a href="<?= home_url('favorite'); ?>" class="<?= $classes_favorite; ?>" title="Избранное">
                             <i class="ic ic-favorite"></i>
                             <span><?= $count_favorite; ?></span>
                         </a>
@@ -123,7 +123,7 @@ $classes_favorite = $count_favorite ? 'favorite-link active' : 'favorite-link';
                         endif; ?>
 
                         <div class="header__favorite">
-                            <a href="#" class="<?= $classes_favorite; ?>" title="Избранное">
+                            <a href="<?= home_url('favorite'); ?>" class="<?= $classes_favorite; ?>" title="Избранное">
                                 <i class="ic ic-favorite"></i>
                                 <span><?= $count_favorite; ?></span>
                             </a>

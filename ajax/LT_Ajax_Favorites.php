@@ -15,14 +15,13 @@ class LT_Ajax_Favorites
 
     public function add_favorites()
     {
-        $cart = lt_get_cart();
-
         $post_id = $_POST['product_id'] ?? 0;
 
         $cart_item_key = '';
         $errors = false;
+
         try {
-            $cart_item_key = $cart->add_to_cart($post_id, 1);
+            $cart_item_key = WC()->cart->add_to_cart($post_id, 1);
         } catch (Exception $e) {
             $errors = $e->getMessage();
         }
@@ -38,14 +37,12 @@ class LT_Ajax_Favorites
 
         wp_send_json([
             'errors' => $errors,
-            'count_products' => lt_get_count_products_in_cart() // Количество в избранном
+            'count_products' => count(WC()->cart->get_cart()) // Количество в избранном
         ]);
     }
 
     public function remove_favorites()
     {
-        $cart = lt_get_cart();
-
         $post_id = $_POST['product_id'] ?? 0;
 
         $product = wc_get_product($post_id);
@@ -56,7 +53,7 @@ class LT_Ajax_Favorites
             $errors = $cart_item_key ? false : 'В избранном нет такого товара';
             if ($cart_item_key) {
                 // Удалить из карзины товар
-                $cart->remove_cart_item($cart_item_key);
+                WC()->cart->remove_cart_item($cart_item_key);
             }
         }
 
@@ -64,7 +61,7 @@ class LT_Ajax_Favorites
 
         wp_send_json([
             'errors' => $errors,
-            'count_products' => lt_get_count_products_in_cart() // Количество в избранном
+            'count_products' => count(WC()->cart->get_cart()) // Количество в избранном
         ]);
     }
 }

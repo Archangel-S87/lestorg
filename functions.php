@@ -49,7 +49,7 @@ function change_body_classes($classes) {
     if (is_product()) {
         $classes[] = 'page-product';
     }
-    if (is_page(['about', 'contacts'])) {
+    if (is_page(['about', 'contacts', 'favorite'])) {
         $classes[] = 'page-contacts';
     }
     return $classes;

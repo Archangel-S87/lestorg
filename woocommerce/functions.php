@@ -70,41 +70,16 @@ function get_top_parent_id_product_cat($category_id) {
     return $category_parent_id;
 }
 
-/**
- * Получает корзину из глобального объекта $woocommerce
- * @return WC_Cart | null
- */
-function lt_get_cart() {
-    global $woocommerce;
-    $cart = $woocommerce->cart;
-    if (!$cart instanceof WC_Cart) return null;
-    return $cart;
-}
-
-/*
- * Получает количество товаров в карзине
- */
-function lt_get_count_products_in_cart() {
-    $cart = lt_get_cart();
-    return count($cart->cart_contents);
-}
-
 /*
  * Находит товар в карзине по переданому id
  */
-function find_cart_item_by_id($product_id)
-{
-    $cart = lt_get_cart();
-
+function find_cart_item_by_id($product_id) {
     $cart_item_key = '';
-    $contents = $cart->cart_contents;
-
-    foreach ($contents as $key => $item) {
+    foreach (WC()->cart->get_cart() as $key => $item) {
         if ($item['product_id'] == $product_id) {
             $cart_item_key = $key;
             break;
         }
     }
-
     return $cart_item_key;
 }

@@ -40,7 +40,7 @@ abstract class WC_LT_Category
 
     public function get_catalog_ordering_args($args, $orderby, $order) {}
 
-    protected function get_current_count_cards()
+    public function get_current_count_cards()
     {
         $count = $_GET['count_cards'] ?? 0;
         if ($count && in_array($count, $this->count_cards)) {

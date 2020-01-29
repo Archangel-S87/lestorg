@@ -9,7 +9,7 @@
             <?php the_content(); ?>
         </div>
         <div class="banner__action">
-            <a href="<?= get_page_uri(get_page_by_path('quiz')); ?>" class="btn btn_big">Подобрать проект за 6 шагов</a>
+            <a href="<?= home_url('quiz'); ?>" class="btn btn_big">Подобрать проект за 6 шагов</a>
             <p class="banner__action-descr">Ответьте на 6 вопросов и узнайте какой тип дома подойдет именно вам</p>
         </div>
     </div>
