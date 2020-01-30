@@ -191,7 +191,7 @@
 										</button>
 										<div class="tabs__grid">
 											<a href="#" class="tabs__item">Профилированный брус</a>
-											<a href="#" class="tabs__item">Клееный брус</a>
+											<a href="#" class="tabs__item active">Клееный брус</a>
 											<a href="#" class="tabs__item">Оцилиндрованное бревно</a>
 											<a href="#" class="tabs__item">Каркасные</a>
 										</div>
@@ -232,7 +232,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="filter__col">
+								<div class="filter__col" data-small>
 									<div class="filter-item">
 										<p class="filter-item__place">По этажности</p>
 										<select>
@@ -241,6 +241,9 @@
 											<option>Трёхэтажные</option>
 										</select>
 									</div>
+								</div>
+								<div class="filter__col" data-small>
+									<button class="btn btn_bd btn_filter">Подобрать</button>
 								</div>
 							</div>
 						</div>
@@ -279,7 +282,6 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="catalog-grid__col">
 								<div class="catalog-item box">
 									<a href="#" class="catalog-item__img" style="background-image: url('img/catalog/catalog-1.jpg');"></a>

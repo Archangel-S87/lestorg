@@ -18,8 +18,6 @@
 $count_favorite = count(WC()->cart->get_cart());
 $classes_favorite = $count_favorite ? 'favorite-link active' : 'favorite-link';
 
-// TODO Исправить вывод меню для мобилки!
-
 ?>
 
 <div id="wrapper">
@@ -46,15 +44,31 @@ $classes_favorite = $count_favorite ? 'favorite-link active' : 'favorite-link';
                         </a>
                     </div>
 
-                    <?php if (has_nav_menu('main_header_menu')):
+                    <ul class="mob-menu__list">
+
+                    <?php
+                    if (has_nav_menu('main_header_menu')) :
                         wp_nav_menu([
                             'theme_location' => 'main_header_menu',
                             'menu_id' => 'mob_main_header_menu',
                             'container' => false,
-                            'menu_class' => 'mob-menu__list',
+                            'items_wrap' => '%3$s',
                             'fallback_cb' => '__return_false'
                         ]);
-                    endif; ?>
+                    endif;
+
+                    if (has_nav_menu('top_header_menu')) :
+                        wp_nav_menu([
+                            'theme_location' => 'top_header_menu',
+                            'menu_id' => 'mob_top_header_menu',
+                            'container' => false,
+                            'items_wrap' => '%3$s',
+                            'fallback_cb' => '__return_false'
+                        ]);
+                    endif;
+                    ?>
+
+                    </ul>
 
                     <div class="mob-menu__sep"></div>
 

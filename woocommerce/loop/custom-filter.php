@@ -23,7 +23,7 @@ $etazhnost = $_GET['etazhnost'] ?? 1;
 
 $ee = 0;
 
-echo do_shortcode('[woof]');
+//echo do_shortcode('[woof]');
 
 ?>
 
@@ -60,7 +60,7 @@ echo do_shortcode('[woof]');
                 </div>
             </div>
         </div>
-        <div class="filter__col">
+        <div class="filter__col" data-small>
             <div class="filter-item">
                 <p class="filter-item__place">По этажности</p>
                 <label for="">
@@ -71,6 +71,8 @@ echo do_shortcode('[woof]');
                 </label>
             </div>
         </div>
-        <input type="submit">
+        <div class="filter__col" data-small>
+            <button class="btn btn_bd btn_filter">Подобрать</button>
+        </div>
     </form>
 </div>

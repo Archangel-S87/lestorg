@@ -19,19 +19,29 @@ require_once 'ajax/init.php';
 // Изменяем атрибут class у тега li в меню
 add_filter('nav_menu_css_class', 'filter_nav_menu_css_classes', 10, 4);
 function filter_nav_menu_css_classes($classes, $item, $args, $depth) {
-    if ($args->theme_location === 'main_header_menu') {
-        if (in_array('menu-item-has-children', $classes)) {
-            if ($args->menu_id == 'mob_main_header_menu') {
-                $classes = ['mob-menu__list-dropdown'];
-            }
-            if ($args->menu_id == 'main_header_menu') {
-                $classes = ['header__menu-dropdown'];
-            }
+    if ($args->theme_location != 'main_header_menu') return $classes;
+
+    if (in_array('menu-item-has-children', $classes)) {
+        if ($args->menu_id == 'mob_main_header_menu') {
+            $classes[] = 'mob-menu__list-dropdown';
         }
-        if (strripos($item->post_title, 'ic-') !== false) {
-            $classes = ['header__menu-icon'];
+        if ($args->menu_id == 'main_header_menu') {
+            $classes[] = 'header__menu-dropdown';
         }
     }
+
+    if ($args->menu_id == 'mob_main_header_menu') {
+        if (strripos($item->post_title, 'ic-') !== false) {
+            $classes[] = 'mob-menu__list-icon';
+        }
+    }
+
+    if ($args->menu_id == 'main_header_menu') {
+        if (strripos($item->post_title, 'ic-') !== false) {
+            $classes[] = 'header__menu-icon';
+        }
+    }
+
     return $classes;
 }
 
