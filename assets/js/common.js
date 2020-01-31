@@ -649,12 +649,57 @@ jQuery(document).ready(function ($) {
     /*
     Большой фильтр
      */
-    $('#big_filter_product').submit(function () {
+    $('#filter_product').submit(function () {
+        const form = $(this),
+            inputs = $('input[type="text"]', form),
+            selects = $('select', form);
 
-        const data = {},
-            form = $(this);
+        if (form.attr('data-reset')) {
+            form.removeAttr('data-reset');
+            return true;
+        }
 
+        $('input[name="filter"]', form).val(1);
 
-        //return false;
+        inputs.each(function () {
+            setName($(this))
+        });
+
+        selects.each(function () {
+            setName($(this))
+        });
+
+        function setName(field) {
+            if (field.val() === field.attr('data-default')) return;
+            const name = field.attr('id').replace('filter_', '');
+            field.attr('name', name);
+        }
+    });
+
+    // Сброс фильтра
+    $('.filter__del').on('click', function () {
+        const form = $('#filter_product'),
+            inputs = $('input[type="text"]', form),
+            selects = $('select', form);
+
+        inputs.each(function () {
+            setDefaultVal($(this));
+        });
+
+        selects.each(function () {
+            setDefaultVal($(this));
+        });
+
+        function setDefaultVal(field) {
+            field.val(field.attr('data-default'));
+            field.removeAttr('name');
+        }
+
+        $('input[name="filter"]', form).val(0);
+
+        form.attr('data-reset', '1');
+        form.submit();
+
+        return false;
     });
 });

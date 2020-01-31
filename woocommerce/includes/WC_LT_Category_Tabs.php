@@ -8,6 +8,20 @@ class WC_LT_Category_Tabs extends WC_LT_Category
 {
     use LT_Instance;
 
+    // Стандартные поля фильтра со значениями
+    private $filter_fields = [
+        'filter' => 1,
+        'min_price' => 0,
+        'max_price' => 0,
+        'min_ploshhad' => 0,
+        'max_ploshhad' => 0,
+        'etazhnost' => 1
+    ];
+
+    // Знаения запроса по фильтру
+    private $filter_values = [];
+
+    // Сортировка товаров
     protected $catalog_orderby = [
         'favorite' => 'Популярности',
         'favorite-desc' => '',
@@ -27,7 +41,8 @@ class WC_LT_Category_Tabs extends WC_LT_Category
         $this->add_filter('woocommerce_get_catalog_ordering_args', [$this, 'get_catalog_ordering_args'], 10, 3);
     }
 
-    public function set_default_catalog_orderby() {
+    public function set_default_catalog_orderby()
+    {
         return 'favorite-desc';
     }
 
@@ -56,16 +71,11 @@ class WC_LT_Category_Tabs extends WC_LT_Category
         // Заголовок категории
         $this->add_action('woocommerce_before_shop_loop', [$this, 'set_title'], 20);
 
-        // Мой фильтр на страницу категорий
-        //$this->add_action('woocommerce_before_shop_loop', [$this, 'filter_projects'], 20);
-        // Стандартный фильтр
-        $this->add_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
+        // Фильтр товаров
+        $this->add_action('woocommerce_before_shop_loop', [$this, 'filter_projects'], 20);
 
-        /*
-         * Относиться к фильтрам
-         */
-        //add_action('pre_get_posts', 'search_by_cat');
-        //add_action('woocommerce_product_query', 't_woocommerce_parse_query');
+        // Сортировка
+        $this->add_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
 
         /*
          * Вид карточки товара
@@ -82,6 +92,18 @@ class WC_LT_Category_Tabs extends WC_LT_Category
         $this->add_action('lt_after_woocommerce_content', 'print_feedback', 15);
     }
 
+    public function set_loop(WP_Query $query, WC_Query $wc_query)
+    {
+        parent::set_loop($query, $wc_query);
+
+        $ss = $_GET;
+
+        // Убираю стандартный фильтр woocommerce по цене.
+        remove_filter('posts_clauses', [WC()->query, 'price_filter_post_clauses']);
+
+        $this->set_filter_query($query, $wc_query);
+    }
+
     public function change_body_classes($classes)
     {
         $classes[] = 'page-catalog';
@@ -95,59 +117,146 @@ class WC_LT_Category_Tabs extends WC_LT_Category
         }
     }
 
+    private function set_default_filter()
+    {
+        $max_min_price = $this->get_min_max_value_by_meta_key('_price');
+        $max_min_ploshhad = $this->get_min_max_value_by_meta_key('order_pa_ploshhad');
+
+        $default = [
+            'min_price' => $max_min_price->min_price ?: 0,
+            'max_price' => $max_min_price->max_price ?: 999999999,
+            'min_ploshhad' => $max_min_ploshhad->min_order_pa_ploshhad ?: 0,
+            'max_ploshhad' => $max_min_ploshhad->max_order_pa_ploshhad ?: 999999999
+        ];
+
+        return wp_parse_args($default, $this->filter_fields);
+    }
+
+    private function set_filter_query(WP_Query $query, WC_Query $WC_Query)
+    {
+        $this->filter_fields = $this->filter_values = $this->set_default_filter();
+
+        if (!($_GET['filter'] ?? 0)) return;
+
+        $default = $this->filter_fields;
+        $values = $this->filter_values;
+
+        // Тестовый запрос для проверки наличия товаров
+        $check_query = new WP_Query;
+        $check_query->query_vars = $query->query_vars;
+
+        $min_price = $_GET['min_price'] ?? $default['min_price'];
+        $max_price = $_GET['max_price'] ?? $default['max_price'];
+
+        if ($min_price > $max_price) {
+            $min_price = $default['min_price'];
+            $max_price = $default['max_price'];
+        }
+
+        if ($min_price != $default['min_price']) {
+            $meta_query = $check_query->get('meta_query');
+            $meta_query['relation'] = 'AND';
+            $meta_query[] = [
+                'key' => '_price',
+                'value' => wp_unslash($min_price),
+                'compare' => '>=',
+                'type' => 'NUMERIC'
+            ];
+            $check_query->set('meta_query', $meta_query);
+            $values['min_price'] = $min_price;
+        }
+
+        if ($max_price != $default['max_price']) {
+            $meta_query = $check_query->get('meta_query');
+            $meta_query['relation'] = 'AND';
+            $meta_query[] = [
+                'key' => '_price',
+                'value' => wp_unslash($max_price),
+                'compare' => '<=',
+                'type' => 'NUMERIC'
+            ];
+            $check_query->set('meta_query', $meta_query);
+            $values['max_price'] = $max_price;
+        }
+
+        $min_ploshhad = $_GET['min_ploshhad'] ?? $default['min_ploshhad'];
+        $max_ploshhad = $_GET['max_ploshhad'] ?? $default['max_ploshhad'];
+
+        if ($min_ploshhad > $max_ploshhad) {
+            $min_ploshhad = $default['min_ploshhad'];
+            $max_ploshhad = $default['max_ploshhad'];
+        }
+
+        if ($min_ploshhad != $default['min_ploshhad']) {
+            $meta_query = $check_query->get('meta_query');
+            $meta_query['relation'] = 'AND';
+            $meta_query[] = [
+                'key' => 'order_pa_ploshhad',
+                'value' => wp_unslash($min_ploshhad),
+                'compare' => '>=',
+                'type' => 'NUMERIC'
+            ];
+            $check_query->set('meta_query', $meta_query);
+            $values['min_ploshhad'] = $min_ploshhad;
+        }
+
+        if ($max_ploshhad != $default['max_ploshhad']) {
+            $meta_query = $check_query->get('meta_query');
+            $meta_query['relation'] = 'AND';
+            $meta_query[] = [
+                'key' => 'order_pa_ploshhad',
+                'value' => wp_unslash($max_ploshhad),
+                'compare' => '<=',
+                'type' => 'NUMERIC'
+            ];
+            $check_query->set('meta_query', $meta_query);
+            $values['max_ploshhad'] = $max_ploshhad;
+        }
+
+        $etazhnost = $_GET['etazhnost'] ?? $default['etazhnost'];
+
+        if ($etazhnost != $default['etazhnost']) {
+            $tax_query = $check_query->get('tax_query');
+            $tax_query['relation'] = 'AND';
+            $tax_query[] = [
+                'taxonomy' => 'pa_etazhnost',
+                'field' => 'slug',
+                'terms' => wp_unslash($etazhnost)
+            ];
+            $check_query->set('tax_query', $tax_query);
+            $values['etazhnost'] = $etazhnost;
+        }
+
+        $products = $check_query->query($check_query->query_vars);
+
+        if (!$products) {
+            // Нечего отображать. Убрать все параметры запроса фильтра - редиректом
+            $term = get_queried_object();
+
+            $params = [];
+            foreach ($_GET as $key => $value) {
+                if (isset($default[$key])) continue;
+                $params[$key] = $value;
+            }
+            $params['filter'] = 1;
+
+            $link = add_query_arg($params, get_term_link($term->term_id));
+
+            wp_redirect($link);
+            exit;
+        }
+
+        $query->query_vars = $check_query->query_vars;
+
+        $this->filter_values = $values;
+    }
+
     public function filter_projects()
     {
-        // TODO сделать фильтр товаров
-        wc_get_template('loop/custom-filter.php', []);
-    }
-
-    public function t_woocommerce_parse_query($q)
-    {
-        $meta_query = $q->get('meta_query');
-        $meta_query = apply_filters('woof_get_meta_query', $meta_query);
-        $q->set('meta_query', $meta_query);
-    }
-
-    public function search_by_cat()
-    {
-        global $wp_query;
-
-        if (is_search()) {
-
-            $gorod = intval($_GET['gorod']);
-            if ($gorod > 0) {
-                $wp_query->query_vars['tax_query'][] = array( //для атрибутов товаров
-                    "taxonomy" => "pa_gorod",
-                    "field" => "id",
-                    "terms" => $gorod
-                );
-            }
-
-            $tip = intval($_GET['peredvizhenie']);
-            if ($tip > 0) {
-                $wp_query->query_vars['tax_query'][] = array(
-                    "taxonomy" => "pa_peredvizhenie",
-                    "field" => "id",
-                    "terms" => $tip
-                );
-            }
-
-            $vid = intval($_GET['vid-puteshestvija']);
-            if ($vid > 0) {
-                $wp_query->query_vars['tax_query'][] = array(
-                    "taxonomy" => "pa_vid-puteshestvija",
-                    "field" => "id",
-                    "terms" => $vid
-                );
-            }
-
-            $date = $_GET['put-date'];
-            if ($date) {
-                $wp_query->query_vars['meta_key'] = 'nearest_date'; // для мета-полей товаров
-                $wp_query->query_vars['meta_value'] = strtotime($date);
-            }
-
-        }
+        wc_get_template('loop/custom-filter.php', [
+            'default' => $this->filter_fields,
+            'values' => $this->filter_values
+        ]);
     }
 
     public function template_product_title()
@@ -239,7 +348,8 @@ class WC_LT_Category_Tabs extends WC_LT_Category
             </ul>
             <div class="catalog-item__bottom">
 
-                <a href="#" class="<?= $classes_icon; ?>" data-product="<?= $product->get_id(); ?>" title="<?= $title_icon ?>">
+                <a href="#" class="<?= $classes_icon; ?>" data-product="<?= $product->get_id(); ?>"
+                   title="<?= $title_icon ?>">
                     <i class="ic ic-heart-full"></i>
                 </a>
                 <?php if ($price_html) : ?>

@@ -28,10 +28,72 @@ abstract class WC_LT_Category
         $query->set('posts_per_page', $this->get_current_count_cards());
     }
 
-    // Фильтрация товаров по параметрам
-    protected function set_filter_products(WP_Query $query)
-    {
+    /*
+     * Функия отдаёт min и max значение по переданому meta_key товара
+     * Код взят с плагина WooCommerce Products Filter.
+     * Класс WOOF_HELPER. Метод get_filtered_price
+     * Модифицирована.
+     */
+    protected function get_min_max_value_by_meta_key($meta_key) {
+        global $wpdb, $wp_the_query;
 
+        $meta_key = esc_sql($meta_key);
+        $min_val = str_replace('__', '_', 'min_' . $meta_key);
+        $max_val = str_replace('__', '_', 'max_' . $meta_key);
+
+        $args = $wp_the_query->query_vars;
+        $tax_query = isset($args['tax_query']) ? $args['tax_query'] : array();
+
+        if (is_object($wp_the_query->tax_query)) {
+            $tax_query = $wp_the_query->tax_query->queries; //fix for cat page
+        }
+        $meta_query = isset($args['meta_query']) ? $args['meta_query'] : array();
+
+        $temp_arr = array();
+        if (isset($args['taxonomy']) AND isset($args[$args['taxonomy']]) AND ! empty($args[$args['taxonomy']])) {
+            $temp_arr = explode(',', $args[$args['taxonomy']]);
+            if (!$temp_arr OR count($temp_arr) < 1) {
+                $temp_arr = array();
+            }
+        }
+        if (!empty($args['taxonomy']) && !empty($args['term'])) {
+            $tax_query[] = array(
+                'taxonomy' => $args['taxonomy'],
+                'terms' => (empty($temp_arr)) ? array($args['term']) : $temp_arr,
+                'field' => 'slug',
+            );
+        }
+
+        if (!empty($meta_query) AND is_array($meta_query)) {
+            foreach ($meta_query as $key => $query) {
+                if (!empty($query['price_filter']) || !empty($query['rating_filter'])) {
+                    unset($meta_query[$key]);
+                }
+            }
+        }
+
+        $meta_query = new WP_Meta_Query($meta_query);
+        $tax_query = new WP_Tax_Query($tax_query);
+
+        $meta_query_sql = $meta_query->get_sql('post', $wpdb->posts, 'ID');
+        $tax_query_sql = $tax_query->get_sql($wpdb->posts, 'ID');
+
+        $sql = "SELECT " . PHP_EOL;
+        $sql .= " min( FLOOR( meta_key.meta_value + 0.0 ) ) as {$min_val}," . PHP_EOL;
+        $sql .= " max( CEILING( meta_key.meta_value + 0.0 ) ) as {$max_val}" . PHP_EOL;
+        $sql .= "FROM {$wpdb->posts}" . PHP_EOL;
+        $sql .= "LEFT JOIN {$wpdb->postmeta} as meta_key" . PHP_EOL;
+        $sql .= "ON {$wpdb->posts}.ID = meta_key.post_id" . PHP_EOL;
+        $sql .= $tax_query_sql['join'] . PHP_EOL;
+        $sql .= $meta_query_sql['join'] . PHP_EOL;
+        $sql .= "WHERE {$wpdb->posts}.post_type = 'product'" . PHP_EOL;
+        $sql .= " AND {$wpdb->posts}.post_status = 'publish'" . PHP_EOL;
+        $sql .= " AND meta_key.meta_key IN ('{$meta_key}')" . PHP_EOL;
+        $sql .= " AND meta_key.meta_value > ''" . PHP_EOL;
+        $sql .= $tax_query_sql['where'] . PHP_EOL;
+        $sql .= $meta_query_sql['where'];
+
+        return $wpdb->get_row($sql);
     }
 
     public function catalog_orderby() {

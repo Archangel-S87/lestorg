@@ -48,13 +48,15 @@ function remove_product_has_not_price($query_args) {
     return $query_args;
 }
 
-$content = new WC_Shortcode_Products([
-    'ids' => implode(', ', $product_ids),
-    'category' => implode(', ', $categories),
-    'paginate' => true,
-    'cache' => false,
-    'limit' => $class_template->get_current_count_cards()
-]);
+if ($product_ids) {
+    $content = new WC_Shortcode_Products([
+        'ids' => implode(', ', $product_ids),
+        'category' => implode(', ', $categories),
+        'paginate' => true,
+        'cache' => false,
+        'limit' => $class_template->get_current_count_cards()
+    ]);
+}
 
 ?>
 
@@ -71,7 +73,12 @@ $content = new WC_Shortcode_Products([
          */
         do_action('woocommerce_before_main_content');
 
-        echo $content->get_content();
+        if ($product_ids) {
+            echo $content->get_content();
+        } else {
+            echo '<div class="title text-left"><h2>' . get_the_title() . '</h2></div>';
+            echo '<p>Здесь пока ничего нет.</p>';
+        }
 
         /**
          * Hook: woocommerce_after_main_content.
