@@ -30,6 +30,9 @@ class WC_LT_Single_Product
 
     private function init_hooks()
     {
+        // TODO Для добавления в просмотренные
+        add_action('woocommerce_before_single_product_summary', [$this, 'add_local_storage'], 1);
+
         // Заголовок и краткое описание
         add_action('woocommerce_before_single_product_summary', [$this, 'template_title_inn'], 5);
 
@@ -287,6 +290,21 @@ class WC_LT_Single_Product
     public function template_wrapper_grid_open()
     {
         echo '<div class="product-grid">' . PHP_EOL;
+    }
+
+    public function add_local_storage()
+    {
+        global $product;
+        if (!$product instanceof WC_Product) return;
+
+        $cat_id = $product->get_category_ids();
+        $cat_id = $cat_id[0] ?? 0;
+        if (!$cat_id) return;
+
+        $parent_cat = get_top_parent_id_product_cat($cat_id);
+        $parent_cat = get_term($parent_cat, 'product_cat');
+
+        echo '<div id="add_local_storage" data-product_id="' . $product->get_id() . '" data-cat_id="' . $parent_cat->term_id . '"></div>';
     }
 
     public function template_title_inn()

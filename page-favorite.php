@@ -1,10 +1,5 @@
 <?php
 
-/*
-Template Name: Избранное
-Template Post Type: page
-*/
-
 get_header();
 the_post();
 
