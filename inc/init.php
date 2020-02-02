@@ -18,14 +18,7 @@ function lestorg_setup() {
     add_theme_support('woocommerce', [
         'thumbnail_image_width' => 380,
         'single_image_width' => 700,
-        'product_grid' => [ // Отключено
-            'default_rows' => 3,
-            'min_rows' => 1,
-            'max_rows' => 4,
-            'default_columns' => 3,
-            'min_columns' => 2,
-            'max_columns' => 3
-        ]
+        'product_grid' => [] // Отключено
     ]);
 
     add_theme_support('custom-logo', [
@@ -43,9 +36,77 @@ function lestorg_setup() {
     ]);
 
     //Хак плагина folder
-    if (get_option('folder_old_plugin_folder_status') < 500) {
+/*    if (get_option('folder_old_plugin_folder_status') < 500) {
         update_option('folder_old_plugin_folder_status', 500);
-    }
+    }*/
+}
+
+// Регистрация Акций
+add_action('init', 'register_post_types');
+function register_post_types() {
+    register_post_type('offer', [
+        'label' => 'Акции',
+        'labels' => [
+            'name' => 'Акции',
+            'singular_name' => 'Акция',
+            'add_new' => 'Добавить акцию',
+            'add_new_item' => 'Добавление акции',
+            'edit_item' => 'Редактирование акции',
+            'new_item' => 'Новый акция',
+            'view_item' => 'Смотреть акцию',
+            'search_items' => 'Искать акцию',
+            'not_found' => 'Акция не найден',
+            'not_found_in_trash' => 'Акция не найден в корзине',
+            'parent_item_colon' => '',
+            'menu_name' => 'Акции'
+        ],
+        'description' => 'Наши акции',
+        'public' => true,
+        'show_in_menu' => true,
+        'show_in_rest' => false,
+        'rest_base' => null,
+        'menu_position' => 5,
+        'menu_icon' => null,
+        'hierarchical' => false,
+        'supports' => [
+            'title',
+            'editor'
+        ],
+        'taxonomies' => [],
+        'has_archive' => 'offer',
+        'rewrite' => [
+            'with_front' => false
+        ],
+        'query_var' => true
+    ]);
+}
+
+// Меня Запись на Статья
+add_filter('post_type_labels_post', 'rename_posts_labels');
+function rename_posts_labels($labels) {
+    return (object) array_merge((array) $labels, [
+        'name' => 'Статьи',
+        'singular_name' => 'Статья',
+        'add_new' => 'Добавить статью',
+        'add_new_item' => 'Добавить статью',
+        'edit_item' => 'Редактировать статью',
+        'new_item' => 'Новая статья',
+        'view_item' => 'Просмотреть статью',
+        'search_items' => 'Поиск статей',
+        'not_found' => 'Статей не найдено.',
+        'not_found_in_trash' => 'Статей в корзине не найдено.',
+        'parent_item_colon' => '',
+        'all_items' => 'Все статьи',
+        'archives' => 'Архивы статей',
+        'insert_into_item' => 'Вставить в статью',
+        'uploaded_to_this_item' => 'Загруженные для этой статьи',
+        'featured_image' => 'Миниатюра статьи',
+        'filter_items_list' => 'Фильтровать список статей',
+        'items_list_navigation' => 'Навигация по списку статей',
+        'items_list' => 'Список статей',
+        'menu_name' => 'Статьи',
+        'name_admin_bar' => 'Статью' // пункте "добавить"
+    ]);
 }
 
 add_filter('upload_mimes', 'upload_allow_types');

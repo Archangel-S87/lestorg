@@ -145,6 +145,8 @@ class WC_LT_Category_Tabs extends WC_LT_Category
         $check_query = new WP_Query;
         $check_query->query_vars = $query->query_vars;
 
+        $meta_query = $check_query->get('meta_query');
+
         $min_price = $_GET['min_price'] ?? $default['min_price'];
         $max_price = $_GET['max_price'] ?? $default['max_price'];
 
@@ -154,7 +156,6 @@ class WC_LT_Category_Tabs extends WC_LT_Category
         }
 
         if ($min_price != $default['min_price']) {
-            $meta_query = $check_query->get('meta_query');
             $meta_query['relation'] = 'AND';
             $meta_query[] = [
                 'key' => '_price',
@@ -162,12 +163,10 @@ class WC_LT_Category_Tabs extends WC_LT_Category
                 'compare' => '>=',
                 'type' => 'NUMERIC'
             ];
-            $check_query->set('meta_query', $meta_query);
             $values['min_price'] = $min_price;
         }
 
         if ($max_price != $default['max_price']) {
-            $meta_query = $check_query->get('meta_query');
             $meta_query['relation'] = 'AND';
             $meta_query[] = [
                 'key' => '_price',
@@ -175,7 +174,6 @@ class WC_LT_Category_Tabs extends WC_LT_Category
                 'compare' => '<=',
                 'type' => 'NUMERIC'
             ];
-            $check_query->set('meta_query', $meta_query);
             $values['max_price'] = $max_price;
         }
 
@@ -188,7 +186,6 @@ class WC_LT_Category_Tabs extends WC_LT_Category
         }
 
         if ($min_ploshhad != $default['min_ploshhad']) {
-            $meta_query = $check_query->get('meta_query');
             $meta_query['relation'] = 'AND';
             $meta_query[] = [
                 'key' => 'order_pa_ploshhad',
@@ -196,12 +193,10 @@ class WC_LT_Category_Tabs extends WC_LT_Category
                 'compare' => '>=',
                 'type' => 'NUMERIC'
             ];
-            $check_query->set('meta_query', $meta_query);
             $values['min_ploshhad'] = $min_ploshhad;
         }
 
         if ($max_ploshhad != $default['max_ploshhad']) {
-            $meta_query = $check_query->get('meta_query');
             $meta_query['relation'] = 'AND';
             $meta_query[] = [
                 'key' => 'order_pa_ploshhad',
@@ -209,23 +204,22 @@ class WC_LT_Category_Tabs extends WC_LT_Category
                 'compare' => '<=',
                 'type' => 'NUMERIC'
             ];
-            $check_query->set('meta_query', $meta_query);
             $values['max_ploshhad'] = $max_ploshhad;
         }
 
+        $check_query->set('meta_query', $meta_query);
+
         $etazhnost = $_GET['etazhnost'] ?? $default['etazhnost'];
 
-        if ($etazhnost != $default['etazhnost']) {
-            $tax_query = $check_query->get('tax_query');
-            $tax_query['relation'] = 'AND';
-            $tax_query[] = [
-                'taxonomy' => 'pa_etazhnost',
-                'field' => 'slug',
-                'terms' => wp_unslash($etazhnost)
-            ];
-            $check_query->set('tax_query', $tax_query);
-            $values['etazhnost'] = $etazhnost;
-        }
+        $tax_query = $check_query->get('tax_query');
+        $tax_query['relation'] = 'AND';
+        $tax_query[] = [
+            'taxonomy' => 'pa_etazhnost',
+            'field' => 'slug',
+            'terms' => wp_unslash($etazhnost)
+        ];
+        $check_query->set('tax_query', $tax_query);
+        $values['etazhnost'] = $etazhnost;
 
         $products = $check_query->query($check_query->query_vars);
 
@@ -253,7 +247,7 @@ class WC_LT_Category_Tabs extends WC_LT_Category
 
     public function filter_projects()
     {
-        wc_get_template('loop/custom-filter.php', [
+        wc_get_template('loop/big-filter.php', [
             'default' => $this->filter_fields,
             'values' => $this->filter_values
         ]);

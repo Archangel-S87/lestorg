@@ -1,13 +1,4 @@
-<?php
-
-/*
-Template Name: Контакты
-Template Post Type: page
-*/
-
-get_header();
-
-?>
+<?php get_header(); ?>
 
 <div class="contacts s-inner">
     <div class="container">

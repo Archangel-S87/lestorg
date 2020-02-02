@@ -1,13 +1,4 @@
-<?php
-
-/*
-Template Name: Quiz
-Template Post Type: page
-*/
-
-get_header();
-
-?>
+<?php get_header(); ?>
 
 <div class="quiz s-inner">
     <div class="container">
@@ -167,11 +158,11 @@ get_header();
                                 <label class="quiz-radio__item d-block">
                                     <input type="radio" name="Регион" class="quiz-radio__input" value="other_region">
                                     <span class="quiz-radio__main quiz-radio__main_grid">
-                                        <span class="quiz-radio__main-left">Другое</span>
-                                        <span class="quiz-radio__main-right">
-                                            <input type="text" name="other_region" placeholder="Введите населеный пункт" class="quiz-radio__field">
-                                        </span>
+                                    <span class="quiz-radio__main-left">Другое</span>
+                                    <span class="quiz-radio__main-right">
+                                        <input type="text" name="other_region" placeholder="Введите населеный пункт" class="quiz-radio__field">
                                     </span>
+                                </span>
                                 </label>
                             </div>
                         </div>

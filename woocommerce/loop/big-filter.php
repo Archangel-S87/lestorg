@@ -5,16 +5,7 @@ $values = $values ?? [];
 
 if (!$default || !$values) return;
 
-$min_price = $_GET['min_price'] ?? 0;
-$max_price = $_GET['max_price'] ?? '2000000';
-$min_ploshhad = $_GET['min_ploshhad'] ?? '0';
-$max_ploshhad = $_GET['max_ploshhad'] ?? '200';
-$etazhnost = $_GET['etazhnost'] ?? 1;
-
-$hidden_exclude = array_keys($default);
-$hidden_exclude[] = 'paged';
-$hidden_exclude[] = 'submit';
-$hidden_exclude[] = 'product-page';
+$hidden_exclude = array_merge(array_keys($default), ['paged', 'submit', 'product-page']);
 
 ?>
 
@@ -64,7 +55,7 @@ $hidden_exclude[] = 'product-page';
                 <p class="filter-item__place">По этажности</p>
                 <label>
                     <select id="filter_etazhnost" data-default="<?= $default['etazhnost']; ?>">
-                        <?php foreach ([1 => 'Одноэтажные', 2 => 'Двухэтажные'] as $key => $label) : ?>
+                        <?php foreach ([1 => 'Одноэтажные', 'Двухэтажные'] as $key => $label) : ?>
                             <option value="<?= $key; ?>" <?php selected($values['etazhnost'], $key); ?>><?= $label; ?></option>
                         <?php endforeach; ?>
                     </select>

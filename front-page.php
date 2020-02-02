@@ -273,60 +273,18 @@
 
 <div class="home-bg-1 overlay-bottom">
 
-<!-- <section class="offers">
+ <div class="offers">
     <div class="container">
         <div class="offers-slider swiper-container">
             <div class="swiper-wrapper">
-
-                <div class="swiper-slide">
-                    <div class="offer-item box" style="background-image: url('img/offers/offer-1.jpg');">
-                        <div class="offer-item__wrapper">
-                            <div class="offer-item__wrap">
-                                <div class="offer-item__content">
-                                    <h3><span class="text-green">Скидка 10%</span> на доп работы</h3>
-                                    <p>Мы дарим своим клиентам скидку 10% на все виды дополнительных работ при строительстве дома или бани.</p>
-                                </div>
-                                <p class="offer-item__descr">Акция действует до 30.12.2019 года</p>
-                                <div class="offer-item__action">
-                                    <a href="#" class="btn btn_small">УЧАСТВОВАТЬ</a>
-                                </div>
-                            </div>
-                        </div>
+                <?php $offers = get_posts(['post_type' => 'offer', 'numberposts' => -1]); ?>
+                <?php foreach ($offers as $post) : ?>
+                    <?php setup_postdata($post); ?>
+                    <div class="swiper-slide">
+                        <?php get_template_part('template-parts/parts/loop', 'offer'); ?>
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="offer-item box" style="background-image: url('img/offers/offer-1.jpg');">
-                        <div class="offer-item__wrapper">
-                            <div class="offer-item__wrap">
-                                <div class="offer-item__content">
-                                    <h3><span class="text-green">Скидка 10%</span> на доп работы</h3>
-                                    <p>Мы дарим своим клиентам скидку 10% на все виды дополнительных работ при строительстве дома или бани.</p>
-                                </div>
-                                <p class="offer-item__descr">Акция действует до 30.12.2019 года</p>
-                                <div class="offer-item__action">
-                                    <a href="#" class="btn btn_small">УЧАСТВОВАТЬ</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="offer-item box" style="background-image: url('img/offers/offer-1.jpg');">
-                        <div class="offer-item__wrapper">
-                            <div class="offer-item__wrap">
-                                <div class="offer-item__content">
-                                    <h3><span class="text-green">Скидка 10%</span> на доп работы</h3>
-                                    <p>Мы дарим своим клиентам скидку 10% на все виды дополнительных работ при строительстве дома или бани.</p>
-                                </div>
-                                <p class="offer-item__descr">Акция действует до 30.12.2019 года</p>
-                                <div class="offer-item__action">
-                                    <a href="#" class="btn btn_small">УЧАСТВОВАТЬ</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <?php endforeach; ?>
+                <?php wp_reset_postdata(); ?>
             </div>
             <div class="swiper-nav">
                 <div class="swiper-button-prev"><i class="ic ic-left"></i></div>
@@ -335,7 +293,7 @@
             </div>
         </div>
     </div>
-</section>-->
+</div>
 
 <!--    <section class="reviews">
         <div class="container">
