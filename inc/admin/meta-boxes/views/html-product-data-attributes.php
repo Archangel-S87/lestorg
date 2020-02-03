@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			// Array of defined attribute taxonomies.
 			$attribute_taxonomies = wc_get_attribute_taxonomies();
-            $attribute_taxonomies = lt_get_attached_attrs_cat_product($attribute_taxonomies);
+            $attribute_taxonomies = Lestorg_Admin::get_attached_attrs_cat_product($attribute_taxonomies);
 
 			if ( ! empty( $attribute_taxonomies ) ) {
 				foreach ( $attribute_taxonomies as $tax ) {

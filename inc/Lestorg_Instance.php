@@ -1,11 +1,11 @@
 <?php
 
 
-trait LT_Instance
+trait Lestorg_Instance
 {
     protected static $instance = false;
 
-    public static function get_instance(): self
+    public static function instance(): self
     {
         if (!self::$instance) {
             self::$instance = new self();

@@ -4,7 +4,7 @@
  * формирует вариации товаров для различных категорий
  */
 
-class LT_Product_Variations
+class Lestorg_Acf_Product_Variations
 {
     static $prefix_key = 'field_';
 
@@ -36,7 +36,7 @@ class LT_Product_Variations
      */
     public function get_category_binding($taxonomies)
     {
-        return lt_get_attached_attrs_cat_product($taxonomies);
+        return Lestorg_Admin::get_attached_attrs_cat_product($taxonomies);
     }
 
     public function add_all_fields()
@@ -170,4 +170,4 @@ class LT_Product_Variations
     }
 }
 
-$LT_Product_Variations = new LT_Product_Variations();
+$Lestorg_Acf_Product_Variations = new Lestorg_Acf_Product_Variations();

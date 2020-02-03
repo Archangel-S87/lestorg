@@ -5,7 +5,7 @@
  */
 
 
-class LT_Ajax_Favorites
+class Lestorg_Ajax_Favorites
 {
     public function __construct()
     {
@@ -66,4 +66,4 @@ class LT_Ajax_Favorites
     }
 }
 
-$LT_Ajax_Favorites = new LT_Ajax_Favorites();
+$Lestorg_Ajax_Favorites = new Lestorg_Ajax_Favorites();

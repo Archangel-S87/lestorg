@@ -5,7 +5,7 @@
  */
 
 
-class LT_Offers
+class Lestorg_Acf_Offers
 {
     public function __construct()
     {
@@ -104,4 +104,4 @@ class LT_Offers
     }
 }
 
-$LT_Offers = new LT_Offers();
+$Lestorg_Acf_Offers = new Lestorg_Acf_Offers();

@@ -30,11 +30,6 @@ function add_classes_archive_post($classes) {
     return $classes;
 }
 
-add_filter('next_posts_link_attributes', 'replace_next_posts_link_attributes');
-function replace_next_posts_link_attributes() {
-    return 'class="pagination__more"';
-}
-
 get_header();
 
 ?>

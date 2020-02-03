@@ -1,13 +1,11 @@
 <?php
 
-/*
- * Отвечает за вывод товаров с табами и фильтром.
- */
+require_once 'Lestorg_Loop.php';
 
 
-class WC_LT_Category_Simple extends WC_LT_Category
+class Lestorg_Loop_Simple extends Lestorg_Loop
 {
-    use LT_Instance;
+    use Lestorg_Instance;
 
     // Количество карточек на странице
     protected $count_cards = [4, 6, 12, 16, 20];
@@ -32,11 +30,6 @@ class WC_LT_Category_Simple extends WC_LT_Category
 
         // Вывод дополнительных секций после основного контента в категориях
         $this->add_action('lt_after_woocommerce_content', 'print_feedback', 15);
-    }
-
-    public function product_query(WP_Query $query, WC_Query $wc_query)
-    {
-
     }
 
     public function change_body_classes($classes)
@@ -85,5 +78,3 @@ class WC_LT_Category_Simple extends WC_LT_Category
         <?php
     }
 }
-
-$WC_LT_Category_Simple = WC_LT_Category_Simple::get_instance();

@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
 
-    const ajax_url = woocommerce_params.ajax_url || {};
+    const ajax_url = lestorg_ajax.url || {};
 
     let scrollWidth = window.innerWidth - document.documentElement.clientWidth;
 

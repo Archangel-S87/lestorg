@@ -26,12 +26,7 @@ $args = apply_filters('woocommerce_pagination_args', [ // WPCS: XSS ok.
     'mid_size' => 3
 ]);
 
-add_filter('next_posts_link_attributes', function ($attrs) {
-    return 'class="pagination__more"';
-});
-
-$category_template = WC_LT_Content::get_instance()->get_class_template();
-$count_cards = $category_template->get_count_cards();
+$count_cards = LT()->content->get_loop_class_template()->get_count_cards();
 $current_count_cards = $count_cards['current_count_cards'];
 $count_cards = $count_cards['count_cards'];
 

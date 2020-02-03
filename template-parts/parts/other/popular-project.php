@@ -39,12 +39,14 @@ add_filter('lt_wc_product_wrap_loop', 'set_product_loop_in_swiper', 20);
             <?php
             foreach ($terms as $term) :
 
+                $term_id = $term->term_id;
+
                 $posts = get_posts([
                     'numberposts' => 3,
                     'tax_query' => [
                         [
                             'taxonomy' => 'product_cat',
-                            'terms' => $term->term_id
+                            'terms' => $term_id
                         ]
                     ],
                     'post_type' => 'product',
@@ -53,7 +55,7 @@ add_filter('lt_wc_product_wrap_loop', 'set_product_loop_in_swiper', 20);
 
                 if (!$posts) continue;
 
-                lt_run_category_template($term->term_id);
+                LT()->content->get_loop_class_template($term_id)->run();
 
                 ?>
 
@@ -80,7 +82,7 @@ add_filter('lt_wc_product_wrap_loop', 'set_product_loop_in_swiper', 20);
 
                 </div>
 
-                <?php lt_reset_category_template(); ?>
+                <?php  LT()->content->get_loop_class_template($term_id)->reset(); ?>
 
             <?php endforeach; ?>
 

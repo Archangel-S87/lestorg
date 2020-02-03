@@ -1,38 +1,42 @@
 <?php
 
 /*
- * Все модификации плгина WooCommerce в админке
+ * Все модификации админки
  */
 
-class WC_LT_Admin
+
+class Lestorg_Admin
 {
-    // Список атрибутов для сортировки
+    // Опция для хранения закреплённых атрибутов к категориям товаров
+    const attributes_option_name = '_wc_lt_attributes_list_categories';
+
+    private $field = [
+        'taxonomy' => 'product_cat',
+        'field_type' => 'checkbox',
+        'input_name' => 'list_categories',
+        'value' => []
+    ];
+
+    // TODO Список атрибутов для сортировки Перенести в контент
     public $sort_attributes = [
         'pa_ploshhad'
     ];
 
     public function __construct()
     {
+        // Все модификации плгина WooCommerce в админке
         add_action('admin_init', [$this, 'admin_init']);
     }
 
     public function admin_init()
     {
-        $this->include();
-        $this->hooks();
+        require_once LT_PATCH . '/inc/admin/meta-boxes/class-lt-wc-meta-box-product-data.php';
 
         // TODO Запускать для пересохранения всех товаров!
         //$this->save_all_products();
-    }
 
-    public function include()
-    {
-        require_once dirname(__FILE__) . '/meta-boxes/class-lt-wc-meta-box-product-data.php';
-        require_once 'WC_LT_Attributes.php';
-    }
+        add_action('admin_enqueue_scripts', [$this, 'admin_scripts']);
 
-    public function hooks()
-    {
         /*
         * Убираю у товаров не нужные флажки
         * Убираю в списке товаров не нужные пункты сортировки
@@ -47,6 +51,7 @@ class WC_LT_Admin
         // Удаляю стандартный метабокс данных и добавляю свой
         add_action('add_meta_boxes', array($this, 'replace_wc_product_data'), 40);
 
+
         /*
          * Сохранение метабоксов
          */
@@ -57,23 +62,44 @@ class WC_LT_Admin
         // Обновляю метаполе для сортировки
         add_action('woocommerce_admin_process_product_object', [$this, 'add_meta_key_for_order']);
 
+
         /*
          * На странице категории товаров удаляю поле Тип отображения и изображение
          */
-        if (class_exists('WC_Admin_Taxonomies')) {
-            $wc_admin_taxonomies = WC_Admin_Taxonomies::get_instance();;
-            remove_action('product_cat_add_form_fields', [$wc_admin_taxonomies, 'add_category_fields']);
-            remove_action('product_cat_edit_form_fields', [$wc_admin_taxonomies, 'edit_category_fields']);
-            // Удаляю излбражения из таблицы
-            remove_filter('manage_edit-product_cat_columns', [$wc_admin_taxonomies, 'product_cat_columns']);
-            remove_filter('manage_product_cat_custom_column', [$wc_admin_taxonomies, 'product_cat_column']);
-        }
+        $wc_admin_taxonomies = WC_Admin_Taxonomies::get_instance();;
+        remove_action('product_cat_add_form_fields', [$wc_admin_taxonomies, 'add_category_fields']);
+        remove_action('product_cat_edit_form_fields', [$wc_admin_taxonomies, 'edit_category_fields']);
+        // Удаляю излбражения из таблицы
+        remove_filter('manage_edit-product_cat_columns', [$wc_admin_taxonomies, 'product_cat_columns']);
+        remove_filter('manage_product_cat_custom_column', [$wc_admin_taxonomies, 'product_cat_column']);
+
 
         /*
          * На странице категорий добавляю в таблицу колонку с названием шаблона
          */
         add_filter('manage_edit-product_cat_columns', [$this, 'product_cat_columns']);
         add_filter('manage_product_cat_custom_column', [$this, 'product_cat_column'], 10, 3);
+
+
+        /*
+         * Дополнительные поля на страницк атрибуты
+         */
+        // Выводит дополнительное поле с категориями товаров
+        add_action('woocommerce_after_add_attribute_fields', [$this, 'add_attribute_field_product_categories']);
+        add_action('woocommerce_after_edit_attribute_fields', [$this, 'edit_attribute_field_product_categories']);
+
+        // Сохранение атрибутов
+        add_action('woocommerce_attribute_added', [$this, 'save_attribute']);
+        add_action('woocommerce_attribute_updated', [$this, 'save_attribute']);
+    }
+
+    public function admin_scripts()
+    {
+        $version = wp_get_theme()->get('Version');
+
+        wp_enqueue_style('lestorg-admin-style', get_theme_file_uri('assets/css/admin.css'), [], $version);
+
+        wp_enqueue_script('lestorg-admin-scripts', get_theme_file_uri('assets/js/admin.js'), ['jquery'], $version);
     }
 
     public function save_all_products()
@@ -207,6 +233,107 @@ class WC_LT_Admin
         }
         return $options;
     }
+
+    public function save_attribute($attr_id)
+    {
+        $list_categories = $_POST['list_categories'] ?? [];
+
+        $option_list_categories = get_option(self::attributes_option_name, []);
+
+        $option_list_categories[$attr_id] = $list_categories;
+
+        update_option(self::attributes_option_name, $option_list_categories, false);
+    }
+
+    private function render_categories()
+    {
+        require_once LT_PATCH . '/walkers/LT_Walker_Taxonomy.php';
+
+        $edit = isset($_GET['edit']) ? absint($_GET['edit']) : 0;
+
+        $field = $this->field;
+
+        if ($edit) {
+            $list_categories = get_option(self::attributes_option_name);
+            $field['value'] = $list_categories[$edit] ?? [];
+        }
+
+        $input_name = $field['input_name'];
+        $field['name'] = $field['field_type'] == 'checkbox' ? $input_name . '[]' : $input_name;
+
+        $args = [
+            'taxonomy' => $field['taxonomy'],
+            'hide_empty' => false,
+            'depth' => 3,
+            'style' => 'none',
+            'walker' => new LT_Walker_Taxonomy($field),
+        ]
+
+        ?>
+
+        <input type="hidden" name="<?= $field['input_name']; ?>">
+        <input type="hidden" name="list_categories">
+
+        <ul class="checkbox-list acf-bl">
+            <?php wp_list_categories($args); ?>
+        </ul>
+
+        <?php
+    }
+
+    public function add_attribute_field_product_categories()
+    {
+        ?>
+        <div class="form-field">
+            <label for="list_categories">Список объектов</label>
+            <div class="wrapper-list-categories add-attribute">
+                <?php $this->render_categories(); ?>
+            </div>
+            <p class="description">Атрибут буден виден на странице товара отмеченой категории</p>
+        </div>
+        <?php
+    }
+
+    public function edit_attribute_field_product_categories()
+    {
+        ?>
+        <tr class="form-field">
+            <th>
+                <label for="list_categories">Список объектов</label>
+            </th>
+            <td>
+                <div class="wrapper-list-categories edit-attribute">
+                    <?php $this->render_categories(); ?>
+                </div>
+                <p class="description">Атрибут буден виден на странице товара отмеченой категории</p>
+            </td>
+        </tr>
+        <?php
+    }
+
+    public static function get_attached_attrs_cat_product($taxonomies, $product = null) {
+        global $post;
+
+        if (!$product) {
+            $product = wc_get_product($post);
+        }
+
+        $rel_attrs = get_option(self::attributes_option_name, []);
+        if (!$product || !$rel_attrs) return $taxonomies;
+
+        $cats = get_the_terms($product->get_id(), 'product_cat');
+        $cat = (isset($cats[0]) && $cats[0]->slug !== 'uncategorized') ? $cats[0] : null;
+        if (!$cat) return $taxonomies;
+
+        $new_taxonomies = [];
+        foreach ($taxonomies as $taxonomy) {
+            $rel_attr = $rel_attrs[$taxonomy->attribute_id] ?? [];
+            if (!$rel_attr && !in_array($cat->term_id, $rel_attr)) continue;
+            $new_taxonomies[] = $taxonomy;
+        }
+
+        return $new_taxonomies;
+    }
 }
 
-$WC_LT_Admin = new WC_LT_Admin();
+$Lestorg_Admin = new Lestorg_Admin();

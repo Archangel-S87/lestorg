@@ -8,26 +8,38 @@ foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
     $product_ids[] = $cart_item['product_id'];
 }
 
-$WC_LT_Content = WC_LT_Content::get_instance();
-$WC_LT_Content->set_class_template('WC_LT_Category_Tabs');
+if ($product_ids) {
 
-$class_template = $WC_LT_Content->get_class_template();
-$class_template->run();
+    // Показывать товары только из нужных категорий
+    $categories = get_terms([
+        'taxonomy' => 'product_cat',
+        'fields' => 'ids',
+        'slug' => ['doma', 'bani', 'besedki']
+    ]);;
 
-remove_action('woocommerce_before_shop_loop', [$class_template, 'set_title'], 20);
-remove_action('woocommerce_before_shop_loop', [$class_template, 'filter_projects'], 20);
+    $content = LT()->content;
+    $content->set_loop_class_template('Lestorg_Loop_Main');
+
+    $class_template = $content->get_loop_class_template($categories[0]);
+    $class_template->run();
+
+    remove_action('woocommerce_before_shop_loop', [$class_template, 'set_title'], 20);
+    remove_action('woocommerce_before_shop_loop', [$class_template, 'filter_projects'], 20);
+
+    $content = new WC_Shortcode_Products([
+        'ids' => implode(', ', $product_ids),
+        'category' => implode(', ', $categories),
+        'paginate' => true,
+        'cache' => false,
+        'limit' => $class_template->get_current_count_cards()
+    ]);
+
+}
 
 add_action('woocommerce_before_shop_loop', 'favorite_set_title', 20);
 function favorite_set_title() {
     echo '<div class="title text-left"><h2>' . get_the_title() . '</h2></div>';
 }
-
-// Показывать товары только из нужных категорий
-$categories = get_terms([
-    'taxonomy' => 'product_cat',
-    'fields' => 'ids',
-    'slug' => ['doma', 'bani', 'besedki']
-]);;
 
 // Выводить товары с ценой
 add_filter('woocommerce_shortcode_products_query', 'remove_product_has_not_price');
@@ -41,16 +53,6 @@ function remove_product_has_not_price($query_args) {
         ]
     ];
     return $query_args;
-}
-
-if ($product_ids) {
-    $content = new WC_Shortcode_Products([
-        'ids' => implode(', ', $product_ids),
-        'category' => implode(', ', $categories),
-        'paginate' => true,
-        'cache' => false,
-        'limit' => $class_template->get_current_count_cards()
-    ]);
 }
 
 ?>

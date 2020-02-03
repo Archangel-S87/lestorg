@@ -4,7 +4,7 @@
  * Классс для отправки писем о заявках
  */
 
-class LT_Ajax_Mailer
+class Lestorg_Ajax_Mailer
 {
     public function __construct()
     {
@@ -68,4 +68,4 @@ class LT_Ajax_Mailer
     }
 }
 
-$LT_Ajax_Mailer = new LT_Ajax_Mailer();
+$Lestorg_Ajax_Mailer = new Lestorg_Ajax_Mailer();

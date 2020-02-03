@@ -5,7 +5,7 @@
  */
 
 
-trait LT_Hooks
+trait Lestorg_Hooks
 {
     protected $filters = [];
     protected $actions = [];

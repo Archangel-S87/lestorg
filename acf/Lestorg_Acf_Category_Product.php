@@ -5,7 +5,7 @@
  */
 
 
-class LT_Category_Product
+class Lestorg_Acf_Category_Product
 {
     public function __construct()
     {
@@ -34,8 +34,8 @@ class LT_Category_Product
                 'conditional_logic' => 0,
                 'choices' => [
                     'simple' => 'Простой',
-                    'tabs' => 'С табами',
-                    'sidebar' => 'С сайдбаром'
+                    'main' => 'Основной',
+                    //'other' => 'Другой'
                 ],
                 'default_value' => [
                     0 => 'simple'
@@ -62,4 +62,4 @@ class LT_Category_Product
     }
 }
 
-$LT_Category_Product = new LT_Category_Product();
+$Lestorg_Acf_Category_Product = new Lestorg_Acf_Category_Product();

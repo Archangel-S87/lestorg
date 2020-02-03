@@ -4,9 +4,12 @@
  * Отвечает за вывод товаров с табами и фильтром.
  */
 
-class WC_LT_Category_Tabs extends WC_LT_Category
+require_once 'Lestorg_Loop.php';
+
+
+class Lestorg_Loop_Main extends Lestorg_Loop
 {
-    use LT_Instance;
+    use Lestorg_Instance;
 
     // Стандартные поля фильтра со значениями
     private $filter_fields = [
@@ -355,5 +358,3 @@ class WC_LT_Category_Tabs extends WC_LT_Category
         <?php
     }
 }
-
-$WC_LT_Category_Tabs = WC_LT_Category_Tabs::get_instance();

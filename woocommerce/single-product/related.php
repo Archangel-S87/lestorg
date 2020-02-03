@@ -19,11 +19,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-add_filter('lt_wc_product_wrap_loop', 'set_product_loop_in_swiper', 20);
-
-lt_run_category_template();
-
 if ($related_products ?? []) : ?>
+
+    <?php LT()->content->get_loop_class_template(0, $related_products[0] ?? 0)->run(); ?>
+    <?php add_filter('lt_wc_product_wrap_loop', 'set_product_loop_in_swiper', 20); ?>
 
     <div class="product__row">
         <div class="container">
@@ -53,8 +52,7 @@ if ($related_products ?? []) : ?>
         </div>
     </div>
 
+    <?php LT()->content->get_loop_class_template(0, $related_products[0])->reset(); ?>
+    <?php wp_reset_postdata(); ?>
+
 <?php endif;
-
-lt_reset_category_template();
-
-wp_reset_postdata();

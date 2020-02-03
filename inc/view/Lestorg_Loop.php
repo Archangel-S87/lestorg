@@ -4,18 +4,20 @@
  * Класс для страниц категорий
  */
 
+require_once LT_PATCH . '/inc/Lestorg_Hooks.php';
 
-abstract class WC_LT_Category
+
+abstract class Lestorg_Loop
 {
+    use Lestorg_Hooks;
+
     protected $term;
 
     // Количество карточек на странице
     protected $count_cards = [9, 12, 15, 18, 21];
 
-    // Варианты сортировкм
+    // Варианты сортировкм TODO Добавить в часть админки
     protected $catalog_orderby = [];
-
-    use LT_Hooks;
 
     public function set_term(WP_Term $term)
     {
@@ -28,11 +30,14 @@ abstract class WC_LT_Category
         $query->set('posts_per_page', $this->get_current_count_cards());
     }
 
-    /*
+    /**
      * Функия отдаёт min и max значение по переданому meta_key товара
      * Код взят с плагина WooCommerce Products Filter.
      * Класс WOOF_HELPER. Метод get_filtered_price
      * Модифицирована.
+     *
+     * @param $meta_key
+     * @return object
      */
     protected function get_min_max_value_by_meta_key($meta_key) {
         global $wpdb, $wp_the_query;
