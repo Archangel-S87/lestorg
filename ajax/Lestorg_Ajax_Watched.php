@@ -8,6 +8,7 @@ class Lestorg_Ajax_Watched
 {
     public function __construct()
     {
+        add_action('wp_ajax_lestorg_ajax_get_watched', [$this, 'get_watched']);
         add_action('wp_ajax_nopriv_lestorg_ajax_get_watched', [$this, 'get_watched']);
     }
 

@@ -22,16 +22,16 @@ function lestorg_register_required_plugins()
         [
             'name' => 'Advanced Custom Fields PRO',
             'slug' => 'advanced-custom-fields-pro',
-            'source' => get_template_directory() . '/tgm/plugins/advanced-custom-fields-pro.zip',
+            'source' => get_template_directory() . '/libs/tgm/plugins/advanced-custom-fields-pro.zip',
             'required' => true,
-            'version' => '5.7.13',
+            'version' => '5.8.7',
             'force_activation' => true,
             'force_deactivation' => false
         ],
         [
             'name' => 'Advanced Custom Fields: Атрибуты товара WooCommerce',
             'slug' => 'acf-product-attributes',
-            'source' => get_template_directory() . '/tgm/plugins/acf-product-attributes.zip',
+            'source' => get_template_directory() . '/libs/tgm/plugins/acf-product-attributes.zip',
             'required' => true,
             'version' => '1.0.0',
             'force_activation' => true,
@@ -42,12 +42,6 @@ function lestorg_register_required_plugins()
             'slug' => 'folders',
             'required' => true,
             'force_activation' => true
-        ],
-        [
-            'name' => 'Disable Gutenberg',
-            'slug' => 'disable-gutenberg',
-            //'required' => true,
-            //'force_activation' => true
         ]
     ];
 

@@ -8,6 +8,7 @@ class Lestorg_Ajax_Mailer
 {
     public function __construct()
     {
+        add_action('wp_ajax_lestorg_ajax_send_forms', [$this, 'send_forms']);
         add_action('wp_ajax_nopriv_lestorg_ajax_send_forms', [$this, 'send_forms']);
     }
 

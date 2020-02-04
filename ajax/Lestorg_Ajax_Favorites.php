@@ -9,7 +9,9 @@ class Lestorg_Ajax_Favorites
 {
     public function __construct()
     {
+        add_action('wp_ajax_lestorg_ajax_add_favorites', [$this, 'add_favorites']);
         add_action('wp_ajax_nopriv_lestorg_ajax_add_favorites', [$this, 'add_favorites']);
+        add_action('wp_ajax_lestorg_ajax_remove_favorites', [$this, 'remove_favorites']);
         add_action('wp_ajax_nopriv_lestorg_ajax_remove_favorites', [$this, 'remove_favorites']);
     }
 
