@@ -26,7 +26,7 @@ if ($product_ids) {
     remove_action('woocommerce_before_shop_loop', [$class_template, 'set_title'], 20);
     remove_action('woocommerce_before_shop_loop', [$class_template, 'filter_projects'], 20);
 
-    $content = new WC_Shortcode_Products([
+    $short = new WC_Shortcode_Products([
         'ids' => implode(', ', $product_ids),
         'category' => implode(', ', $categories),
         'paginate' => true,
@@ -71,7 +71,7 @@ function remove_product_has_not_price($query_args) {
         do_action('woocommerce_before_main_content');
 
         if ($product_ids) {
-            echo $content->get_content();
+            echo $short->get_content();
         } else {
             echo '<div class="title text-left"><h2>' . get_the_title() . '</h2></div>';
             echo '<p>Здесь пока ничего нет.</p>';

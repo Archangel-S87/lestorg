@@ -18,6 +18,14 @@ class Lestorg_Content
 
     protected function __construct()
     {
+        /**
+         * Отключаю стили WooCommerce
+         */
+        remove_action('wp_enqueue_scripts', 'WC_Frontend_Scripts::load_scripts');
+        remove_action('wp_print_scripts', 'WC_Frontend_Scripts::localize_printed_scripts', 5);
+        remove_action('wp_print_footer_scripts', 'WC_Frontend_Scripts::localize_printed_scripts', 5);
+
+        // Свои стили
         add_action('wp_enqueue_scripts', [$this, 'content_scripts']);
 
         // Классы для страниц
@@ -25,6 +33,12 @@ class Lestorg_Content
 
         // Изменяем атрибут class у тега li в меню
         add_filter('nav_menu_css_class', [$this, 'filter_nav_menu_css_classes'], 10, 4);
+
+        /*
+         * Убираю обёртку контента
+         */
+        remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper');
+        remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end');
 
         // Меняю вывод breadcrumbs
         add_filter('woocommerce_breadcrumb_defaults', [$this, 'replace_breadcrumbs_defaults']);
@@ -36,6 +50,9 @@ class Lestorg_Content
 
         // Определяю каой шаблон применить для карточек
         add_action('woocommerce_product_query', [$this, 'loop_product_query'], 10, 2);
+
+        // Определяю шаблон страницы товара
+        add_action('wp', [$this, 'define_single_product_template']);
     }
 
     public function content_scripts()
@@ -132,6 +149,16 @@ class Lestorg_Content
         $class_template->run();
     }
 
+    public function define_single_product_template($wp)
+    {
+        if (is_singular('product')) {
+            global $post;
+            $product = wc_get_product($post);
+            $class_template = $this->get_single_class_template($product);
+            $class_template->run();
+        }
+    }
+
     public function set_loop_class_template($class_name)
     {
         if (!class_exists($class_name)) return;
@@ -204,6 +231,7 @@ class Lestorg_Content
         }
 
         $this->single_class_template->set_product($product);
+        $this->single_class_template->set_parent_term($parent_cat);
 
         return $this->single_class_template;
     }
@@ -214,14 +242,7 @@ class Lestorg_Content
 
             while (have_posts()) {
                 the_post();
-                global $post;
-
-                $product = wc_get_product($post);
-                $class_template = $this->get_single_class_template($product);
-
-                $class_template->run();
                 wc_get_template_part('content', 'single-product');
-                $class_template->reset();
             }
 
             return;

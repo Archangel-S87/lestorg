@@ -30,8 +30,6 @@ class Lestorg_Admin
 
     public function admin_init()
     {
-        require_once LT_PATCH . '/inc/admin/meta-boxes/class-lt-wc-meta-box-product-data.php';
-
         // TODO Запускать для пересохранения всех товаров!
         //$this->save_all_products();
 
@@ -56,7 +54,7 @@ class Lestorg_Admin
          * Сохранение метабоксов
          */
         // Сохранение местоположения объекта
-        add_action('woocommerce_admin_process_product_object', 'LT_WC_Meta_Box_Product_Data::save_custom_fields');
+        add_action('woocommerce_admin_process_product_object', 'Lestorg_WC_Meta_Box_Product_Data::save_custom_fields');
         // Сохранение атрибутов участвующих в сортировке
         add_action('woocommerce_admin_process_product_object', [$this, 'save_order_by_attributes']);
         // Обновляю метаполе для сортировки
@@ -179,7 +177,7 @@ class Lestorg_Admin
         global $wp_meta_boxes;
 
         remove_meta_box('woocommerce-product-data', 'product', 'normal');
-        add_meta_box('woocommerce-product-data', 'Данные проекта', 'LT_WC_Meta_Box_Product_Data::output', 'product', 'normal', 'high');
+        add_meta_box('woocommerce-product-data', 'Данные проекта', 'Lestorg_WC_Meta_Box_Product_Data::output', 'product', 'normal', 'high');
 
         // Сортировка метабоксов
         // Метабокс ACF должне быть после Данных товара

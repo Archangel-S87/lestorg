@@ -12,9 +12,20 @@ abstract class Lestorg_Single
      */
     protected $product;
 
+    /**
+     * @var WP_Term
+     */
+    protected $parent_term;
+
+
     public function set_product(WC_Product $product): self
     {
         $this->product = $product;
+        return $this;
+    }
+
+    public function set_parent_term(WP_Term $term) {
+        $this->parent_term = $term;
         return $this;
     }
 
@@ -39,24 +50,20 @@ abstract class Lestorg_Single
     {
         $this->remove_default_hooks();
 
+        // Классы обёртки
+        $this->add_filter('lestorg_woocommerce_wrapper_class', [$this, 'add_wrapper_class']);
+
         // Заголовок и краткое описание
         $this->add_action('woocommerce_before_single_product_summary', [$this, 'get_the_title']);
 
         // Описание проекта
-        $this->add_action('woocommerce_after_single_product_summary', [$this, 'get_the_description']);
+        $this->add_action('lestorg_after_woocommerce_main_container', [$this, 'get_the_description']);
     }
 
-    // Для добавления в избранное
-    public function add_local_storage()
+    public function add_wrapper_class($classes)
     {
-        $cat_id = $this->product->get_category_ids();
-        $cat_id = $cat_id[0] ?? 0;
-        if (!$cat_id) return;
-
-        $parent_cat = get_top_parent_id_product_cat($cat_id);
-        $parent_cat = get_term($parent_cat, 'product_cat');
-
-        echo '<div id="add_local_storage" data-product_id="' . $this->product->get_id() . '" data-cat_id="' . $parent_cat->term_id . '"></div>';
+        array_unshift($classes, 'product');
+        return $classes;
     }
 
     public function get_the_title()
@@ -142,6 +149,33 @@ abstract class Lestorg_Single
                 </div>
             </div>
         </div>
+        <?php
+    }
+
+    // Для добавления в избранное
+    public function get_the_watched()
+    {
+        ?>
+
+        <div id="show_watched" class="product__row hidden" data-product_id="<?= $this->product->get_id(); ?>" data-cat_id="<?= $this->parent_term->term_id ?>">
+            <div class="container">
+
+                <div class="product__row-title">
+                    <h3>Вы смотрели</h3>
+                </div>
+
+                <div id="slider_watched">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-nav">
+                        <div class="swiper-button-prev"><i class="ic ic-left"></i></div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next"><i class="ic ic-right"></i></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <?php
     }
 }

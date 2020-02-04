@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 
 		<?php
-		foreach ( self::lt_get_product_type_options() as $key => $option ) :
+		foreach ( self::lestorg_get_product_type_options() as $key => $option ) :
 			if ( metadata_exists( 'post', $post->ID, '_' . $key ) ) {
 				$selected_value = is_callable( array( $product_object, "is_$key" ) ) ? $product_object->{"is_$key"}() : 'yes' === get_post_meta( $post->ID, '_' . $key, true );
 			} else {
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</span>
 
 	<ul class="product_data_tabs wc-tabs">
-		<?php foreach ( self::lt_get_product_data_tabs() as $key => $tab ) : ?>
+		<?php foreach ( self::lestorg_get_product_data_tabs() as $key => $tab ) : ?>
 			<li class="<?php echo esc_attr( $key ); ?>_options <?php echo esc_attr( $key ); ?>_tab <?php echo esc_attr( isset( $tab['class'] ) ? implode( ' ', (array) $tab['class'] ) : '' ); ?>">
 				<a href="#<?php echo esc_attr( $tab['target'] ); ?>"><span><?php echo esc_html( $tab['label'] ); ?></span></a>
 			</li>

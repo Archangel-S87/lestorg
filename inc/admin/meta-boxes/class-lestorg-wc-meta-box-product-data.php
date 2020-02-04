@@ -5,7 +5,7 @@
  */
 
 
-class LT_WC_Meta_Box_Product_Data extends WC_Meta_Box_Product_Data
+class Lestorg_WC_Meta_Box_Product_Data extends WC_Meta_Box_Product_Data
 {
     const wc_path_meta_box = WC_ABSPATH . 'includes/admin/meta-boxes/';
 

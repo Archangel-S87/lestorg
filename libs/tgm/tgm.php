@@ -36,6 +36,18 @@ function lestorg_register_required_plugins()
             'version' => '1.0.0',
             'force_activation' => true,
             'force_deactivation' => false
+        ],
+        [
+            'name' => 'Folders',
+            'slug' => 'folders',
+            'required' => true,
+            'force_activation' => true
+        ],
+        [
+            'name' => 'Disable Gutenberg',
+            'slug' => 'disable-gutenberg',
+            //'required' => true,
+            //'force_activation' => true
         ]
     ];
 

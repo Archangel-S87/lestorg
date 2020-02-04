@@ -11,13 +11,11 @@ class Lestorg_Single_Main extends Lestorg_Single
     {
         parent::run();
 
-        $this->add_action('woocommerce_before_single_product_summary', [$this, 'add_local_storage'], 5);
-
         $this->add_action('woocommerce_single_product_summary', [$this, 'get_the_preview']);
 
-        $this->add_action('woocommerce_after_single_product_summary', [$this, 'get_the_variations_table'], 5);
+        $this->add_action('lestorg_after_woocommerce_main_container', [$this, 'get_the_variations_table'], 5);
 
-        $this->add_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 10);
+        $this->add_action('lestorg_after_woocommerce_main_container', [$this, 'get_the_watched'], 15);
     }
 
     public function get_the_preview()

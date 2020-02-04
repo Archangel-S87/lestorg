@@ -31,6 +31,7 @@ class Lestorg
         require_once LT_PATCH . '/acf/Lestorg_Acf_Product_Variations.php';
 
         // Admin
+        require_once LT_PATCH . '/inc/admin/meta-boxes/class-lestorg-wc-meta-box-product-data.php';
         require_once LT_PATCH . '/inc/Lestorg_Admin.php';
 
         // Content
@@ -39,6 +40,7 @@ class Lestorg
         // Ajax
         require_once LT_PATCH . '/ajax/Lestorg_Ajax_Mailer.php';
         require_once LT_PATCH . '/ajax/Lestorg_Ajax_Favorites.php';
+        require_once LT_PATCH . '/ajax/Lestorg_Ajax_Watched.php';
 
         // Customizer
         add_action('customize_register', [$this, 'init_customizer']);

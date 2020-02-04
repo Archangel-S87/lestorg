@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				$metabox_class[] = $attribute->get_name();
 			}
 
-			include LESTORG_WC_Meta_Box_Product_Data::wc_path_meta_box . 'views/html-product-attribute.php';
+			include Lestorg_WC_Meta_Box_Product_Data::wc_path_meta_box . 'views/html-product-attribute.php';
 		}
 		?>
 	</div>

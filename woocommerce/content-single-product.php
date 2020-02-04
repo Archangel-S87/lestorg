@@ -41,10 +41,13 @@ if (post_password_required()) {
     /**
      * Hook: woocommerce_after_single_product_summary.
      *
-     * @hooked get_the_description - 10
      */
     do_action('woocommerce_after_single_product_summary');
     ?>
 </div>
-
-<?php do_action('woocommerce_after_single_product'); ?>
+<?php
+/**
+* Hook: woocommerce_after_single_product.
+*
+*/
+do_action('woocommerce_after_single_product');

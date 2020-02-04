@@ -702,4 +702,102 @@ jQuery(document).ready(function ($) {
 
         return false;
     });
+
+
+    /*
+    Вы смотрели
+     */
+    const showWatched = $('#show_watched');
+    if (showWatched.length) {
+        const postId = + showWatched.attr('data-product_id'),
+            catId = + showWatched.attr('data-cat_id');
+
+        let watched = localStorage.getItem('watched'),
+            showPosts, // Просмотренные посты
+            tempShowPosts = [];
+
+        watched = watched ? JSON.parse(watched) : {};
+        showPosts = watched[catId] ? new Set(watched[catId]) : new Set();
+
+        // Добавляю текущий пост в локальное хранилище
+        showPosts.add(postId);
+        for(let id of showPosts) {
+            tempShowPosts.push(id);
+        }
+        watched[catId] = tempShowPosts;
+
+        localStorage.setItem('watched', JSON.stringify(watched));
+
+        if (showPosts.size > 1) {
+            // Запрос на загрузку просмотренных товаров из текущей категории
+
+            showPosts.delete(postId); // Убираю текущий товар из showPosts
+
+            tempShowPosts = [];
+            for(let id of showPosts) {
+                tempShowPosts.push(id);
+            }
+
+            $.ajax({
+                url: ajax_url,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    action: 'lestorg_ajax_get_watched',
+                    cat_id: catId,
+                    product_ids: tempShowPosts
+                },
+                success: function (result) {
+                    if (result.errors) {
+                        console.log(result.errors);
+                    }
+
+                    showWatched.find('#slider_watched').addClass('catalog-slider swiper-container');
+                    showWatched.find('.swiper-wrapper').html(result.html);
+
+                    showWatched.removeClass('hidden');
+
+                    let newSlider = new Swiper('#slider_watched', {
+                        slidesPerView: 3,
+                        spaceBetween: 15,
+                        centerInsufficientSlides: false,
+                        watchOverflow: true,
+                        watchSlidesProgress: true,
+                        watchSlidesVisibility: true,
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            prevEl: '.swiper-button-prev',
+                            nextEl: '.swiper-button-next',
+                        },
+                        breakpoints: {
+                            1199: {
+                                slidesPerView: 2,
+                            },
+                            767: {
+                                slidesPerView: 1,
+                            },
+                        }
+                    });
+
+                    if ($(newSlider.params.el).length > 0) {
+                        $(window).on('load resize', function () {
+                            newSlider.update();
+                        });
+
+                        setTimeout(function () {
+                            $('.tabs__item').click(function () {
+                                newSlider.update();
+                            });
+                        }, 10);
+                    }
+
+                }
+            });
+        }
+
+    }
+
 });
