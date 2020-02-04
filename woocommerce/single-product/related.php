@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 if ($related_products ?? []) : ?>
 
     <?php LT()->content->get_loop_class_template(0, $related_products[0] ?? 0)->run(); ?>
-    <?php add_filter('lt_wc_product_wrap_loop', 'set_product_loop_in_swiper', 20); ?>
+    <?php add_filter('lestorg_wc_product_wrap_loop', 'set_product_loop_in_swiper', 20); ?>
 
     <div class="product__row">
         <div class="container">

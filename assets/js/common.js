@@ -47,7 +47,7 @@ jQuery(document).ready(function ($) {
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    action: 'lt_ajax_send_forms',
+                    action: 'lestorg_ajax_send_forms',
                     form_data: data,
                 },
                 success: function (result) {
@@ -616,7 +616,7 @@ jQuery(document).ready(function ($) {
             type: 'post',
             dataType: 'json',
             data: {
-                action: 'lt_ajax_' + action + '_favorites',
+                action: 'lestorg_ajax_' + action + '_favorites',
                 product_id: productId,
             },
             success: function (result) {

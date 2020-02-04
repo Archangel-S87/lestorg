@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Все фунции описаны в классах описаных в WC_LT_Content
+ * Все фунции описаны в классах описаных в Lestorg_Loop
  */
 
 defined('ABSPATH') || exit;
@@ -11,7 +11,7 @@ global $product;
 // Ensure visibility.
 if (!$product || !$product->is_visible()) return;
 
-$attrs = apply_filters('lt_wc_product_wrap_loop', [
+$attrs = apply_filters('lestorg_wc_product_wrap_loop', [
     'class' => wc_get_product_class('', $product)
 ]);
 

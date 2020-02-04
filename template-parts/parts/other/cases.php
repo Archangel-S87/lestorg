@@ -29,7 +29,7 @@ if (!$posts) return;
                 setup_postdata($post);
                 $product = wc_get_product($post);
                 if (!$product) continue;
-                $image_src = lt_woocommerce_get_thumbnail_image();
+                $image_src = lestorg_woocommerce_get_thumbnail_image();
                 if (!$image_src) continue;
                 ?>
                 <div class="cases-grid__col">

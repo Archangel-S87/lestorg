@@ -21,7 +21,7 @@ class LT_WC_Meta_Box_Product_Data extends WC_Meta_Box_Product_Data
         include 'views/html-product-data-panel.php';
     }
 
-    private static function lt_output_tabs()
+    private static function lestorg_output_tabs()
     {
         global $post, $thepostid, $product_object;
 
@@ -69,7 +69,7 @@ class LT_WC_Meta_Box_Product_Data extends WC_Meta_Box_Product_Data
         return $cat->slug == 'completed';
     }
 
-    private static function lt_get_product_type_options() {
+    private static function lestorg_get_product_type_options() {
         return apply_filters(
             'product_type_options',
             array(
@@ -91,7 +91,7 @@ class LT_WC_Meta_Box_Product_Data extends WC_Meta_Box_Product_Data
         );
     }
 
-    private static function lt_get_product_data_tabs() {
+    private static function lestorg_get_product_data_tabs() {
         $tabs = apply_filters(
             'woocommerce_product_data_tabs',
             array(
@@ -141,12 +141,12 @@ class LT_WC_Meta_Box_Product_Data extends WC_Meta_Box_Product_Data
         );
 
         // Sort tabs based on priority.
-        uasort( $tabs, array( __CLASS__, 'lt_product_data_tabs_sort' ) );
+        uasort( $tabs, array( __CLASS__, 'lestorg_product_data_tabs_sort' ) );
 
         return $tabs;
     }
 
-    private static function lt_product_data_tabs_sort( $a, $b ) {
+    private static function lestorg_product_data_tabs_sort( $a, $b ) {
         if ( ! isset( $a['priority'], $b['priority'] ) ) {
             return -1;
         }

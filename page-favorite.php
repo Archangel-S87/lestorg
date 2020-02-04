@@ -57,7 +57,7 @@ function remove_product_has_not_price($query_args) {
 
 ?>
 
-<div class="<?= implode(' ', apply_filters('lt_woocommerce_wrapper_class', ['s-inner'])); ?>">
+<div class="<?= implode(' ', apply_filters('lestorg_woocommerce_wrapper_class', ['s-inner'])); ?>">
     <div class="container">
         <?php
 

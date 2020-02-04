@@ -1,13 +1,7 @@
 <?php
 
-if (empty(WC_ABSPATH)) return;
-
-require_once 'includes/WC_LT_Product_Gallery_Images.php';
-require_once 'includes/WC_LT_Single_Product.php';
-
-
 // Получает thumbnail src продукта
-function lt_woocommerce_get_thumbnail_image($size = 'woocommerce_thumbnail', $placeholder = true) {
+function lestorg_woocommerce_get_thumbnail_image($size = 'woocommerce_thumbnail', $placeholder = true) {
     global $product;
     if (!$product instanceof WC_Product) return null;
 
@@ -27,7 +21,7 @@ function lt_woocommerce_get_thumbnail_image($size = 'woocommerce_thumbnail', $pl
         $image = wc_placeholder_img_src($size);
     }
 
-    return apply_filters('lt_product_get_image', $image, $product, $size, $image, $placeholder);
+    return apply_filters('lestorg_product_get_image', $image, $product, $size, $image, $placeholder);
 }
 
 function set_product_loop_in_swiper($attrs) {

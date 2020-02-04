@@ -1,6 +1,6 @@
 <?php
 
-$option = get_option('lt_popular_projects');
+$option = get_option('lestorg_popular_projects');
 
 if (!$option) return;
 
@@ -11,7 +11,7 @@ foreach ($option as $term_id) {
     }
 }
 
-add_filter('lt_wc_product_wrap_loop', 'set_product_loop_in_swiper', 20);
+add_filter('lestorg_wc_product_wrap_loop', 'set_product_loop_in_swiper', 20);
 
 ?>
 

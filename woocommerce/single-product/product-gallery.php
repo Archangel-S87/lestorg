@@ -4,7 +4,7 @@ defined('ABSPATH') || exit;
 
 if (empty($images)) return;
 
-$wrapper_classes = apply_filters('lt_single_product_gallery_classes', ['product-gallery', 'box']);
+$wrapper_classes = apply_filters('lestorg_single_product_gallery_classes', ['product-gallery', 'box']);
 
 ?>
 

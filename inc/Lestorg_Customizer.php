@@ -144,7 +144,7 @@ class Lestorg_Customizer
     // Настройки Главная страница
     public function add_setting_home(WP_Customize_Manager $wp_customize)
     {
-        $wp_customize->add_panel('lt_front_page', [
+        $wp_customize->add_panel('lestorg_front_page', [
             'title' => 'Главная страница',
             'description' => 'Секции на главной странице',
         ]);
@@ -155,7 +155,7 @@ class Lestorg_Customizer
 
         $wp_customize->add_section('popular_projects', [
             'title' => 'Популярные проекты',
-            'panel' => 'lt_front_page'
+            'panel' => 'lestorg_front_page'
         ]);
 
         $terms = get_terms([
@@ -169,10 +169,10 @@ class Lestorg_Customizer
             }
         }
 
-        $wp_customize->add_setting('lt_popular_projects', $setting_args);
+        $wp_customize->add_setting('lestorg_popular_projects', $setting_args);
         $wp_customize->add_control(
             new CF_Select_Control(
-                $wp_customize, 'lt_popular_projects', [
+                $wp_customize, 'lestorg_popular_projects', [
                 'section' => 'popular_projects',
                 'label' => 'Категории',
                 'description' => 'Категорий будут отображаться на главной',

@@ -16,7 +16,7 @@ abstract class Lestorg_Loop
     // Количество карточек на странице
     protected $count_cards = [9, 12, 15, 18, 21];
 
-    // Варианты сортировкм TODO Добавить в часть админки
+    // Варианты сортировкм
     protected $catalog_orderby = [];
 
     public function set_term(WP_Term $term)
@@ -155,7 +155,7 @@ abstract class Lestorg_Loop
         $this->add_filter('woocommerce_product_loop_start', [$this, 'product_loop_start']);
         $this->add_filter('woocommerce_product_loop_end', [$this, 'product_loop_end']);
 
-        $this->add_filter('lt_wc_product_wrap_loop', [$this, 'set_attrs_product_wrap'], 5);
+        $this->add_filter('lestorg_wc_product_wrap_loop', [$this, 'set_attrs_product_wrap'], 5);
     }
 
     public function set_attrs_product_wrap($attrs)
@@ -189,7 +189,7 @@ abstract class Lestorg_Loop
         global $product;
         if (!$product instanceof WC_Product) return;
 
-        $image_src = lt_woocommerce_get_thumbnail_image();
+        $image_src = lestorg_woocommerce_get_thumbnail_image();
         if (!$image_src) return;
 
         $link = apply_filters('woocommerce_loop_product_link', $product->get_permalink(), $product);

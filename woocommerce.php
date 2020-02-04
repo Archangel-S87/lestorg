@@ -3,14 +3,14 @@
 get_header();
 
 /**
- * Hook: lt_before_woocommerce_content
+ * Hook: lestorg_before_woocommerce_content
  *
  */
-do_action('lt_before_woocommerce_content');
+do_action('lestorg_before_woocommerce_content');
 
 ?>
 
-<div class="<?= implode(' ', apply_filters('lt_woocommerce_wrapper_class', ['s-inner'])); ?>">
+<div class="<?= implode(' ', apply_filters('lestorg_woocommerce_wrapper_class', ['s-inner'])); ?>">
     <div class="container">
         <?php
         /**
@@ -30,7 +30,6 @@ do_action('lt_before_woocommerce_content');
          * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
          */
         do_action('woocommerce_after_main_content');
-
         ?>
     </div>
 </div>
@@ -38,10 +37,10 @@ do_action('lt_before_woocommerce_content');
 <?php
 
 /**
- * Hook: lt_after_woocommerce_content
+ * Hook: lestorg_after_woocommerce_content
  *
  * @hooked print_bottom_wc_archive - 10
  */
-do_action('lt_after_woocommerce_content');
+do_action('lestorg_after_woocommerce_content');
 
 get_footer();

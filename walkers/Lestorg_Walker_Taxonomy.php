@@ -1,7 +1,7 @@
 <?php
 
 
-class LT_Walker_Taxonomy extends Walker
+class lestorg_Walker_Taxonomy extends Walker
 {
     public $field = null;
     public $tree_type = 'category';

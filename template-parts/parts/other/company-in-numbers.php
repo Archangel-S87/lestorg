@@ -1,7 +1,3 @@
-<?php
-// TODO Вывести в админку Наша компания в цифрах
-?>
-
 <div class="numbers numbers_about">
     <div class="container">
         <div class="title">

@@ -42,7 +42,6 @@ class Lestorg_Content
     {
         $version = wp_get_theme()->get('Version');
 
-        // TODO Добавить в main.min.css
         wp_enqueue_style('lestorg-icomoon', get_theme_file_uri('assets/libs/icomoon/style.css'));
 
         wp_enqueue_style('lestorg-style', get_theme_file_uri('assets/css/main.min.css'), [], $version);
@@ -51,10 +50,11 @@ class Lestorg_Content
 
         wp_enqueue_script('lestorg-scripts', get_theme_file_uri('assets/js/common.js'), ['lestorg-libs'], $version);
 
-        wp_localize_script( 'lestorg-scripts', 'lestorg_ajax', ['url' => admin_url('admin-ajax.php')]);
+        wp_localize_script('lestorg-scripts', 'lestorg_ajax', ['url' => admin_url('admin-ajax.php')]);
     }
 
-    public function change_body_classes($classes) {
+    public function change_body_classes($classes)
+    {
         if (is_front_page()) {
             $classes[] = 'page-home';
         }
@@ -70,7 +70,8 @@ class Lestorg_Content
         return $classes;
     }
 
-    public function filter_nav_menu_css_classes($classes, $item, $args, $depth) {
+    public function filter_nav_menu_css_classes($classes, $item, $args, $depth)
+    {
         if ($args->theme_location != 'main_header_menu') return $classes;
 
         if (in_array('menu-item-has-children', $classes)) {
@@ -118,7 +119,8 @@ class Lestorg_Content
         return $breadcrumbs;
     }
 
-    public function set_attributes_next_posts_link($attrs) {
+    public function set_attributes_next_posts_link($attrs)
+    {
         return 'class="pagination__more"';
     }
 
@@ -180,14 +182,47 @@ class Lestorg_Content
         return $this->loop_class_template;
     }
 
+    /**
+     * @param WC_Product $product
+     * @return Lestorg_Single_Main | Lestorg_Single_Simple | null
+     */
+    public function get_single_class_template(WC_Product $product)
+    {
+        $cats = $product->get_category_ids();
+        $term_id = $cats[0] ?? 0;
+
+        $parent_cat = get_top_parent_id_product_cat($term_id);
+        $parent_cat = get_term($parent_cat, 'product_cat');
+        $slug = $parent_cat->slug;
+
+        if (in_array($slug, ['doma', 'bani', 'besedki'])) {
+            require_once 'view/Lestorg_Single_Main.php';
+            $this->single_class_template = Lestorg_Single_Main::instance();
+        } else {
+            require_once 'view/Lestorg_Single_Simple.php';
+            $this->single_class_template = Lestorg_Single_Simple::instance();
+        }
+
+        $this->single_class_template->set_product($product);
+
+        return $this->single_class_template;
+    }
+
     public function woocommerce_content()
     {
         if (is_singular('product')) {
 
-            while (have_posts()) :
+            while (have_posts()) {
                 the_post();
+                global $post;
+
+                $product = wc_get_product($post);
+                $class_template = $this->get_single_class_template($product);
+
+                $class_template->run();
                 wc_get_template_part('content', 'single-product');
-            endwhile;
+                $class_template->reset();
+            }
 
             return;
         }

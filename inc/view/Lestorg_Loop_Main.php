@@ -91,8 +91,8 @@ class Lestorg_Loop_Main extends Lestorg_Loop
         /*
          * Вывод дополнительных секций после основного контента в категориях
          */
-        $this->add_action('lt_after_woocommerce_content', 'print_cases');
-        $this->add_action('lt_after_woocommerce_content', 'print_feedback', 15);
+        $this->add_action('lestorg_after_woocommerce_content', 'print_cases');
+        $this->add_action('lestorg_after_woocommerce_content', 'print_feedback', 15);
     }
 
     public function set_loop(WP_Query $query, WC_Query $wc_query)

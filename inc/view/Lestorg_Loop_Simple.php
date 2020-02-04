@@ -29,7 +29,7 @@ class Lestorg_Loop_Simple extends Lestorg_Loop
         $this->add_action('woocommerce_after_shop_loop_item', [$this, 'template_product_close']);
 
         // Вывод дополнительных секций после основного контента в категориях
-        $this->add_action('lt_after_woocommerce_content', 'print_feedback', 15);
+        $this->add_action('lestorg_after_woocommerce_content', 'print_feedback', 15);
     }
 
     public function change_body_classes($classes)

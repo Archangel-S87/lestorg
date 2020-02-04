@@ -17,7 +17,7 @@ class Lestorg_Admin
         'value' => []
     ];
 
-    // TODO Список атрибутов для сортировки Перенести в контент
+    // Список атрибутов для сортировки
     public $sort_attributes = [
         'pa_ploshhad'
     ];
@@ -247,7 +247,7 @@ class Lestorg_Admin
 
     private function render_categories()
     {
-        require_once LT_PATCH . '/walkers/LT_Walker_Taxonomy.php';
+        require_once LT_PATCH . '/walkers/Lestorg_Walker_Taxonomy.php';
 
         $edit = isset($_GET['edit']) ? absint($_GET['edit']) : 0;
 
@@ -266,7 +266,7 @@ class Lestorg_Admin
             'hide_empty' => false,
             'depth' => 3,
             'style' => 'none',
-            'walker' => new LT_Walker_Taxonomy($field),
+            'walker' => new Lestorg_Walker_Taxonomy($field),
         ]
 
         ?>

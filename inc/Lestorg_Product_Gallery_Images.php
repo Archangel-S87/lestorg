@@ -4,16 +4,30 @@
  * Создаёт массив из прекреплённых изображений к товару
  */
 
-class WC_LT_Product_Gallery_Images
+class Lestorg_Product_Gallery_Images
 {
+    /**
+     * @var WC_Product
+     */
     private $product;
 
+    /**
+     * @var array
+     */
     private $images_id = [];
 
-    // Хранит сформированый массив изображений
+    /**
+     * Хранит сформированый массив изображений
+     *
+     * @var array
+     */
     private $images = [];
 
-    // Размеры изображений для галереи
+    /**
+     * Размеры изображений для галереи
+     *
+     * @var array
+     */
     private $sizes = [
         'thumbnail',
         'medium',
@@ -21,10 +35,8 @@ class WC_LT_Product_Gallery_Images
         'full'
     ];
 
-    public function __construct($product, $sizes = [], $add_thumbnail = true)
+    public function __construct(WC_Product $product, $sizes = [], $add_thumbnail = true)
     {
-        if (!$product instanceof WC_Product) return;
-
         $this->product = $product;
 
         if ($sizes) $this->sizes = $sizes;
@@ -73,4 +85,10 @@ class WC_LT_Product_Gallery_Images
         return $sizes;
     }
 
+    public function get_html() {
+        if (!$this->images) return;
+        wc_get_template('single-product/product-gallery.php', [
+            'images' => $this->images
+        ]);
+    }
 }
