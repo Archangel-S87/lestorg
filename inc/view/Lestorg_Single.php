@@ -24,7 +24,8 @@ abstract class Lestorg_Single
         return $this;
     }
 
-    public function set_parent_term(WP_Term $term) {
+    public function set_parent_term(WP_Term $term)
+    {
         $this->parent_term = $term;
         return $this;
     }
@@ -49,6 +50,9 @@ abstract class Lestorg_Single
     public function run()
     {
         $this->remove_default_hooks();
+
+        // Теги Open Graph
+        $this->add_action('wp_head', [$this, 'add_open_graph']);
 
         // Классы обёртки
         $this->add_filter('lestorg_woocommerce_wrapper_class', [$this, 'add_wrapper_class']);
@@ -113,17 +117,42 @@ abstract class Lestorg_Single
         <?php
     }
 
+    // Добавление тегов Open Graph
+    public function add_open_graph()
+    {
+        $product = $this->product;
+
+        $els = [
+            '<meta property="og:locale" content="' . get_locale() . '" />',
+            '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '" />',
+            '<meta property="og:title" content="' . esc_attr($product->get_title()) . '" />',
+            '<meta property="og:description" content="' . esc_attr($product->get_short_description()) . '" />',
+            '<meta property="og:url" content="' . esc_attr($product->get_permalink()) . '" />'
+        ];
+
+        if ($attachment_id = $this->product->get_image_id()) {
+            $attachment = wp_get_attachment_image_src($attachment_id, 'woocommerce_single');
+            if ($attachment) {
+                $els[] = '<meta property="og:image" content="' . esc_url($attachment[0]) . '" />';
+                $els[] = '<meta property="og:image:width" content="' . (int) $attachment[1] . '" />';
+                $els[] = '<meta property="og:image:height" content="' . (int) $attachment[2] . '" />';
+            }
+        }
+
+        echo "\n\n" . implode("\n", $els) . "\n\n";
+    }
+
     public function get_the_share()
     {
-        // TODO сделать шаринг
+        $url = esc_url($this->product->get_permalink());
         ?>
         <div class="share">
             <p class="share__head">Сохранить проект:</p>
             <div class="share__grid">
-                <a href="#" class="share-item ic ic-vk"></a>
-                <a href="#" class="share-item ic ic-facebook"></a>
-                <a href="#" class="share-item ic ic-ok"></a>
-                <a href="#" class="share-item ic ic-pinterest"></a>
+                <a href="https://vk.com/share.php?url=<?= $url; ?>" class="share-item ic ic-vk" target="_blank"></a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<?= $url; ?>" class="share-item ic ic-facebook" target="_blank"></a>
+                <a href="https://connect.ok.ru/offer?url=<?= $url; ?>" class="share-item ic ic-ok" target="_blank"></a>
+                <a href="http://profitquery.com/add-to/pinterest/?url=<?= $url; ?>" class="share-item ic ic-pinterest" target="_blank"></a>
             </div>
         </div>
         <?php
@@ -152,12 +181,13 @@ abstract class Lestorg_Single
         <?php
     }
 
-    // Для добавления в избранное
+    // Блок Вы смотрели
     public function get_the_watched()
     {
         ?>
 
-        <div id="show_watched" class="product__row hidden" data-product_id="<?= $this->product->get_id(); ?>" data-cat_id="<?= $this->parent_term->term_id ?>">
+        <div id="show_watched" class="product__row hidden" data-product_id="<?= $this->product->get_id(); ?>"
+             data-cat_id="<?= $this->parent_term->term_id ?>">
             <div class="container">
 
                 <div class="product__row-title">

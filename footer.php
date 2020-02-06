@@ -1,4 +1,3 @@
-<?php ?>
 
 </div><!-- #wrapper__main -->
 
@@ -46,19 +45,19 @@
             </div>
             <div class="footer__col">
                 <div class="footer__phone">
-                    <?php if ($phone = get_option('phone')): ?>
+                    <?php if ($phone = get_field('contacts_other_phone', 'option')): ?>
                         <a href="tel:<?= $phone ?>" class="footer__phone-link"><?= $phone ?></a><br>
                     <?php endif; ?>
                     <a href="#call-popup" data-popup class="footer__phone-call">Заказать звонок</a>
                 </div>
                 <div class="footer__contacts">
-                    <?php if ($address = get_option('address')): ?>
+                    <?php if ($address = get_field('contacts_other_address', 'option')): ?>
                         <p class="foot-contact">
                             <i class="ic ic-mark"></i>
                             <?= $address; ?>
                         </p>
                     <?php endif; ?>
-                    <?php if ($email = get_option('email')): ?>
+                    <?php if ($email = get_field('contacts_other_email', 'option')): ?>
                         <p class="foot-contact">
                             <i class="ic ic-mail"></i>
                             <a href="mailto:<?= $email; ?>"><?= $email; ?></a>

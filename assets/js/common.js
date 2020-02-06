@@ -597,53 +597,57 @@ jQuery(document).ready(function ($) {
     /*
     Избранное
      */
-    $('.toggle-favorites').on('click', function() {
-        const btn = $(this),
-            productId = btn.attr('data-product'),
-            title = {
-                remove: 'Добавить в избранное',
-                add: 'Убрать из избраного'
-            };
+    add_favorite('.toggle-favorites');
 
-        let action = 'add';
+    function add_favorite(selector) {
+        $(selector).on('click', function() {
+            const btn = $(this),
+                productId = btn.attr('data-product'),
+                title = {
+                    remove: 'Добавить в избранное',
+                    add: 'Убрать из избраного'
+                };
 
-        if (btn.hasClass('active')) {
-            action = 'remove'
-        }
+            let action = 'add';
 
-        $.ajax({
-            url: ajax_url,
-            type: 'post',
-            dataType: 'json',
-            data: {
-                action: 'lestorg_ajax_' + action + '_favorites',
-                product_id: productId,
-            },
-            success: function (result) {
-                if (result.errors) {
-                    console.log(result.errors);
-                }
-
-                const count = result.count_products;
-
-                // Меняю значение в шапке
-                $('.favorite-link').each(function () {
-                    const link = $(this);
-                    link.find('span').html(count);
-                    if (count) {
-                        link.addClass('active');
-                    } else {
-                        link.removeClass('active');
-                    }
-                });
-
-                btn.attr('title', title[action]);
-                btn.toggleClass('active');
+            if (btn.hasClass('active')) {
+                action = 'remove'
             }
-        });
 
-        return false;
-    });
+            $.ajax({
+                url: ajax_url,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    action: 'lestorg_ajax_' + action + '_favorites',
+                    product_id: productId,
+                },
+                success: function (result) {
+                    if (result.errors) {
+                        console.log(result.errors);
+                    }
+
+                    const count = result.count_products;
+
+                    // Меняю значение в шапке
+                    $('.favorite-link').each(function () {
+                        const link = $(this);
+                        link.find('span').html(count);
+                        if (count) {
+                            link.addClass('active');
+                        } else {
+                            link.removeClass('active');
+                        }
+                    });
+
+                    btn.attr('title', title[action]);
+                    btn.toggleClass('active');
+                }
+            });
+
+            return false;
+        });
+    }
 
 
     /*
@@ -793,6 +797,9 @@ jQuery(document).ready(function ($) {
                             });
                         }, 10);
                     }
+
+                    // Избранное
+                    add_favorite('#slider_watched .toggle-favorites');
 
                 }
             });

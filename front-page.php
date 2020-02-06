@@ -153,95 +153,29 @@
         </div>
         <div class="other-services__wrapper">
 
-            <?php // TODO Добавить описание в админку ?>
-
             <div class="other-services__slider swiper-container">
                 <div class="swiper-wrapper">
 
-                    <div class="swiper-slide">
-                        <div class="other-service box">
-                            <div class="other-service__top">
-                                <h5 class="other-service__head">Фундамент</h5>
-                                <p class="other-service__step"></p>
-                            </div>
-                            <div class="other-service__content">
-                                <p>Очень важно подойти к данному вопросу со всей ответственностью, для того чтобы потом не столкнуться с печальными последствиями, многие из которых потом не возможно исправить. Кроме этого, выбор фундамента должен быть не случайным, а тщательно спланированным, так как это достаточно большая статья расходов при строительстве дома, бани. <br>"Закапывать деньги" в землю, причем немалые, врятли кому то захочется.</p>
-                            </div>
-                            <div class="other-more-link">
-                                <a href="#" class="more-link">Подробнее</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="other-service box">
-                            <div class="other-service__top">
-                                <h5 class="other-service__head">Очень длинное название</h5>
-                                <p class="other-service__step"></p>
-                            </div>
-                            <div class="other-service__content">
-                                <p>Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Проектах безорфографичный последний залетают, lorem переписали предложения строчка пояс снова обеспечивает домах текстами которое вдали силуэт? Он дорогу, щеке подпоясал текста запятых инициал.</p>
-                            </div>
-                            <div class="other-more-link">
-                                <a href="#" class="more-link">Подробнее</a>
+                    <?php $other_services = get_field('front_page_other_services', 'option') ?? []; ?>
+
+                    <?php foreach ($other_services as $service) : ?>
+                        <div class="swiper-slide">
+                            <div class="other-service box">
+                                <div class="other-service__top">
+                                    <h5 class="other-service__head"><?= $service['title']; ?></h5>
+                                    <p class="other-service__step"></p>
+                                </div>
+                                <div class="other-service__content">
+                                    <p><?= $service['description']; ?></p>
+                                </div>
+                                <?php if ($service['article_id']) : ?>
+                                    <div class="other-more-link">
+                                        <a href="<?= get_the_permalink($service['article_id']); ?>" class="more-link">Подробнее</a>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="other-service box">
-                            <div class="other-service__top">
-                                <h5 class="other-service__head">Фундамент</h5>
-                                <p class="other-service__step"></p>
-                            </div>
-                            <div class="other-service__content">
-                                <p>Очень важно подойти к данному вопросу со всей ответственностью, для того чтобы потом не столкнуться с печальными последствиями, многие из которых потом не возможно исправить. Кроме этого, выбор фундамента должен быть не случайным, а тщательно спланированным, так как это достаточно большая статья расходов при строительстве дома, бани. <br>"Закапывать деньги" в землю, причем немалые, врятли кому то захочется.</p>
-                            </div>
-                            <div class="other-more-link">
-                                <a href="#" class="more-link">Подробнее</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="other-service box">
-                            <div class="other-service__top">
-                                <h5 class="other-service__head">Очень длинное название</h5>
-                                <p class="other-service__step"></p>
-                            </div>
-                            <div class="other-service__content">
-                                <p>Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Проектах безорфографичный последний залетают, lorem переписали предложения строчка пояс снова обеспечивает домах текстами которое вдали силуэт? Он дорогу, щеке подпоясал текста запятых инициал.</p>
-                            </div>
-                            <div class="other-more-link">
-                                <a href="#" class="more-link">Подробнее</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="other-service box">
-                            <div class="other-service__top">
-                                <h5 class="other-service__head">Фундамент</h5>
-                                <p class="other-service__step"></p>
-                            </div>
-                            <div class="other-service__content">
-                                <p>Очень важно подойти к данному вопросу со всей ответственностью, для того чтобы потом не столкнуться с печальными последствиями, многие из которых потом не возможно исправить. Кроме этого, выбор фундамента должен быть не случайным, а тщательно спланированным, так как это достаточно большая статья расходов при строительстве дома, бани. <br>"Закапывать деньги" в землю, причем немалые, врятли кому то захочется.</p>
-                            </div>
-                            <div class="other-more-link">
-                                <a href="#" class="more-link">Подробнее</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="other-service box">
-                            <div class="other-service__top">
-                                <h5 class="other-service__head">Очень длинное название</h5>
-                                <p class="other-service__step"></p>
-                            </div>
-                            <div class="other-service__content">
-                                <p>Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Проектах безорфографичный последний залетают, lorem переписали предложения строчка пояс снова обеспечивает домах текстами которое вдали силуэт? Он дорогу, щеке подпоясал текста запятых инициал.</p>
-                            </div>
-                            <div class="other-more-link">
-                                <a href="#" class="more-link">Подробнее</a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
 
                 </div>
                 <div class="swiper-pagination"></div>
@@ -269,63 +203,9 @@
 
 <div class="home-bg-1 overlay-bottom">
 
-    <div class="offers">
-        <div class="container">
-            <div class="offers-slider swiper-container">
-                <div class="swiper-wrapper">
-                    <?php $offers = get_posts(['post_type' => 'offer', 'numberposts' => -1]); ?>
-                    <?php foreach ($offers as $post) : ?>
-                        <?php setup_postdata($post); ?>
-                        <div class="swiper-slide">
-                            <?php get_template_part('template-parts/parts/loop', 'offer'); ?>
-                        </div>
-                    <?php endforeach; ?>
-                    <?php wp_reset_postdata(); ?>
-                </div>
-                <div class="swiper-nav">
-                    <div class="swiper-button-prev"><i class="ic ic-left"></i></div>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-next"><i class="ic ic-right"></i></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php print_offers(); ?>
 
-    <?php
-
-    // TODO Сделать видео отзывы
-
-    /*
-    <section class="reviews">
-        <div class="container">
-            <div class="title">
-                <h2>Отзывы клиентов</h2>
-            </div>
-        </div>
-
-        <div class="reviews-slider swiper-container">
-            <div class="swiper-wrapper">
-
-                <div class="swiper-slide">
-                    <a href="https://www.youtube.com/watch?v=1Z9pnRRLPfE" data-popup="iframe" class="video-box" style="background-image: url('img/reviews/review-1.jpg');"></a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="https://www.youtube.com/watch?v=1Z9pnRRLPfE" data-popup="iframe" class="video-box" style="background-image: url('img/reviews/review-1.jpg');"></a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="https://www.youtube.com/watch?v=1Z9pnRRLPfE" data-popup="iframe" class="video-box" style="background-image: url('img/reviews/review-1.jpg');"></a>
-                </div>
-
-            </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"><i class="ic ic-left"></i></div>
-            <div class="swiper-button-next"><i class="ic ic-right"></i></div>
-        </div>
-    </section>
-     */
-
-    ?>
-
+    <?php print_reviews(); ?>
 
 </div>
 

@@ -46,34 +46,34 @@ $classes_favorite = $count_favorite ? 'favorite-link active' : 'favorite-link';
 
                     <ul class="mob-menu__list">
 
-                    <?php
-                    if (has_nav_menu('main_header_menu')) :
-                        wp_nav_menu([
-                            'theme_location' => 'main_header_menu',
-                            'menu_id' => 'mob_main_header_menu',
-                            'container' => false,
-                            'items_wrap' => '%3$s',
-                            'fallback_cb' => '__return_false'
-                        ]);
-                    endif;
+                        <?php
+                        if (has_nav_menu('main_header_menu')) :
+                            wp_nav_menu([
+                                'theme_location' => 'main_header_menu',
+                                'menu_id' => 'mob_main_header_menu',
+                                'container' => false,
+                                'items_wrap' => '%3$s',
+                                'fallback_cb' => '__return_false'
+                            ]);
+                        endif;
 
-                    if (has_nav_menu('top_header_menu')) :
-                        wp_nav_menu([
-                            'theme_location' => 'top_header_menu',
-                            'menu_id' => 'mob_top_header_menu',
-                            'container' => false,
-                            'items_wrap' => '%3$s',
-                            'fallback_cb' => '__return_false'
-                        ]);
-                    endif;
-                    ?>
+                        if (has_nav_menu('top_header_menu')) :
+                            wp_nav_menu([
+                                'theme_location' => 'top_header_menu',
+                                'menu_id' => 'mob_top_header_menu',
+                                'container' => false,
+                                'items_wrap' => '%3$s',
+                                'fallback_cb' => '__return_false'
+                            ]);
+                        endif;
+                        ?>
 
                     </ul>
 
                     <div class="mob-menu__sep"></div>
 
                     <div class="header__phone">
-                        <?php if ($phone = get_option('phone')): ?>
+                        <?php if ($phone = get_field('contacts_other_phone', 'option')) : ?>
                             <a href="tel:<?= $phone ?>" class="header__phone-link"><?= $phone ?></a><br>
                         <?php endif; ?>
                         <a href="#call-popup" data-popup class="header__phone-call">Заказать звонок</a>
@@ -146,7 +146,7 @@ $classes_favorite = $count_favorite ? 'favorite-link active' : 'favorite-link';
                         <div class="header__sep"></div>
 
                         <div class="header__phone">
-                            <?php if ($phone = get_option('phone')): ?>
+                            <?php if ($phone = get_field('contacts_other_phone', 'option')) : ?>
                                 <a href="tel:<?= $phone ?>" class="header__phone-link"><?= $phone ?></a><br>
                             <?php endif; ?>
                             <a href="#call-popup" data-popup class="header__phone-call">Заказать звонок</a>
@@ -166,7 +166,7 @@ $classes_favorite = $count_favorite ? 'favorite-link active' : 'favorite-link';
                                      alt="<?php bloginfo('name') ?>">
                             </a>
                         </div>
-                        <?php if ($phone = get_option('phone')): ?>
+                        <?php if ($phone = get_field('contacts_other_phone', 'option')) : ?>
                             <a href="tel:<?= $phone ?>" class="mob-header__call ic ic-phone"></a>
                         <?php endif; ?>
                     </div>

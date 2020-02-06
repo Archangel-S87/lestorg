@@ -26,6 +26,7 @@ class Lestorg
         require_once LT_PATCH . '/inc/Lestorg_Init.php';
 
         // Acf
+        require_once LT_PATCH . '/acf/Lestorg_Acf_Options.php';
         require_once LT_PATCH . '/acf/Lestorg_Acf_Category_Product.php';
         require_once LT_PATCH . '/acf/Lestorg_Acf_Offers.php';
         require_once LT_PATCH . '/acf/Lestorg_Acf_Product_Variations.php';

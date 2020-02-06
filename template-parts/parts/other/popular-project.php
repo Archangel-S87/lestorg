@@ -1,15 +1,8 @@
 <?php
 
-$option = get_option('lestorg_popular_projects');
+$terms = $other_options = get_field('front_page_popular_projects', 'option');
 
-if (!$option) return;
-
-$terms = [];
-foreach ($option as $term_id) {
-    if ($term = get_term($term_id, 'product_cat')) {
-        $terms[] = $term;
-    }
-}
+if (!$terms) return;
 
 add_filter('lestorg_wc_product_wrap_loop', 'set_product_loop_in_swiper', 20);
 

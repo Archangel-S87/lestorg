@@ -58,7 +58,7 @@ $points = json_encode($points);
         <script>
             ymaps.ready(function () {
                 const args = {
-                        center: <?php parse_cords(get_option('coordinates_map_pc')); ?>,
+                        center: <?php parse_cords(get_field('contacts_other_coordinates_desktop', 'option')); ?>,
                         zoom: 11,
                         controls: ['zoomControl']
                     },
@@ -71,7 +71,7 @@ $points = json_encode($points);
                     points = JSON.parse('<?= $points; ?>');
 
                 if (window.matchMedia('(max-width: 767px)').matches) {
-                    args['center'] = <?php parse_cords(get_option('coordinates_map_mob')); ?>;
+                    args['center'] = <?php parse_cords(get_field('contacts_other_coordinates_mobile', 'option')); ?>;
                     args['zoom'] = 10;
 
                     markArgs['iconImageSize'] = [24, 36];

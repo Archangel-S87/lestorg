@@ -49,6 +49,7 @@ class Lestorg_Acf_Offers
                 [
                     'key' => 'field_description',
                     'label' => 'Краткое описание',
+                    'instructions' => 'Для выделения части текста используйте символы "[" и "]" без кавычек.',
                     'name' => 'description',
                     'type' => 'textarea',
                     'rows' => 2,
