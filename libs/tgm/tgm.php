@@ -42,6 +42,12 @@ function lestorg_register_required_plugins()
             'slug' => 'folders',
             'required' => true,
             'force_activation' => true
+        ],
+        [
+            'name' => 'PublishPress Capabilities',
+            'slug' => 'capability-manager-enhanced',
+            'required' => true,
+            'force_activation' => true
         ]
     ];
 

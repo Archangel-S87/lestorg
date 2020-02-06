@@ -1,0 +1,9 @@
+https://lestorgnn.ru/wp-admin
+
+Админка
+login: admin
+Password: Jr2tCxwKm1c7hQm3$ut@75x%
+
+Редактор
+login: Lestorg
+Password: !LG$gXi$m10*ro(&vky&@ov7

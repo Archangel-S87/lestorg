@@ -43,16 +43,6 @@ class Lestorg
         require_once LT_PATCH . '/ajax/Lestorg_Ajax_Favorites.php';
         require_once LT_PATCH . '/ajax/Lestorg_Ajax_Watched.php';
 
-        // Customizer
-        add_action('customize_register', [$this, 'init_customizer']);
-
         $this->content = Lestorg_Content::instance();
-    }
-
-    public function init_customizer(WP_Customize_Manager $wp_customize) {
-        require_once LT_PATCH . '/libs/cody-framework/admin.php';
-        require_once LT_PATCH . '/inc/Lestorg_Customizer.php';
-        cody_framework_include($wp_customize);
-        new Lestorg_Customizer($wp_customize);
     }
 }
