@@ -30,6 +30,9 @@
 .page-contacts
 	+bg('../img/contacts-bg.jpg', #fff)
 
+.page-production
+	+bg('../img/production-bg.jpg', #fff)
+
 .page-error
 	#wrapper__wrap
 		justify-content: center
@@ -3836,6 +3839,57 @@
 		max-width: 345px
 		.btn
 			width: 100%
+
+.gallery-slider
+	.swiper-container
+		margin: -10px -40px -40px
+		padding: 10px 40px 40px
+	.swiper-nav>*
+		margin-top: 25px !important
+	.swiper-slide
+		opacity: 0
+		visibility: hidden
+		transition: .2s
+	.swiper-slide-visible
+		opacity: 1
+		visibility: visible
+	&__item
+		display: block
+		width: 100%
+		background-position: center
+		background-size: cover
+		box-shadow: 0 15px 40px rgba(0,0,0,.1)
+		&:before
+			content: ''
+			display: block
+			width: 100%
+			padding-bottom: 63.69%
+
+.production
+	.title-inn
+		margin-bottom: 80px
+	&__content
+		margin-bottom: 45px
+		line-height: 1.25
+		font-size: 18px
+
+.production-item
+	margin-bottom: 75px
+	&:last-child
+		margin-bottom: 0
+	.title
+		margin-bottom: 35px
+		h3
+			text-transform: uppercase
+	.content
+		line-height: 1.4
+		font-size: 18px
+	.gallery-slider
+		margin-top: 35px
+	&__video
+		margin: 45px auto 0
+		max-width: 690px
+
 
 
 

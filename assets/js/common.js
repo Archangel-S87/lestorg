@@ -418,6 +418,37 @@ jQuery(document).ready(function ($) {
         freeMode: true
     });
 
+    $('.gallery-slider').each(function (i) {
+        $(this).attr('id', 'gallerySlider-' + i);
+
+        let slider = new Swiper('#gallerySlider-' + i + ' .swiper-container', {
+            slidesPerView: 3,
+            spaceBetween: 8,
+            watchOverflow: true,
+            watchSlidesProgress: true,
+            watchSlidesVisibility: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                prevEl: '.swiper-button-prev',
+                nextEl: '.swiper-button-next',
+            },
+            breakpoints: {
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 2,
+                },
+            }
+        });
+        if ($(slider.params.el).length > 0) {
+            $(window).on('load resize', function () {
+                slider.update();
+            });
+        }
+    });
+
     // Sliders END
 
     // Tabs
@@ -641,6 +672,16 @@ jQuery(document).ready(function ($) {
                     });
 
                     btn.attr('title', title[action]);
+
+                    // Добавление в избранное на странице товара
+                    if (btn.hasClass('product-action__icon') && !btn.hasClass('active')) {
+                        btn.removeClass('ic-heart');
+                        btn.addClass('ic-heart-full');
+                    } else if (btn.hasClass('product-action__icon') && btn.hasClass('active')) {
+                        btn.removeClass('ic-heart-full');
+                        btn.addClass('ic-heart');
+                    }
+
                     btn.toggleClass('active');
                 }
             });

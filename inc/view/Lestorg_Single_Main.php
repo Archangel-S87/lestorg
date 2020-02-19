@@ -44,8 +44,7 @@ class Lestorg_Single_Main extends Lestorg_Single
 
                             <?php
                             $has_favorites = find_cart_item_by_id($this->product->get_id());
-                            $classes_icon = 'product-action__icon ic ic-heart toggle-favorites';
-                            $classes_icon = $has_favorites ? $classes_icon . ' active' : $classes_icon;
+                            $classes_icon = $has_favorites ? 'product-action__icon ic ic-heart-full toggle-favorites active' : 'product-action__icon ic ic-heart toggle-favorites';
                             $title_icon = $has_favorites ? 'Убрать из избраного' : 'Добавить в избранное';
                             ?>
                             <a href="#" class="<?= $classes_icon; ?>" data-product="<?= $this->product->get_id(); ?>" title="<?= $title_icon; ?>"></a>

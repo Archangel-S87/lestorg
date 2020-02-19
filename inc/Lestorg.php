@@ -30,6 +30,7 @@ class Lestorg
         require_once LT_PATCH . '/acf/Lestorg_Acf_Category_Product.php';
         require_once LT_PATCH . '/acf/Lestorg_Acf_Offers.php';
         require_once LT_PATCH . '/acf/Lestorg_Acf_Product_Variations.php';
+        require_once LT_PATCH . '/acf/Lestorg_Acf_Page_Production.php';
 
         // Admin
         require_once LT_PATCH . '/inc/admin/meta-boxes/class-lestorg-wc-meta-box-product-data.php';

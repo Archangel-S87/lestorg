@@ -81,8 +81,11 @@ class Lestorg_Content
         if (is_product()) {
             $classes[] = 'page-product';
         }
-        if (is_page(['about', 'contacts', 'favorite'])) {
+        if (is_page(['contacts', 'favorite'])) {
             $classes[] = 'page-contacts';
+        }
+        if (is_page('production')) {
+            $classes[] = 'page-production';
         }
         return $classes;
     }

@@ -25,10 +25,9 @@ class Lestorg_Single_Simple extends Lestorg_Single
                     <div class="product-info__wrap">
                         <div class="product-info__main">
                             <?php $this->get_the_info_table(); ?>
+
+                            <?php $this->get_the_share(); ?>
                         </div>
-
-                        <?php $this->get_the_share(); ?>
-
                     </div>
                 </div>
 

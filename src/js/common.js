@@ -432,6 +432,37 @@ jQuery(document).ready(function ($) {
         freeMode: true
     });
 
+    $('.gallery-slider').each(function (i) {
+        $(this).attr('id', 'gallerySlider-' + i);
+
+        var slider = new Swiper('#gallerySlider-' + i + ' .swiper-container', {
+            slidesPerView: 3,
+            spaceBetween: 8,
+            watchOverflow: true,
+            watchSlidesProgress: true,
+            watchSlidesVisibility: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                prevEl: '.swiper-button-prev',
+                nextEl: '.swiper-button-next',
+            },
+            breakpoints: {
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 2,
+                },
+            }
+        });
+        if ($(slider.params.el).length > 0) {
+            $(window).on('load resize', function () {
+                slider.update();
+            });
+        }
+    });
+
     // Sliders END
 
     // Tabs
